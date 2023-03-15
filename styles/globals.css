@@ -1,6 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;400;600&family=Nunito+Sans:wght@300;400;700&family=Quantico:wght@400;700&family=Sono:wght@200;500;700&display=swap');
+/*
+font-family: 'League Spartan', sans-serif;
+font-family: 'Nunito Sans', sans-serif;
+font-family: 'Quantico', sans-serif;
+font-family: 'Sono', sans-serif;
+ */
+
 :root {
-  --primary-color: rgb(56, 56, 206);
-  --secondary-color: rgb(53, 151, 242);
-  --text-color: black;
+  --primary-color: #800A01;
+  --secondary-color: #B8860B;
+  --bright-color: #e0a40e;
+  --bg-color: #232222;
+  --text-color: rgb(220, 220, 220);
   --secondar-text-color: grey;
+  --font: 'Sono', sans-serif;
+
+}
+
+body {
+  background-color: #232222;
+  font-family: var(--font);
 }

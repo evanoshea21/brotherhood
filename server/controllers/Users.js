@@ -50,6 +50,7 @@ module.exports = {
 
   getAllUsers: (req, res) => {
     const qString = `SELECT * FROM users;`;
+    console.log('got to getAllUsers!')
 
     db.query(qString, function (err, results) {
       if (err) {

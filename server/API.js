@@ -1,11 +1,15 @@
-import axios from 'axios';
-console.log('env in API:\n', process.env.SERVER_IP, process.env.PORT);
+// import axios from 'axios';
+const axios = require('axios');
+console.log('env in API (server, port): \n', process.env.SERVER_IP, process.env.PORT);
 
- function axiosCall(method, endpoint, data) {
+function axiosCall(method, endpoint, data) {
+
   const url = `http://localhost:3000/${endpoint}`;
 
 
   return new Promise((resolve, reject) => {
+    resolve('return getusers...')
+    return;
     axios({method, url, data })
     .then(res => {
       resolve(res);
@@ -17,9 +21,9 @@ console.log('env in API:\n', process.env.SERVER_IP, process.env.PORT);
 }
 //////////////////////////////////////////////////
 
-export function getAllInvolvedTrades(userID) {
+export function getUsers() {
   return new Promise((resolve,reject) => {
-    axiosCall('post', '/trades/involved', {userID})
+    axiosCall('get', '/users')
     .then(res => {
       resolve(res);
     })
