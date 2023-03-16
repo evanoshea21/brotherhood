@@ -1,8 +1,254 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+.paddingTop {
+  height: 80vh;
 }
+.section2 span {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 10px;
+  display: inline-block;
+  letter-spacing: 3px;
+}
+
+@media (max-width: 850px) {
+  .paddingTop {
+    height: 90vh;
+  }
+  .imgBox {
+    display: absolute;
+    transform: translate(0, 100px);
+    /* height: 200px; */
+    max-height: 380px;
+  }
+}
+@media (min-width: 850px) {
+  .header {
+    background-color: aquamarine;
+    height: 100vh;
+  }
+}
+@media (max-width: 508px) {
+  .paddingTop {
+    height: 70vh;
+  }
+  .imgBox {
+    display: absolute;
+    transform: translate(0, 100px);
+    max-height: 300px;
+  }
+}
+.header {
+  /* padding-top: 80px; */
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: -10;
+  height: 100vh;
+  /* height: fit-content; */
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(209, 46, 46); */
+  background-color: black;
+}
+.headerBox {
+  /* background-color: aquamarine; */
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+}
+.headerBox * {
+  flex: 1 1 425px;
+}
+
+.title {
+  /* background-color: antiquewhite; */
+  display: flex;
+  align-items: center;
+}
+
+.title h1 {
+  font-weight: 400;
+  color: white;
+  /* background-color: aqua; */
+  font-size: clamp(2rem, 5vw,3rem);
+  padding: 0 50px;
+  text-align: center;
+}
+.title h1 span {
+  color: var(--bright-color);
+}
+
+.imgBox {
+  width: 50%;
+  height: 70vh;
+  /* background: linear-gradient(290deg, var(--primary-color) 10%, var(--bright-color)); */
+  /* background: var(--bright-color); */
+  mask-image: url('/spartanClip2.png');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+.imgBox img {
+  mix-blend-mode: multiply;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* FIRST SECTION */
+
+.section1 {
+  color: var(--bg-color);
+  margin: 80px 0;
+  /* background-color: aqua; */
+}
+.p1 {
+  font-size: 1.8rem;
+  text-align: center;
+  width: 50%;
+  min-width: 460px;
+  margin: 0 auto;
+}
+
+.sectionH1 {
+  font-size: 2.8rem;
+  text-align: center;
+}
+
+.threeCols {
+  color: var(--bright-color);
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.threeCols * {
+  /* background-color: var(--bg-color); */
+  background-color: var(--primary-color);
+  flex: 1 1 250px;
+  margin: 10px;
+  padding: 5px;
+  max-width: 400px;
+}
+.sectionH2,.sectionH2b {
+  /* background-color: aqua; */
+  color: var(--bright-color);
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 120px;
+  font-size: 1.2rem;
+}
+.sectionH2b {
+  font-size: 1.02rem;
+}
+
+.threeCols p {
+  font-weight: 400;
+  margin: 20px;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+@media (max-width: 672px) {
+  .sectionH2,.sectionH2b
+  {
+    /* background-color: aquamarine; */
+    height: 70px;
+  }
+  .sectionH2b {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 520px) {
+
+  .p1 {
+    min-width: 40px;
+    width: 95%;
+  }
+
+  .sectionH2b
+  {
+    font-size: 1rem;
+    /* background-color: aquamarine; */
+    height: 70px;
+  }
+}
+
+@media (min-width: 815px) {
+  .sectionH2b
+  {
+    font-size: 1.2rem;
+    /* background-color: aquamarine; */
+  }
+}
+@media (max-width: 450px) {
+  .sectionH2b
+  {
+    font-size: 1.2rem;
+    /* background-color: aquamarine; */
+  }
+}
+
+/* SECTION TWO  */
+.section2, .section3 {
+  /* background-color: aqua; */
+  margin: 80px auto;
+  color: var(--bg-color);
+  padding: 0 30px;
+  max-width: 600px;
+}
+
+.section2 h1, .section3 h1 {
+  font-size: 2.8rem;
+  text-align: center;
+}
+.section2 p, .section3 p {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.section3 {
+    margin: 80px auto;
+    color: var(--bg-color);
+    padding: 0 30px;
+    max-width: 800px;
+}
+.section3 p {
+    max-width: 500px;
+    margin: 10px auto;
+}
+
+.section3 div:last-child {
+  width: 40%;
+  min-width: 120px;
+  text-align: center;
+  background-color: var(--bright-color);
+  color: var(--bg-color);
+  margin: 100px auto;
+  padding: 20px;
+  font-size: 1.5rem;
+  border-radius: 10px;
+}
+.section3 div:last-child:hover {
+  cursor: pointer;
+}
+
+
+.opCols {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.opCols p {
+  flex: 1 1 195px;
+  max-width: 300px;
+  /* background-color: aquamarine; */
+  margin: 20px;
+}
+
+

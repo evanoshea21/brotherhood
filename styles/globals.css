@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;400;600&family=Nunito+Sans:wght@300;400;700&family=Quantico:wght@400;700&family=Sono:wght@200;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=GFS+Neohellenic:ital,wght@0,400;0,700;1,400&family=League+Spartan:wght@200;400;600&family=Nunito+Sans:wght@300;400;700&family=Quantico:wght@400;700&family=Sono:wght@200;500;700&display=swap');
 /*
+font-family: 'GFS Neohellenic', sans-serif;
 font-family: 'League Spartan', sans-serif;
 font-family: 'Nunito Sans', sans-serif;
 font-family: 'Quantico', sans-serif;
@@ -7,17 +8,22 @@ font-family: 'Sono', sans-serif;
  */
 
 :root {
-  --primary-color: #800A01;
+  --primary2-color: #800A01;
+  --primary-color: #620700;
   --secondary-color: #B8860B;
-  --bright-color: #e0a40e;
-  --bg-color: #232222;
+  --bright2-color: #e0a40e;
+  --bright-color: #fac02c;
+  --dark-color:rgb(13, 13, 13);
+  --bg-color: #1a1a1a;
   --text-color: rgb(220, 220, 220);
   --secondar-text-color: grey;
-  --font: 'Sono', sans-serif;
+  --font: 'GFS Neohellenic', sans-serif;
 
 }
 
 body {
-  background-color: #232222;
+  /* background-color: var(--dark-color); */
+  margin: 0;
+  padding: 0;
   font-family: var(--font);
 }

@@ -1,6 +1,12 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* background-color: var(--dark-color); */
+}
+
 .bigNav, .smallNav {
   /* background-color: var(--bg-color); */
-  background-color: var(--primary-color);
+  background-color: var(--dark-color);
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -14,10 +20,11 @@
 }
 .link {
   text-decoration: none;
-  color: var(--secondary-color);
+  color: var(--bright-color);
   font-size: 1.8rem;
   margin: 0 20px;
 }
+
 .link:hover {
   color: var(--bright-color)
 }
@@ -29,18 +36,14 @@
   color: var(--secondary-color);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  /* background-color: var(--bg-color); */
-  background-color: #c2bcbc;
-}
-
 .logoBox {
   /* background-color: rgb(196, 196, 196); */
   width: 130px;
   height: 130px;
   padding-left: 30px;
+}
+.logoBox:hover {
+  cursor: pointer;
 }
 .logoBox img {
   /* fill: red; */
