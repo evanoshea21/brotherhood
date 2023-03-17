@@ -6,13 +6,13 @@
 }
 
 .header {
-  /* background-color: aquamarine; */
+  background-color: aquamarine;
   display: flex;
   justify-content: space-between;
 }
 .header * {
   margin: 0 20px;
-  /* background-color: rgb(210, 210, 255); */
+  background-color: rgb(210, 210, 255);
   /* height: 50px; */
 }
 .resources {
@@ -29,8 +29,12 @@
   align-items: center;
 }
 
-.googleCal {
-  flex: 2
+.calendly {
+  flex: 1.5;
+  max-width: 500px;
+  max-height: 450px;
+  overflow-y: hidden;
+  background-color: antiquewhite;
 }
 
 /* RESOURCES */
@@ -77,13 +81,21 @@
 }
 
 .members {
+  padding: 0 60px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   /* background-color: aquamarine; */
 }
 .members * {
+  /* background-color: #1778F2; */
   flex: 1 1 400px;
   max-width: 400px;
+}
+
+@media (max-width: 670px) {
+  .members {
+    padding: 0;
+  }
 }
 

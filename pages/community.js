@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from '../styles/Community.module.css'
-import { PopupButton } from "react-calendly";
+import { InlineWidget, PopupButton } from "react-calendly";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import MemberCard from '../components/MemberCard.js';
@@ -38,8 +38,8 @@ const Community = () => {
     <div className={classes.comm} >
       <h1>COMMUNITY</h1>
       <div className={classes.header}>
-        <div className={classes.googleCal}>
-
+        <div className={classes.calendly}>
+        <InlineWidget url="https://calendly.com/spartanbrotherhood/speech" />
         </div>
         <div className={classes.resources}>
           <h2>Resources</h2>
@@ -50,12 +50,12 @@ const Community = () => {
             <p>DISCORD</p>
           </div>
           <div className={classes.facebook}>
-          <i class="fa-brands fa-square-facebook"></i>
+          <i className="fa-brands fa-square-facebook"></i>
             <p>FACEBOOK</p>
           {/* <span>FACEBOOK</span> */}
           </div>
           <div className={classes.googleCalIcon}>
-          <i class="fa-brands fa-google"></i>
+          <i className="fa-brands fa-google"></i>
             <p>CALENDAR</p>
           </div>
           </div>
