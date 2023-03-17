@@ -1,15 +1,13 @@
-// import axios from 'axios';
-const axios = require('axios');
-console.log('env in API (server, port): \n', process.env.SERVER_IP, process.env.PORT);
+import axios from 'axios';
+// const axios = require('axios');
+// require('dotenv').config();
 
 function axiosCall(method, endpoint, data) {
-
-  const url = `http://localhost:3000/${endpoint}`;
-
+  const url = `http://${process.env.NEXT_PUBLIC_SERVER_HOST}:${process.env.NEXT_PUBLIC_PORT}/${endpoint}`;
 
   return new Promise((resolve, reject) => {
-    resolve('return getusers...')
-    return;
+    // resolve(`return getusers... from url: ${url}`);
+    // return;
     axios({method, url, data })
     .then(res => {
       resolve(res);
@@ -22,8 +20,9 @@ function axiosCall(method, endpoint, data) {
 //////////////////////////////////////////////////
 
 export function getUsers() {
+  console.log('getting users');
   return new Promise((resolve,reject) => {
-    axiosCall('get', '/users')
+    axiosCall('get', 'users')
     .then(res => {
       resolve(res);
     })
@@ -35,7 +34,7 @@ export function getUsers() {
 
 export function createUser(userObj) {
   return new Promise((resolve,reject) => {
-    axiosCall('post', '/users', userObj)
+    axiosCall('post', 'users', userObj)
     .then(res => {
       resolve(res);
     })

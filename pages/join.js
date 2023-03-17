@@ -2,24 +2,33 @@ import Head from 'next/head'
 import React from 'react';
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import axios from 'axios';
 // import { Context } from '../globals/context.js';
 import classes from '../styles/Join.module.css';
 import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] })
 import TextField from '@mui/material/TextField';
 import { useS3Upload } from "next-s3-upload";
-import { useRef } from "react";
-import Cropper, { ReactCropperElement } from "react-cropper";
-import "cropperjs/dist/cropper.css";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { getUsers } from '../globals/API.js';
+
+
+
+
+import CropModal from '../components/CropModal.js';
 
 
 
 export default function Join() {
-  const [imageUrl, setImageUrl] = React.useState();
+  // this is s3 url returned
+  const [s3Url, setS3Url] = React.useState();
+  //initial file
   const [localUrl, setLocalUrl] = React.useState();
-  const [file, setFile] = React.useState();
+  const [previewUrl, setPreviewUrl] = React.useState();
   const [fileName, setFileName] = React.useState();
+  //this is to be updated by crop...
+  const [file, setFile] = React.useState();
 
   let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
@@ -28,100 +37,81 @@ export default function Join() {
     router.push(path);
   }
 
-  // CROPPER STUFF
-  const cropperRef = useRef(null);
-  const onCrop = async () => {
-    const cropper = cropperRef.current?.cropper;
-    // console.log(cropper.getCroppedCanvas().toDataURL());
-    let dataUrl = cropper.getCroppedCanvas().toDataURL();
-    let resultFile = dataURLtoFile(dataUrl, fileName);
-    // console.log('resultFile1: ', resultFile);
-    setFile(resultFile);
-    let url = URL.createObjectURL(resultFile);
-    // setLocalUrl(url);
-    // console.log('result file url: ', url);
-
-  };
-
-  function dataURLtoFile(dataurl, filename) {
-
-    var arr = dataurl.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, {type:mime});
-}
-
-
-
-
 
   React.useEffect(() => {
-    console.log('s3 url: ', imageUrl);
-    console.log('local url: ', localUrl);
-  },[imageUrl, localUrl]);
+    console.log('s3 url: ', s3Url);
+  },[s3Url]);
 
   //saves file object, and sets local Image Url
-  let handleFileChange = async file => {
+  let setInitialFile = async file => {
     console.log('OG FILE HERE: ', file);
     setFile(file);
     setFileName(file.name);
     setLocalUrl(URL.createObjectURL(file));
+    setPreviewUrl(URL.createObjectURL(file));
 
   };
 
   //uploads image to S3 via image state saved
   let uploadFileToS3 = async () => {
     let { url } = await uploadToS3(file);
-    setImageUrl(url);
+    setS3Url(url);
   };
+
+  function getTheUsers() {
+    getUsers()
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
+  }
 
   return (
     <>
     <div className={classes.main}>
-      <h1>JOIN</h1>
+      <h1>JOIN: </h1>
+      <button onClick={getTheUsers}>GET USERS</button>
+
+
+
+
+
 
       {/* IMAGE PICK AND CROP  */}
       <div>
-      <FileInput className={classes.uploadBtn}  onChange={handleFileChange} />
-
-      <button onClick={openFileDialog}>Choose file</button>
+      <FileInput onChange={setInitialFile} />
+      {/* <button >Choose file</button> */}
+      <Button sx={{py: '10px', width: '190px', display: 'flex', justifyContent: 'space-between'}} onClick={openFileDialog} variant="contained" component="label">
+        Choose Picture
+        <PhotoCamera />
+      </Button>
       <button onClick={uploadFileToS3}>Upload file</button>
 
       {localUrl && (
-
       <div className={classes.imgPreview}>
-        <img src={localUrl} />
+        <Avatar alt="Remy Sharp" src={previewUrl}
+        sx={{ width: 154, height: 154 }}
+        />
+        {/* <img src={previewUrl} /> */}
+        <CropModal setPreviewUrl={setPreviewUrl} fileName={fileName} localUrl={localUrl} setFile={setFile} />
       </div>
 
       )}
     </div>
-    {localUrl && (
-      <div className={classes.cropper}>
-        {/* CROPPER HERE  */}
-        <Cropper
-          src={localUrl}
-          style={{ height: 400, width: "100%" }}
-          // Cropper.js options
-          aspectRatio={1 / 1}
-          guides={true}
-          crop={onCrop}
-          ref={cropperRef}
-        />
-      </div>
-    )}
+
     {/* END IMAGE PICK  */}
+
+
+
+
+
+
+
+
+
 
 
       <div className={classes.form}>
         <TextField color='secondary' InputLabelProps={{
-      style: { color: '#800A01' }}} id="outlined-basic" label="Name" variant="outlined" />
+      style: { color: '#800A01' }}} label="Name" variant="outlined" />
         <TextField color='secondary' InputLabelProps={{
       style: { color: '#800A01' }}} id="outlined-basic" label="Age" variant="outlined" />
         <TextField color='secondary' InputLabelProps={{

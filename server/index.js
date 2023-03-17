@@ -19,7 +19,8 @@ const router = require('./routes');
 app.use(router);
 
 const PORT = process.env.PORT ?? 4000;
+const SERVER_HOST = process.env.SERVER_HOST ?? 'localhost';
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`Server listening at http://localhost:${PORT}`);
+  console.log(`Server listening at http://${SERVER_HOST}:${PORT}`);
 });
