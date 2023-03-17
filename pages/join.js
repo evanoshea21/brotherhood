@@ -33,14 +33,30 @@ export default function Join() {
   const onCrop = async () => {
     const cropper = cropperRef.current?.cropper;
     // console.log(cropper.getCroppedCanvas().toDataURL());
-    let blob = cropper.getCroppedCanvas().toDataURL();
-    const resultFile = new File([blob], fileName,{type:file.type,lastModified:(new Date().getTime())});
-    console.log('resultFile: ', resultFile);
+    let dataUrl = cropper.getCroppedCanvas().toDataURL();
+    let resultFile = dataURLtoFile(dataUrl, fileName);
+    // console.log('resultFile1: ', resultFile);
     setFile(resultFile);
-    // let url = URL.createObjectURL(resultFile);
+    let url = URL.createObjectURL(resultFile);
+    // setLocalUrl(url);
     // console.log('result file url: ', url);
 
   };
+
+  function dataURLtoFile(dataurl, filename) {
+
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, {type:mime});
+}
 
 
 
@@ -53,7 +69,7 @@ export default function Join() {
 
   //saves file object, and sets local Image Url
   let handleFileChange = async file => {
-    console.log('FILE HERE: ', file);
+    console.log('OG FILE HERE: ', file);
     setFile(file);
     setFileName(file.name);
     setLocalUrl(URL.createObjectURL(file));
@@ -79,6 +95,7 @@ export default function Join() {
       <button onClick={uploadFileToS3}>Upload file</button>
 
       {localUrl && (
+
       <div className={classes.imgPreview}>
         <img src={localUrl} />
       </div>
@@ -89,14 +106,14 @@ export default function Join() {
       <div className={classes.cropper}>
         {/* CROPPER HERE  */}
         <Cropper
-      src={localUrl}
-      style={{ height: 400, width: "100%" }}
-      // Cropper.js options
-      initialAspectRatio={16 / 9}
-      guides={false}
-      crop={onCrop}
-      ref={cropperRef}
-    />
+          src={localUrl}
+          style={{ height: 400, width: "100%" }}
+          // Cropper.js options
+          aspectRatio={1 / 1}
+          guides={true}
+          crop={onCrop}
+          ref={cropperRef}
+        />
       </div>
     )}
     {/* END IMAGE PICK  */}
