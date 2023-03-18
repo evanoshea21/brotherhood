@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Drawer from '../components/ui/Drawer.js';
 import { useRouter } from 'next/router';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 
 
@@ -54,6 +56,7 @@ const Layout = ({children}) => {
     // <ContextContainer>
     <ContextProvider>
       <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
 
       {/* NAVBAR */}
       <div className={classes.container}>
@@ -93,6 +96,7 @@ const Layout = ({children}) => {
         This is a footer
       </div>
     </div>
+    </LocalizationProvider>
       </ThemeProvider>
     </ContextProvider>
     // </ContextContainer>

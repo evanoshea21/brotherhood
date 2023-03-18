@@ -4,16 +4,48 @@ CREATE DATABASE MensSiteDB;
 
 USE MensSiteDB;
 
--- CREATE TABLE users (
---   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
---   `email` VARCHAR(100) NOT NULL UNIQUE
--- );
+
+-- member type ->
+--     limited, (just joined, can't view community)
+--     member, (normal, edit your own stuff)
+--     admin, (can grant badges to people)
+--     superadmin (grant badges, delete users, edit users)
+
 CREATE TABLE users (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `email` VARCHAR(100) NOT NULL UNIQUE,
-  `name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(50) NOT NULL UNIQUE,
+  `fname` VARCHAR(50) NOT NULL,
+  `lname` VARCHAR(50) NOT NULL,
+  `city` VARCHAR(50),
   `pic` VARCHAR(255) NULL,
-  `bio` VARCHAR(255) NULL,
-  `age` INT NULL
+  `bio` VARCHAR(1000) NULL,
+  `member_type` VARCHAR(20) DEFAULT 'limited',
+  `discord_handle` VARCHAR(50) NULL,
+  `notion_link` VARCHAR(255) NULL,
+  `speech_count` INT DEFAULT 0,
+  `date_of_birth` DATE NULL,
+  `join_date` DATE NULL
 );
+
+CREATE TABLE badges (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(20) NOT NULL UNIQUE,
+  `title` VARCHAR(20) NOT NULL,
+  `description` VARCHAR(250) NOT NULL,
+  `file_path` VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE badges_earned (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT NOT NULL,
+  `badge_name` VARCHAR(20) NOT NULL,
+  `victory_name` VARCHAR(20) NULL,
+  `victory_story` VARCHAR(250) NULL,
+  `verified` TINYINT DEFAULT 0,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (badge_name) REFERENCES badges(name)
+);
+
+
+
 

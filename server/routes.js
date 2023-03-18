@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const Users = require('./controllers/Users.js');
-const Trades = require('./controllers/Trades.js');
 
 router.get('/users', Users.getAllUsers);
-router.post('/trades', Trades.getTrades);
+router.get('/user/:id', Users.getUser);
+router.post('/user', Users.createUser);
+
 
 module.exports = router;

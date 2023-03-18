@@ -5,7 +5,8 @@ module.exports = {
   createUser: (req, res) => {
     const data = req.body;
 
-    let qString = `INSERT INTO users (email, name, pic, bio) VALUES ("${data.email}", "${data.name}", "${data.pic}", "${data.bio}");`;
+    let qString = `INSERT INTO users (email, fname, lname, city, pic, date_of_birth, join_date)
+    VALUES ("bobj3@gmail.com", "ncj", "ajks", "everett", "pic", DATE '1999-08-21', DATE '2023-03-18');`;
 
     db.query(qString, function(err, results) {
       if(err) {
@@ -13,7 +14,8 @@ module.exports = {
         res.status(500).send(err.sqlMessage);
         return;
       }
-      res.status(200).send(results);
+      // res.status(200).send(results);
+      res.status(200).send('user created!');
     })
   },
 
@@ -33,10 +35,10 @@ module.exports = {
 
   },
   getUser: (req, res) => {
-    const entry = req.query.email
+    const id = req.params.id
     // console.log('GETTING USER with email of', userEmail);
 
-    const qString = `SELECT * FROM users WHERE email = '${entry}';`;
+    const qString = `SELECT * FROM users WHERE id = '${id}';`;
 
     db.query(qString, function (err, results) {
       if (err) {

@@ -34,7 +34,7 @@ export function getUsers() {
 
 export function createUser(userObj) {
   return new Promise((resolve,reject) => {
-    axiosCall('post', 'users', userObj)
+    axiosCall('post', 'user', userObj)
     .then(res => {
       resolve(res);
     })
