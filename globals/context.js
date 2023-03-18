@@ -1,6 +1,6 @@
 import React from 'react';
-// import { signOut, onAuthStateChanged } from "firebase/auth";
-// import { auth } from "./firebase.js";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from './firebase.js';
 
 const Context = React.createContext();
 
@@ -11,37 +11,40 @@ const ContextProvider = ({children}) => {
   const [testContext, setTestContext] = React.useState('im global');
 
   //listerer for sign in
-  // React.useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if(user) {
-  //       console.log('loggin in...')
-  //       setIsLoading(true);
-  //       getSetUserData(user.email)
-  //       .then(res => setIsLoading(false))
-  //       .catch(err => console.log('couldnt getSetUser...'))
-  //     } else {
-  //       console.log('logging out...')
-  //       setUserData({});
-  //     }
-  //   })
-  //   return () => {unsubscribe()}
-  // }, []);
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if(user) {
+        console.log('loggin in with user...', user)
+        setIsLoading(true);
 
 
-  // const handleSignOut = () => {
-  //   signOut(auth)
-  //   .then(() => {
-  //     console.log('Success Sign Out');
-  //   })
-  //   .catch(err => console.log('Error sign out', err))
-  // }
+        // getSetUserData(user.email)
+        // .then(res => setIsLoading(false))
+        // .catch(err => console.log('couldnt getSetUser...'))
+      } else {
+        console.log('logging out...')
+        setUserData({});
+      }
+    })
+    return () => {unsubscribe()}
+  }, []);
+
+
+  const handleSignOut = () => {
+    signOut(auth)
+    .then(() => {
+      console.log('Success Sign Out');
+    })
+    .catch(err => console.log('Error sign out', err))
+  }
 
   return (
     <Context.Provider value={{
       userData,
+      setUserData,
       isLoading,
-      testContext
-      // handleSignOut
+      testContext,
+      handleSignOut
       }}>
       {children}
     </Context.Provider>

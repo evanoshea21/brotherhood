@@ -1,5 +1,5 @@
 import React from 'react'
-import {ContextProvider} from '../globals/context.js';
+import {ContextProvider, Context} from './context.js';
 import classes from '../styles/layout.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,6 +9,7 @@ import Drawer from '../components/ui/Drawer.js';
 import { useRouter } from 'next/router';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import ProfileMenu from '../components/ProfileMenu.js';
 
 
 
@@ -35,12 +36,22 @@ const theme = createTheme({
 const Layout = ({children}) => {
   const [homeNavStyle, setHomeNavStyle] = React.useState({});
   const router = useRouter();
+  // const userData = {};
+  const {userData} = React.useContext(Context);
 
   React.useEffect(() => {
+    console.log('CURRENT USERDATA: ', userData);
+  },[userData]);
+
     if(router.pathname === '/') {
-      setHomeNavStyle({backgroundColor: 'rgba(0,0,0,0)'});
+      if(homeNavStyle.backgroundColor !== 'rgba(0,0,0,0)') {
+        setHomeNavStyle({backgroundColor: 'rgba(0,0,0,0)'});
+      }
+    } else {
+      if(Object.keys(homeNavStyle).length) {
+        setHomeNavStyle({})
+      }
     }
-  })
 
   const routeHome = () => {
     if(router.pathname !== '/') {
@@ -52,9 +63,10 @@ const Layout = ({children}) => {
       router.push('/join')
     }
   }
+
+
   return (
-    // <ContextContainer>
-    <ContextProvider>
+
       <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
 
@@ -69,7 +81,12 @@ const Layout = ({children}) => {
             <Link className={classes.link} href='/tenets'>Tenets</Link>
             <Link className={classes.link} href='/mission'>Mission</Link>
             <Link className={classes.link} href='/badges'>Badges</Link>
-            <Button onClick={routeJoin} sx={{bgColor: 'blue', p: '10px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: '400', fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+            {userData?.email ? (
+              <ProfileMenu userData={userData} diameter='50px'/>
+            ) : (
+              <Button onClick={routeJoin} sx={{p: '10px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+
+            )}
           </div>
           <div className={classes.drawer}>
           <Drawer dimension='70px' color='text.secondary'/>
@@ -78,7 +95,13 @@ const Layout = ({children}) => {
 
         <div style={homeNavStyle} className={classes.smallNav}>
           <div className={classes.navItems}>
+            {userData?.email ? (
+              <ProfileMenu userData={userData} diameter='50px'/>
+              ) : (
               <Button onClick={routeJoin} sx={{p: '10px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+
+            )}
+
           </div>
           <div className={classes.logoBox}>
             <img src='/helmetLogo.png'/>
@@ -98,9 +121,8 @@ const Layout = ({children}) => {
     </div>
     </LocalizationProvider>
       </ThemeProvider>
-    </ContextProvider>
-    // </ContextContainer>
+
   )
 };
 
-export default Layout
+export default Layout;

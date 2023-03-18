@@ -1,11 +1,26 @@
 import axios from 'axios';
 export default async function handler(req, res) {
-//   res.status(200).json({ name: 'John Doe' })
-// return;
-  const response = await fetch('http://localhost:4001/users', {method: 'GET'});
-  res.status(200).json({hello: 'yup3'});
-  // const resp = await axios({method: 'get', url: 'http://localhost:4001/users'})
-  console.log('res', response);
-  // res.status(200).send(resp);
-  // .catch()
+  const HOST = process.env.SERVER_HOST || 'localhost';
+  const PORT = process.env.SERVER_PORT || '5003';
+  const base_url = `http://${HOST}:${PORT}`;
+  const { method, params, queries } = req;
+  console.log('PARAMS/QUERY: ', params, queries);
+  let response;
+
+  switch(method) {
+
+    case 'GET':
+      response = await axios({url: `${base_url}/users`, method: 'GET'});
+      res.status(200).send(response.data);
+      break;
+
+    case 'POST':
+      console.log('req body1------> ', req.body);
+      response = await axios({url: `${base_url}/user`, method: 'POST', data: req.body});
+      res.status(200).send(response.data);
+      break;
+  }
+
+
+
 }

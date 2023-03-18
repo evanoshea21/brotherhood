@@ -2,23 +2,28 @@ import Head from 'next/head'
 import React from 'react';
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-// import { Context } from '../globals/context.js';
+import { Context } from '../globals/context.js';
 import classes from '../styles/Join.module.css';
 import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] })
-import TextField from '@mui/material/TextField';
 import { useS3Upload } from "next-s3-upload";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import {Avatar, Button, TextField, Typography} from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { createUser } from '../globals/API.js';
 import CropModal from '../components/CropModal.js';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import axios from 'axios';
+import { getAuth, createUserWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 
 
 export default function Join() {
+  const router = useRouter();
+  const { setUserData } = React.useContext(Context);
+
+  // Form ERROR Handling
+  const [errorLabel, setErrorLabel] = React.useState('');
 
   const [dob, setDob] = React.useState();
+  const [dobErr, setDobErr] = React.useState(false);
   const [fnameErr, setFnameErr] = React.useState(false);
   const [lnameErr, setLnameErr] = React.useState(false);
   const [cityErr, setCityErr] = React.useState(false);
@@ -52,17 +57,16 @@ export default function Join() {
 
   //upload to s3 AND set s3Url state
   let uploadFileToS3 = async () => {
-    if(file) {
-      let { url } = await uploadToS3(file);
-      setS3Url(url);
-    }
+      if(file) {
+        try {
+          let { url } = await uploadToS3(file);
+          return url;
+          setS3Url(url);
+        } catch (err) {
+          return err;
+        }
+      }
   };
-
-  function createTheUser() {
-    createUser()
-    .then(res => console.log(res))
-    .catch(err => console.error(err));
-  }
 
    /* user obj to post
      email, fname, lname, city, pic, date_of_birth, join_date
@@ -74,35 +78,92 @@ export default function Join() {
   const passRef = React.useRef(null);
   const passRef2 = React.useRef(null);
 
-  function submitForm() {
+  const auth = getAuth();
+  setPersistence(auth, browserSessionPersistence)
+
+  async function submitForm() {
+    /* STEPS:
+    (1) verify form entries, return if invalid
+    (2) try to upload to FB, if fail return failure message for user
+    (3) upload image to s3, with response url, post to database
+    */
+
     //get form data
     let fname = fnameRef.current.value;
     let lname = lnameRef.current.value;
     let city = cityRef.current.value;
     let email = emailRef.current.value;
     let pass = passRef.current.value;
-    let pass2 = passRef.current.value;
-    //pic = s3url after upload; 'file' first
+    let pass2 = passRef2.current.value;
     let date_of_birth = dob;
     let join_date = formatDate();
-    let oneError = false;
 
-//Verify all fields have inputs
-    if(!fname) { setFnameErr(true); oneError = true;}
-    if(!lname) { setLnameErr(true); oneError = true;}
-    if(!city) { setCityErr(true); oneError = true;}
-    if(!email) { setEmailErr(true); oneError = true;}
-    if(!fileName) { setFileErr(true); oneError = true;}
-    if(!pass || !pass2) { setPassErr(true); oneError = true;}
-    if(pass !== pass2) { setPassMatchErr(true); oneError = true;}
+    // FORM ERROR HANDLING
+    let oneError = {};
+    let passMatchCheck = false;
+    if(!fname) { setFnameErr(true); oneError.fname = true;}
+    if(!lname) { setLnameErr(true); oneError.lname = true;}
+    if(!city) { setCityErr(true); oneError.city = true;}
+    if(!email) { setEmailErr(true); oneError.email = true;}
+    if(!fileName) { setFileErr(true); oneError.fileName = true;}
+    if(!dob) { setDobErr(true); oneError.dob = true;}
+    if(!pass || !pass2) { setPassErr(true); oneError.pass = true;}
+    if(pass !== pass2) { setPassErr(true); setErrorLabel("passwords don't match"); return;}
+    if(Object.keys(oneError).length) {console.log('input error', oneError); setErrorLabel('field is empty'); return}
+    console.log('got passed form error check...');
+    setErrorLabel('');
 
-    if(oneError) {console.log('input empty'); return}
+    // FIREBASE CHECK -> s3 upload -> DB post user
+    try {
+      let firebaseResponse = await signUpUserFB(email, pass);
+      console.log('FB sucess:', firebaseResponse)
+      let s3FileUrl = await uploadFileToS3();
+      console.log('s3 file sucess, url: ', s3FileUrl)
+        let userObj = {fname,lname,city, email, pic: s3FileUrl, join_date, date_of_birth}
+        //post to db
+      let postResponse = await axios({url: '/api/users', method: 'POST', data: userObj});
+      console.log('db success, added user. response: ', postResponse.data)
+      setUserData(userObj);
+      router.replace('/community');
 
-    let obj = {fname,lname,city,email, pass ,join_date,date_of_birth}
-    console.log('User input Obj\n', obj);
+    } catch(err) {
+      console.log('FB/S3/DB ERR response', err);
+      /* CODES:  (err.code)
+      1. auth/email-already-in-use
+      2. auth/weak-password
+      */
+     switch(err.code) {
+      case 'auth/email-already-in-use':
+        setErrorLabel('email already in use')
+        setEmailErr(true);
+        break;
+        case 'auth/weak-password':
+        setPassErr(true);
+        setErrorLabel('password is too weak')
+        break;
+      case 'auth/invalid-email':
+        setErrorLabel('invalid email');
+        setEmailErr(true);
+        break;
+     }
+    }
+  }
 
-
-
+  function signUpUserFB(email, pass) {
+    const auth = getAuth();
+    return new Promise((resolve, reject) => {
+      createUserWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        // Signed in
+        resolve(userCredential);
+      })
+      .catch((error) => {
+        const code = error.code;
+        const message = error.message;
+        reject({code, message})
+        // ..
+      });
+    })
   }
 
   function formatDate(dateStr) {
@@ -125,7 +186,16 @@ export default function Join() {
     setDob(date);
   }
 
+  function getUsers() {
+    axios({url: '/api/users/1', method: 'GET'})
+    .then(res => console.log(res.data))
 
+    //OR
+
+    // axios({url: '/api/users', method: 'POST', data: {name: 'evan'}})
+    // .then(res => console.log(res.data))
+
+  }
 
   return (
     <>
@@ -134,21 +204,21 @@ export default function Join() {
       <h1>JOIN: </h1>
 
       {/* IMAGE PICK AND CROP  */}
-      <div className={classes.imagePick} >
+      <div className={`${classes.imagePick} ${previewUrl ? classes.growAnim : ''}`} >
         <FileInput onChange={setInitialFile} />
 
-        <Button sx={{my: '10px', py: '10px', width: '160px', display: 'flex', justifyContent: 'space-between'}} onClick={openFileDialog} variant="contained" component="label"> Add Picture
+        <Button sx={{my: '15px', py: '10px', width: '160px', display: 'flex', justifyContent: 'space-between'}} onClick={openFileDialog} variant="contained" component="label"> Add Picture
         <PhotoCamera />
         </Button>
 
       {/* RESIZE / CROP IMAGE MODAL  */}
 
-      <div className={classes.imgPreview}>
+      <div className={`${classes.imgPreview} ${previewUrl ? classes.fadeInAnim : ''}`}>
         <Avatar alt="Remy Sharp" src={previewUrl}
         sx={{ width: 154, height: 154 }}
         />
         {localUrl && (
-        <div className={classes.cropBtn}>
+        <div className={`${classes.cropBtn} ${previewUrl ? classes.fadeInAnim : ''}`}>
           <CropModal setPreviewUrl={setPreviewUrl} fileName={fileName} localUrl={localUrl} setFile={setFile} />
         </div>
         )}
@@ -217,7 +287,9 @@ export default function Join() {
       <DatePicker label="Date of Birth"
       onChange={(e) => { setYourDob(e.$d)}}
       />
-
+      <Typography fontSize='1rem' color='error' variant="h6" component="h6">
+        {errorLabel}
+      </Typography>
       <button className={classes.submitBtn}  type='submit'>Submit</button>
 
     </form>

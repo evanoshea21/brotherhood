@@ -35,13 +35,40 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 280px;
+  height: 220px;
 }
+.growAnim {
+  animation: grow .5s ease;
+  animation-fill-mode: forwards;
+  }
+.fadeInAnim {
+  animation: fadeIn 1s ease;
+  animation-delay: .8;
+  animation-fill-mode: forwards;
+  }
+
+  @keyframes grow {
+  from {
+    height: 220px;
+  }
+  to {
+    height: 290px;
+  }
+  }
+  @keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+  }
+
 .cropBtn {
   /* background-color: aquamarine; */
   display: flex;
   justify-content: center;
-  margin: 10px 0;
+  margin: 20px 0 10px 0;
   /* padding: 10px 0; */
 }
 

@@ -3,10 +3,10 @@ const db = require('../db');
 module.exports = {
 
   createUser: (req, res) => {
-    const data = req.body;
+    const {body} = req;
 
     let qString = `INSERT INTO users (email, fname, lname, city, pic, date_of_birth, join_date)
-    VALUES ("bobj3@gmail.com", "ncj", "ajks", "everett", "pic", DATE '1999-08-21', DATE '2023-03-18');`;
+    VALUES ("${body.email}", "${body.fname}", "${body.lname}", "${body.city}", "${body.pic}", DATE '${body.date_of_birth}', DATE '${body.join_date}');`;
 
     db.query(qString, function(err, results) {
       if(err) {
@@ -14,8 +14,8 @@ module.exports = {
         res.status(500).send(err.sqlMessage);
         return;
       }
-      // res.status(200).send(results);
-      res.status(200).send('user created!');
+      res.status(200).send(results);
+      // res.status(200).send('user created!');
     })
   },
 
