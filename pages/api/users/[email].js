@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   switch(method) {
 
     case 'GET':
-      response = await axios({url: `${base_url}/user/${query.id}`, method: 'GET'});
+      response = await axios({url: `${base_url}/user/${query.email}`, method: 'GET'});
       res.status(200).send(response.data);
       break;
 
@@ -30,7 +30,5 @@ export default async function handler(req, res) {
       res.status(200).send(response.data);
       break;
   }
-
-
 
 }

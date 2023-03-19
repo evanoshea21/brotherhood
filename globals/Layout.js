@@ -3,7 +3,7 @@ import {ContextProvider, Context} from './context.js';
 import classes from '../styles/layout.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import Button from '@mui/material/Button';
+import {Button, Typography} from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Drawer from '../components/ui/Drawer.js';
 import { useRouter } from 'next/router';
@@ -84,7 +84,10 @@ const Layout = ({children}) => {
             {userData?.email ? (
               <ProfileMenu userData={userData} diameter='50px'/>
             ) : (
-              <Button onClick={routeJoin} sx={{p: '10px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+              <>
+              <Button onClick={routeJoin} sx={{p: '6px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+              <Button onClick={() => router.push('/signin')} sx={{p: '6px 10px', ml: {sm: '10px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="outlined">Sign in</Button>
+              </>
 
             )}
           </div>
@@ -98,7 +101,21 @@ const Layout = ({children}) => {
             {userData?.email ? (
               <ProfileMenu userData={userData} diameter='50px'/>
               ) : (
-              <Button onClick={routeJoin} sx={{p: '10px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+              <div style={{display: 'flex', flexDirection: 'column'}}>
+
+                <Typography
+                onClick={() => router.push('/signin')}
+                sx={{
+                  textAlign: 'center', borderRadius: '4px',
+                  backgroundColor: 'var(--primary-color)',
+                  // border: '2px solid var(--secondary2-color)',
+                  ml: {xs: '10px', sm: '30px'}, mb: '8px',
+                  py: '8px'
+                }}
+                color='var(--secondary2-color)'
+                >Sign In</Typography>
+                <Button onClick={routeJoin} sx={{p: '10px 25px', ml: {xs: '10px', sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+              </div>
 
             )}
 

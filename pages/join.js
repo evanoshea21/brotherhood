@@ -161,7 +161,6 @@ export default function Join() {
         const code = error.code;
         const message = error.message;
         reject({code, message})
-        // ..
       });
     })
   }
@@ -186,17 +185,6 @@ export default function Join() {
     setDob(date);
   }
 
-  function getUsers() {
-    axios({url: '/api/users/1', method: 'GET'})
-    .then(res => console.log(res.data))
-
-    //OR
-
-    // axios({url: '/api/users', method: 'POST', data: {name: 'evan'}})
-    // .then(res => console.log(res.data))
-
-  }
-
   return (
     <>
     <div className={classes.main}>
@@ -212,7 +200,6 @@ export default function Join() {
         </Button>
 
       {/* RESIZE / CROP IMAGE MODAL  */}
-
       <div className={`${classes.imgPreview} ${previewUrl ? classes.fadeInAnim : ''}`}>
         <Avatar alt="Remy Sharp" src={previewUrl}
         sx={{ width: 154, height: 154 }}
@@ -226,10 +213,6 @@ export default function Join() {
     </div>
     {/* END IMAGE PICK  */}
 
-
-    {/* user obj to post
-     email, fname, lname, city, pic, bio, date_of_birth, join_date
-     dates: YYYY-MM-DD */}
     <div className={classes.formContainer}>
     <form className={classes.joinForm}  onSubmit={e => {e.preventDefault(); submitForm()}}>
       <TextField

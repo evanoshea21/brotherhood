@@ -17,7 +17,6 @@ const ContextProvider = ({children}) => {
         console.log('loggin in with user...', user)
         setIsLoading(true);
 
-
         // getSetUserData(user.email)
         // .then(res => setIsLoading(false))
         // .catch(err => console.log('couldnt getSetUser...'))
