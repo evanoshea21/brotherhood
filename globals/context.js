@@ -1,12 +1,12 @@
 import React from 'react';
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase.js';
+import axios from 'axios';
 
 const Context = React.createContext();
 
 const ContextProvider = ({children}) => {
   const [userData, setUserData] = React.useState({});
-  // const [userToken, setUserToken] = React.useState('null');
   const [isLoading, setIsLoading] = React.useState(false);
   const [testContext, setTestContext] = React.useState('im global');
 
@@ -14,14 +14,19 @@ const ContextProvider = ({children}) => {
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if(user) {
-        console.log('loggin in with user...', user)
-        setIsLoading(true);
+        if(!userData?.email) {
+          console.log('loggin in with user...', user)
+          setIsLoading(true);
 
-        // getSetUserData(user.email)
-        // .then(res => setIsLoading(false))
-        // .catch(err => console.log('couldnt getSetUser...'))
+          axios({url: `/api/users/${user.email}`, method: 'GET'})
+          .then(res => setUserData(res.data[0]))
+          .catch(err => console.log(err));
+        } else {
+          console.log('..userData already exists..\n\n')
+        }
+
       } else {
-        console.log('logging out...')
+        console.log('LOGGING OUT...............\n\n')
         setUserData({});
       }
     })

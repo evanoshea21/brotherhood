@@ -4,9 +4,11 @@ import { InlineWidget, PopupButton } from "react-calendly";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import MemberCard from '../components/MemberCard.js';
+import { Context } from '../globals/context.js';
 
 
 const Community = () => {
+  const {userData} = React.useContext(Context);
   const [members, setMembers] = React.useState([
     {
     name: 'Evan',
@@ -33,6 +35,10 @@ const Community = () => {
     badges: '["fa-discord", "fa-square-facebook", "fa-google"]'
   }
 ]);
+
+React.useEffect(() => {
+  console.log('userdata on community page: \n', userData);
+},[]);
 
   return (
     <div className={classes.comm} >
