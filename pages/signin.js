@@ -25,8 +25,8 @@ export default function Join() {
   const emailRef = React.useRef(null);
   const passRef = React.useRef(null);
 
-  const auth = getAuth();
-  setPersistence(auth, browserSessionPersistence)
+  // const auth = getAuth();
+  // setPersistence(auth, browserSessionPersistence)
 
   async function submitForm() {
 

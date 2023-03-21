@@ -19,12 +19,6 @@ export default async function handler(req, res) {
       res.status(200).send(response.data);
       break;
 
-    // case 'POST':
-    //   console.log('req body1------> ', body);
-    //   response = await axios({url: `${base_url}/user`, method: 'POST', data: body});
-    //   res.status(200).send(response.data);
-    //   break;
-
     case 'DELETE':
       response = await axios({url: `${base_url}/user/${query.id}`, method: 'DELETE'});
       res.status(200).send(response.data);

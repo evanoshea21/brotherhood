@@ -78,8 +78,8 @@ export default function Join() {
   const passRef = React.useRef(null);
   const passRef2 = React.useRef(null);
 
-  const auth = getAuth();
-  setPersistence(auth, browserSessionPersistence)
+  // const auth = getAuth();
+  // setPersistence(auth, browserSessionPersistence)
 
   async function submitForm() {
     /* STEPS:

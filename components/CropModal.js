@@ -32,7 +32,7 @@ const CropModal = ({setPreviewUrl, localUrl, setFile, fileName}) => {
     setOpen(false);
   };
 
-  const cropperRef = useRef(null);
+  const cropperRef = useRef();
   const onCrop = async () => {
     //get current cropped
     const cropper = cropperRef.current?.cropper;
@@ -48,7 +48,7 @@ const CropModal = ({setPreviewUrl, localUrl, setFile, fileName}) => {
 
   function dataURLtoFile(dataurl, filename) {
 
-    if(dataurl && filename) {
+    if(dataurl && filename && open) {
       var arr = dataurl.split(','),
           mime = arr[0].match(/:(.*?);/)[1],
           bstr = atob(arr[1]),
