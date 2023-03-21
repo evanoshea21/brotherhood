@@ -41,10 +41,10 @@ const Profile = () => {
 
 
   React.useEffect(() => {
-    console.log('userdata', userData);
     if(userData?.email) {
       let userAge = getAge(userData?.date_of_birth);
       setAge(userAge);
+      setBioText(userData?.bio);
     }
   },[userData]);
 

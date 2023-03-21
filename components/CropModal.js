@@ -34,35 +34,38 @@ const CropModal = ({setPreviewUrl, localUrl, setFile, fileName}) => {
 
   const cropperRef = useRef();
   const onCrop = async () => {
-    //get current cropped
-    const cropper = cropperRef.current?.cropper;
-    //get data from cropped as Data Url
-    let dataUrl = cropper.getCroppedCanvas().toDataURL();
-    //setFile to be Cropped File after data conversion
-    let resultFile = dataURLtoFile(dataUrl, fileName);
-    setNewFile(resultFile);
-    //set new preview
-    let url = URL.createObjectURL(resultFile);
-    setNewPreview(url);
+      //get current cropped
+        const cropper = cropperRef.current?.cropper;
+        //get data from cropped as Data Url
+        let dataUrl = cropper.getCroppedCanvas().toDataURL();
+        //setFile to be Cropped File after data conversion
+        let resultFile = await dataURLtoFile(dataUrl, fileName);
+        if(resultFile instanceof File) {
+          setNewFile(resultFile);
+          //set new preview
+          let url = URL.createObjectURL(resultFile);
+          setNewPreview(url);
+        }
+
   };
 
-  function dataURLtoFile(dataurl, filename) {
-
-    if(dataurl && filename && open) {
-      var arr = dataurl.split(','),
-          mime = arr[0].match(/:(.*?);/)[1],
-          bstr = atob(arr[1]),
-          n = bstr.length,
-          u8arr = new Uint8Array(n);
+  const dataURLtoFile = async (dataurl, filename) => {
+    try {
+      var arr = dataurl.split(',');
+      var mime = await arr[0].match(/:(.*?);/)[1];
+      var bstr = await atob(arr[1]);
+      var n = bstr.length;
+      var u8arr = new Uint8Array(n);
 
       while(n--){
           u8arr[n] = bstr.charCodeAt(n);
       }
 
       return new File([u8arr], filename, {type:mime});
+    } catch(err) {
+      return err;
     }
-
-  }
+  };
 
   return (
     <div>
