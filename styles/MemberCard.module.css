@@ -21,6 +21,7 @@
   border-radius: 10px;
 }
 
+
 .div {
   display: flex;
 }
@@ -33,6 +34,9 @@
   width: 20px;
   height: 20px;
   flex: 1;
+}
+.pic:hover, .name:hover {
+  cursor: pointer;
 }
 /* .pic img {
   border-radius: 50%;

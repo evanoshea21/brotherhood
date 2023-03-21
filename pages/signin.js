@@ -25,7 +25,7 @@ export default function Join() {
   const emailRef = React.useRef(null);
   const passRef = React.useRef(null);
 
-  // const auth = getAuth();
+  const auth = getAuth();
   // setPersistence(auth, browserSessionPersistence)
 
   async function submitForm() {
@@ -49,7 +49,7 @@ export default function Join() {
       console.log('FB sucess:', firebaseResponse)
 
       //get user from db
-      let getResponse = await axios({url: `/api/users/${email}`, method: 'GET'});
+      let getResponse = await axios({url: `/api/users/email/${email}`, method: 'GET'});
       console.log('got user from db:\n', getResponse.data);
 
       setUserData(getResponse.data[0]);

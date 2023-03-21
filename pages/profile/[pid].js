@@ -3,6 +3,7 @@ import classes from '../../styles/Profile.module.css';
 import { Context } from '../../globals/context.js';
 import { useRouter } from 'next/router';
 import Avatar from '@mui/material/Avatar';
+import axios from 'axios';
 
 
 const UserProfile = () => {
@@ -12,12 +13,16 @@ const UserProfile = () => {
   const [sameUser, setSameUser] = React.useState(false);
 
   React.useEffect(() => {
-    if(router.isReady && Number(router.query.pid) === userData?.id) {
-      setThisUser(userData);
-      setSameUser(true);
-    } else {
-      //get user info (ssr later)
-
+    if(router.isReady) {
+      let pid = Number(router.query.pid);
+      if (pid === userData?.id) {
+        setThisUser(userData);
+        setSameUser(true);
+      } else {
+        axios({url: `/api/users/id/${pid}`, method: 'GET'})
+        .then(response => setThisUser(response.data[0]))
+        .catch(err => console.warn(err));
+      }
     }
   },[router.query]);
 
@@ -51,7 +56,7 @@ const UserProfile = () => {
         <div className={classes.bodyBox}>
           <div className={classes.bio}>
             <h3>Bio</h3>
-              <p>{thisUser?.bio ? thisUser?.bio : 'No bio added yet...'}</p>
+              <p className={classes.bioText}>{thisUser?.bio ? thisUser?.bio : 'No bio added yet...'}</p>
           </div>
           <div className={classes.badges}>
             <h3>Badges</h3>

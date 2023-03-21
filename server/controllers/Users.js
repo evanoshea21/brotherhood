@@ -69,9 +69,11 @@ module.exports = {
   },
   getUser: (req, res) => {
     const email = req.params.email
+    const id = req.params.id
+    const whereClaus = id ? `WHERE id = ${id}` : `WHERE email = "${email}"`;
     // console.log('GETTING USER with email of', userEmail);
 
-    const qString = `SELECT * FROM users WHERE email = '${email}';`;
+    const qString = `SELECT * FROM users ${whereClaus};`;
 
     db.query(qString, function (err, results) {
       if (err) {

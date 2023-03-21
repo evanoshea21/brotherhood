@@ -6,14 +6,14 @@
 }
 
 .header {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   display: flex;
   justify-content: space-between;
 }
 .header * {
   margin: 0 20px;
-  background-color: rgb(210, 210, 255);
-  /* height: 50px; */
+  /* background-color: rgb(72, 72, 221); */
+  /* height: 1000px; */
 }
 .resources {
   padding: 20px 0;
@@ -30,11 +30,38 @@
 }
 
 .calendly {
+  position: relative;
   flex: 1.5;
   max-width: 500px;
+  /* height: 1000px; */
   max-height: 450px;
   overflow-y: hidden;
-  background-color: antiquewhite;
+  overflow-x: hidden;
+  /* background-color: antiquewhite; */
+}
+.scrollArrow {
+  position: absolute;
+  top: 80%;
+  left: 75%;
+  animation: updown 7s ease-in-out infinite;
+  animation-fill-mode: both;
+}
+.scrollArrow p {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+@keyframes updown {
+  0% {
+    opacity: .6;
+    transform: translate(0, -15px);
+  } 50% {
+    opacity: 1;
+    transform: translate(0, 0px);
+  } 100% {
+    opacity: .6;
+    transform: translate(0, -15px);
+  }
 }
 
 /* RESOURCES */

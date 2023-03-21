@@ -5,6 +5,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
 import MemberCard from '../components/MemberCard.js';
 import { Context } from '../globals/context.js';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import axios from 'axios';
 
 
 const Community = () => {
@@ -35,9 +37,12 @@ const Community = () => {
     badges: '["fa-discord", "fa-square-facebook", "fa-google"]'
   }
 ]);
+  const [realMembers, setRealMembers] = React.useState([]);
 
 React.useEffect(() => {
-  console.log('userdata on community page: \n', userData);
+  axios({url: '/api/users', method: 'GET'})
+  .then(res => setRealMembers(res.data))
+  .catch(err => console.warn(err));
 },[]);
 
   return (
@@ -45,7 +50,25 @@ React.useEffect(() => {
       <h1>COMMUNITY</h1>
       <div className={classes.header}>
         <div className={classes.calendly}>
-        <InlineWidget url="https://calendly.com/spartanbrotherhood/speech" />
+          <div className={classes.scrollArrow}>
+            <p>Scroll</p>
+            <KeyboardArrowDownIcon
+            sx={{width: '50px', height: '50px'}}
+            />
+          </div>
+        <InlineWidget
+        url="https://calendly.com/spartanbrotherhood/speech"
+        prefill={{
+          email: userData.email,
+          firstName: userData?.fname,
+          lastName: userData.lname,
+          name: `${userData.fname} ${userData.lname}`,
+          customAnswers: {
+            a1: 'Optional..',
+          },
+          // date: new Date(Date.now() + 86400000)
+        }}
+        />
         </div>
         <div className={classes.resources}>
           <h2>Resources</h2>
@@ -90,7 +113,7 @@ React.useEffect(() => {
       <div>
         <h1>Members</h1>
         <div className={classes.members}>
-        {members.map(memberData => {
+        {realMembers.map(memberData => {
           return (
             <MemberCard memberData={memberData}/>
           )

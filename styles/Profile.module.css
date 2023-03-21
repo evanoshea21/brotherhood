@@ -31,6 +31,8 @@
   margin: 1px;
 }
 .pic {
+  /* background-color: aqua; */
+  height: 270px;
   padding: 20px 0;
   display: flex;
   justify-content: center;
@@ -57,9 +59,14 @@
   justify-content: center;
   flex-wrap: wrap;
 }
-/* .bodyBox * {
-  flex: 1 1 300px;
-} */
+.btnPic {
+  margin: 10px 0;
+}
+.bodyBox * {
+  background-color: antiquewhite;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .bio {
   flex: 1.5 1 300px;
 }
@@ -87,6 +94,17 @@
   font-size: 1.1rem;
   width: 300px;
   height: 250px;
+}
+.bioText {
+  font-size: 1.4rem;
+}
+.errorMsg {
+  color: red;
+  background-color: hsla(0, 91%, 82%, 0.247);
+  margin: 15px;
+  padding: 10px;
+  font-family: var(--font3);
+  width: fit-content;
 }
 
 @media (max-width: 750px) {

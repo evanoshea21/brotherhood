@@ -8,6 +8,7 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CropModal from '../../components/CropModal.js';
 import { useS3Upload } from "next-s3-upload";
+import { getAge } from '../../globals/utils.js';
 
 import axios from 'axios';
 
@@ -48,18 +49,6 @@ const Profile = () => {
     }
   },[userData]);
 
-
-  function getAge(dateString) {
-    var today = new Date();
-    var birthDate = new Date(dateString);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-}
-
 let uploadFileToS3 = async () => {
   if(file) {
     try {
@@ -86,6 +75,8 @@ let uploadFileToS3 = async () => {
       setInputErr(true);
       return;
     }
+    setInputErr(false);
+
 
     let editObj = {id: userData?.id, fname, lname, city, bio};
 
@@ -112,7 +103,7 @@ let uploadFileToS3 = async () => {
     .then(res => {
       console.log('user updated?', res.data);
 
-      axios({url: `/api/users/${userData?.email}`, method: 'GET'})
+      axios({url: `/api/users/email/${userData?.email}`, method: 'GET'})
       .then(res => setUserData(res.data[0]))
     })
     .catch(err => console.warn(err));
@@ -140,10 +131,11 @@ let uploadFileToS3 = async () => {
               // {/* IMAGE PICK AND CROP  */}
                 <div className={`${classes2.imagePick} ${previewUrl ? classes2.growAnim : ''}`} >
                 <FileInput onChange={setInitialFile} />
-
+                <div className={classes.btnPic}>
                 <Button sx={{my: '15px', py: '10px', width: '180px', display: 'flex', justifyContent: 'space-between'}} onClick={openFileDialog} variant="contained" component="label"> Change Picture
                 <PhotoCamera />
                 </Button>
+                </div>
 
               {/* RESIZE / CROP IMAGE MODAL  */}
               <div className={`${classes2.imgPreview} ${previewUrl ? classes2.fadeInAnim : ''}`}>
@@ -157,7 +149,7 @@ let uploadFileToS3 = async () => {
                 )}
               </div>
             </div>
-  // {/* END IMAGE PICK  */}
+          // {/* END IMAGE PICK  */}
             )}
           </div>
           <div className={classes.info}>
@@ -168,7 +160,7 @@ let uploadFileToS3 = async () => {
           //edit mode
           <div>
             {inputErr && (
-              <h3>First Name, Last Name, City must be filled</h3>
+              <h3 className={classes.errorMsg}  >First Name, Last Name, City must be filled</h3>
             )}
           <TextField
           // color='secondary'
@@ -219,7 +211,7 @@ let uploadFileToS3 = async () => {
             <h3>Bio</h3>
             {!editMode ? (
           //display
-          <p>{userData.bio ? userData.bio : 'No bio added yet...'}</p>
+          <p className={classes.bioText}  >{userData.bio ? userData.bio : 'No bio added yet...'}</p>
           ) : (
             //edit mode
             <textarea

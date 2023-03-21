@@ -45,7 +45,7 @@ export default function AccountMenu({userData, diameter}) {
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
 
-        <Tooltip title="Account settings">
+        <Tooltip title="Account">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -96,10 +96,10 @@ export default function AccountMenu({userData, diameter}) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar src={userData.pic}/> Profile
+        <MenuItem onClick={() => router.push('/profile')} >
+          <Avatar src={userData?.pic}/> Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
         <Divider />
@@ -108,12 +108,12 @@ export default function AccountMenu({userData, diameter}) {
             <PersonAdd fontSize="small" />
           </ListItemIcon>
           Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+        </MenuItem> */}
+        <MenuItem onClick={() => router.push('/community')} >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Community Page
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>

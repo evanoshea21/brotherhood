@@ -15,8 +15,14 @@ export default async function handler(req, res) {
       res.status(200).send(response.data);
       break;
 
+      case 'POST':
+        // console.log('req body PUT------> ', body);
+        response = await axios({url: `${base_url}/user`, method: 'POST', data: body});
+        res.status(200).send(response.data);
+        break;
+
       case 'PUT':
-        console.log('req body PUT------> ', body);
+        // console.log('req body PUT------> ', body);
         response = await axios({url: `${base_url}/user`, method: 'PUT', data: body});
         res.status(200).send(response.data);
         break;

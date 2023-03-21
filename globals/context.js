@@ -18,9 +18,9 @@ const ContextProvider = ({children}) => {
           console.log('loggin in with user...', user)
           setIsLoading(true);
 
-          axios({url: `/api/users/${user.email}`, method: 'GET'})
+          axios({url: `/api/users/email/${user.email}`, method: 'GET'})
           .then(res => setUserData(res.data[0]))
-          .catch(err => console.log(err));
+          .catch(err => console.log('ERROR GETTING USER', err));
         } else {
           console.log('..userData already exists..\n\n')
         }
