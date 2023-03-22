@@ -61,10 +61,11 @@ export default function HtmlTooltipUI({children, title, rundown, date_earned, st
             <Typography color={verified ? 'green' : 'orange'} fontSize='1rem'>
               {verified ? 'Verified' : 'Not Verified'}
             </Typography>
-            <Button href={`/badges#badges-${badge_id}`} sx={{color: 'lightblue'}}>View Badge Info</Button>
+            <Button href={`/badges#badges-${badge_id}`} sx={{color: 'blue'}}>View Badge Info</Button>
           </React.Fragment>
         }
       >
+        {/* <button>Hello</button> */}
         {children}
       </HtmlTooltip>
   )

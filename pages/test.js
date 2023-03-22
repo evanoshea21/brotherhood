@@ -1,19 +1,17 @@
 import React from 'react'
-import classes from '../styles/test.module.css';
+import classes from '../styles/Badge.module.css';
 import Badge from '../components/ui/Badge.js';
 import axios from 'axios';
+import { Context } from '../globals/context.js';
 
   const TestPage = () => {
-  const [badgeEarned, setBadgeEarned] = React.useState({
-    id: 1,
-    user_id: 1,
-    badge_id: 1,
-    date_earned: '2022-03-19',
-    // victory_title: 'Alex did 501 pushups',
-    victory_story: 'Alex did the pushups in a video. He finished at 523. Heres the link to the video: http://youtube.com',
-    verified: 0,
-  });
-  const [badgeDiameter, setBadgeDiameter] = React.useState('120px');
+  const { badgesEarned } = React.useContext(Context);
+  const [badgeEarned, setBadgeEarned] = React.useState();
+  const [badgeDiameter, setBadgeDiameter] = React.useState('40px');
+
+  React.useEffect(() => {
+    getUsersBadges();
+  },[]);
 
 
   function getAllBadges() {
@@ -33,7 +31,7 @@ import axios from 'axios';
   }
   function getUsersBadges() {
     axios({url: '/api/badges/fromuser/1', method: 'GET'})
-    .then(res => console.log('User 1s Badges\n', res.data))
+    .then(res => setBadgeEarned(res.data[0]))
     .catch(err => console.error(err))
   }
 
@@ -66,6 +64,9 @@ import axios from 'axios';
     .catch(err => console.error(err))
   }
 
+  function printEarned() {
+    console.log('Earned\n', badgesEarned);
+  }
 
 
 
@@ -78,15 +79,16 @@ import axios from 'axios';
   return (
     <>
     <div className={classes.main}>
-      <Badge diameter={badgeDiameter} badgeEarned={badgeEarned}/>
+      {badgeEarned && (
+        <>
+          <Badge diameter={badgeDiameter} badgeEarned={badgeEarned}/>
+          <Badge diameter={badgeDiameter} badgeEarned={badgeEarned}/>
+          <Badge diameter={badgeDiameter} badgeEarned={badgeEarned}/>
+        </>
+      )}
     </div>
 
-    <button onClick={() => getAllBadges()}>Get All badges</button>
-    <button onClick={() => getBadgeById(2)}>Get Badge by id 2</button>
-    <button onClick={() => getUsersBadges()}>Get Badges for userid 1</button>
-    <button onClick={() => addBadgeEarned()}>Add Badge Earned</button>
-    <button onClick={() => addBadge()}>Add Badge!</button>
-    <button onClick={() => getAllBadgesEarned()}>Get All BADGES EARNED</button>
+    <button onClick={() => printEarned()}>Print Earned Badges.. context</button>
     </>
   )
 };

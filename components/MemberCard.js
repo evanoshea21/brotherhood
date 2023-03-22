@@ -3,19 +3,28 @@ import classes from '../styles/MemberCard.module.css';
 import Avatar from '@mui/material/Avatar';
 import { getAge } from '../globals/utils.js';
 import { useRouter } from 'next/router';
+import { Context } from '../globals/context.js';
+import Badge from '../components/ui/Badge.js';
 
-const MemberCard = ({memberData}) => {
-  const [parsedBadges, setParsedBadges] = React.useState();
+const MemberCard = ({memberData, badgesEarned}) => {
+  const [userEarnedBadges, setUserEarnedBadges] = React.useState()
   const [age, setAge] = React.useState();
+  const [test, setTest] = React.useState(false);
   const router = useRouter();
 
   React.useEffect(() => {
     if(memberData) {
-      // setParsedBadges(JSON.parse(memberData.badges));
       let theirAge = getAge(memberData.date_of_birth);
       setAge(theirAge);
     }
+    if(badgesEarned) {
+      let filteredArr = badgesEarned.filter(badge => {
+        return badge.user_id === memberData.id;
+      });
+      setUserEarnedBadges(filteredArr);
+    }
   }, [])
+
   return (
     <div className={classes.card}>
       <div className={classes.div}>
@@ -31,15 +40,15 @@ const MemberCard = ({memberData}) => {
           <p>{age} | {memberData.city}</p>
           <p className={classes.bio} >{memberData.bio}</p>
           <h3>Earned Badges</h3>
-          {parsedBadges && (
-            parsedBadges.map((badgeName, i) => {
+          <div className={classes.badgeList}>
+          {userEarnedBadges && (
+            userEarnedBadges.map((earned, i) => {
               return (
-                <span key={`${badgeName}${i}`} className={classes.badgeIcons} >
-                  <i class={`fa-brands ${badgeName}`}></i>
-                </span>
-              )
-            })
-          )}
+                  <Badge key={earned.id} badgeEarned={earned} diameterPx='40px'/>
+                  )
+                })
+                )}
+          </div>
 
         </div>
       </div>

@@ -6,12 +6,18 @@
   justify-content: center;
   align-items: center;
 }
+.badge, .badge * {
+  /* border: 2px solid red; */
+  margin: 2px;
+}
+.badge {
+  flex: 0;
+}
 .badgeBox {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   position: relative;
 }
 .badgeTitle {
-  /* font-family: Arial, Helvetica, sans-serif; */
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
   position: absolute;
@@ -21,11 +27,8 @@
 
   font-size: 450%;
   text-align: center;
-  /* mix-blend-mode:hard-light; */
-  /* color: black; */
-  color: white;
-  /* color: goldenrod; */
 }
+
 .img {
   width: 100%;
   height: 100%;

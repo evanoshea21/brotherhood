@@ -10,7 +10,8 @@ import axios from 'axios';
 
 
 const Community = () => {
-  const {userData} = React.useContext(Context);
+
+  const {userData, badgesEarned, setBadgesEarned} = React.useContext(Context);
   const [members, setMembers] = React.useState([
     {
     name: 'Evan',
@@ -38,11 +39,21 @@ const Community = () => {
   }
 ]);
   const [realMembers, setRealMembers] = React.useState([]);
+  const [badgesEarnedUpdate, setBadgesEarnedUpdate] = React.useState(badgesEarned);
 
 React.useEffect(() => {
   axios({url: '/api/users', method: 'GET'})
   .then(res => setRealMembers(res.data))
   .catch(err => console.warn(err));
+
+  if(!badgesEarned.length) {
+    axios({url: `/api/badges/fromuser`, method: 'GET'})
+    .then(res => {
+      setBadgesEarnedUpdate(res.data);
+      setBadgesEarned(res.data);
+    })
+    .catch(err => console.error(err))
+  }
 },[]);
 
   return (
@@ -115,7 +126,7 @@ React.useEffect(() => {
         <div className={classes.members}>
         {realMembers.map(memberData => {
           return (
-            <MemberCard memberData={memberData}/>
+            <MemberCard key={memberData.id} memberData={memberData} badgesEarned={badgesEarnedUpdate}/>
           )
         })}
         </div>

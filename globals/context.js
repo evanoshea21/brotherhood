@@ -7,7 +7,9 @@ const Context = React.createContext();
 
 const ContextProvider = ({children}) => {
   const [userData, setUserData] = React.useState({});
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [badges, setBadges] = React.useState([]);
+  const [badgesEarned, setBadgesEarned] = React.useState([]);
+
   const [testContext, setTestContext] = React.useState('im global');
 
   //listerer for sign in
@@ -16,7 +18,7 @@ const ContextProvider = ({children}) => {
       if(user) {
         if(!userData?.email) {
           console.log('loggin in with user...', user)
-          setIsLoading(true);
+          // setIsLoading(true);
 
           axios({url: `/api/users/email/${user.email}`, method: 'GET'})
           .then(res => setUserData(res.data[0]))
@@ -33,6 +35,18 @@ const ContextProvider = ({children}) => {
     return () => {unsubscribe()}
   }, []);
 
+  React.useEffect(() => {
+    // set all badges
+    axios({url: `/api/badges`, method: 'GET'})
+    .then(res => setBadges(res.data))
+    .catch(err => console.error(err))
+
+    //set badges_earned
+    axios({url: `/api/badges/fromuser`, method: 'GET'})
+    .then(res => setBadgesEarned(res.data))
+    .catch(err => console.error(err))
+  },[]);
+
 
   const handleSignOut = () => {
     signOut(auth)
@@ -46,8 +60,11 @@ const ContextProvider = ({children}) => {
     <Context.Provider value={{
       userData,
       setUserData,
-      isLoading,
+      // isLoading,
       testContext,
+      badges,
+      badgesEarned,
+      setBadgesEarned,
       handleSignOut
       }}>
       {children}

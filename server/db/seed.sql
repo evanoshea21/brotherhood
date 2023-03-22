@@ -2,6 +2,9 @@ USE MensSiteDB;
 
 
 INSERT INTO users (email, fname, lname, city, pic, bio, date_of_birth, join_date)
+VALUES ("evanoshea21@gmail.com", "Evan", "OShea", "Everett", "https://media.gettyimages.com/id/1250238619/photo/portrait-of-handsome-young-man-on-white-background.jpg?s=612x612&w=gi&k=20&c=VZS15QUiNjqqNWPk2C_-ANC0ficHKwtsmHT3PxYQuQA=", "I started this club", DATE '1999-08-22', DATE '2023-03-18');
+
+INSERT INTO users (email, fname, lname, city, pic, bio, date_of_birth, join_date)
 VALUES ("bob@gmail.com", "Bobby", "Dougal", "Richmond", "https://pyxis.nymag.com/v1/imgs/451/ba2/6f22dfb79768b5c0841c4570cbd8cfb7bf-13-armond-white-2.rsquare.w330.jpg", "i love working out", DATE '1998-04-22', DATE '2023-03-18');
 
 INSERT INTO users (email, fname, lname, city, pic, bio, date_of_birth, join_date)
