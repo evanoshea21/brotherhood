@@ -30,20 +30,22 @@ CREATE TABLE users (
 CREATE TABLE badges (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(20) NOT NULL UNIQUE,
-  `title` VARCHAR(20) NOT NULL,
-  `description` VARCHAR(250) NOT NULL,
-  `file_path` VARCHAR(250) NOT NULL
+  `requirements` VARCHAR(300) NOT NULL,
+  `rundown` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(300) NOT NULL,
+  `image_path` VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE badges_earned (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NOT NULL,
-  `badge_name` VARCHAR(20) NOT NULL,
-  `victory_name` VARCHAR(20) NULL,
+  `badge_id` INT NOT NULL,
+  `date_earned` DATE NULL,
+  -- `victory_title` VARCHAR(30) NULL,
   `victory_story` VARCHAR(250) NULL,
   `verified` TINYINT DEFAULT 0,
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (badge_name) REFERENCES badges(name)
+  FOREIGN KEY (badge_id) REFERENCES badges(id)
 );
 
 
