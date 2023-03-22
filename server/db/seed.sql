@@ -33,6 +33,14 @@ VALUES ("Run 5", "['Do this','And XYZ', 'Post video on IG']", "Complete a 5mile 
 
 INSERT INTO badges_earned (user_id, badge_id, date_earned, victory_story)
 VALUES (1, 1, DATE '2023-03-18', 'He did the pushups and posted a video online. Here is the link: https://youtube.com');
+INSERT INTO badges_earned (user_id, badge_id, date_earned, victory_story)
+VALUES (1, 1, DATE '2023-03-18', 'He did the pushups and posted a video online. Here is the link: https://youtube.com');
+INSERT INTO badges_earned (user_id, badge_id, date_earned, victory_story)
+VALUES (1, 1, DATE '2023-03-18', 'He did the pushups and posted a video online. Here is the link: https://youtube.com');
+INSERT INTO badges_earned (user_id, badge_id, date_earned, victory_story)
+VALUES (1, 1, DATE '2023-03-18', 'He did the pushups and posted a video online. Here is the link: https://youtube.com');
+INSERT INTO badges_earned (user_id, badge_id, date_earned, victory_story)
+VALUES (1, 1, DATE '2023-03-18', 'He did the pushups and posted a video online. Here is the link: https://youtube.com');
 
 INSERT INTO badges_earned (user_id, badge_id, date_earned, victory_story)
 VALUES (1, 2, DATE '2023-02-12', 'He gave the speech and posted the vid online. Link: https://youtube.com');
