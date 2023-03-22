@@ -12,6 +12,7 @@ router.post('/user', Users.createUser);
 
 //Badges routes
 router.get('/badges', Badges.getAll);
+router.get('/badges/earned', Badges.getAllEarned);
 router.get('/badges/fromuser/:pid', Badges.getBadgesForUser);
 router.get('/badges/:id', Badges.getBadgeFromId);
 

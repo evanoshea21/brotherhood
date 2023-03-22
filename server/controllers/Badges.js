@@ -15,6 +15,19 @@ module.exports = {
       res.status(200).send(results);
     })
   },
+  getAllEarned: (req, res) => {
+
+    let qString = `SELECT * FROM badges_earned;`;
+
+    db.query(qString, function(err, results) {
+      if(err) {
+        console.log('Error in Controllers: \n', err.sqlMessage);
+        res.status(500).send(err.sqlMessage);
+        return;
+      }
+      res.status(200).send(results);
+    })
+  },
 
   getBadgesForUser: (req, res) => {
     const {params} = req;

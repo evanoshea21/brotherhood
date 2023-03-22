@@ -21,6 +21,11 @@ import axios from 'axios';
     .then(res => console.log('All badges\n', res.data))
     .catch(err => console.error(err))
   }
+  function getAllBadgesEarned() {
+    axios({url: '/api/badges/fromuser', method: 'GET'})
+    .then(res => console.log('All badges earned\n', res.data))
+    .catch(err => console.error(err))
+  }
   function getBadgeById(id) {
     axios({url: `/api/badges/${id}`, method: 'GET'})
     .then(res => console.log(`Badge from id:${id}\n`, res.data))
@@ -81,6 +86,7 @@ import axios from 'axios';
     <button onClick={() => getUsersBadges()}>Get Badges for userid 1</button>
     <button onClick={() => addBadgeEarned()}>Add Badge Earned</button>
     <button onClick={() => addBadge()}>Add Badge!</button>
+    <button onClick={() => getAllBadgesEarned()}>Get All BADGES EARNED</button>
     </>
   )
 };
