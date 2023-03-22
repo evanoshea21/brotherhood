@@ -15,6 +15,9 @@ router.get('/badges', Badges.getAll);
 router.get('/badges/fromuser/:pid', Badges.getBadgesForUser);
 router.get('/badges/:id', Badges.getBadgeFromId);
 
+router.post('/badges', Badges.addBadge);
+router.post('/badges/earned', Badges.addBadgeEarned);
+
 
 
 

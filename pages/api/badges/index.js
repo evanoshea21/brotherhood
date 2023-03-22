@@ -10,12 +10,23 @@ export default async function handler(req, res) {
   const base_url = `http://${HOST}:${PORT}`;
 
   const { method, query, body } = req;
-  let response;
+  let response, postEndPoint;
+
+  if(body.type === 'earned') {
+    postEndPoint = 'badges/earned'
+  } else {
+    postEndPoint = 'badges'
+  }
 
   switch(method) {
     //GET ALL BADGES
     case 'GET':
       response = await axios({url: `${base_url}/badges`, method: 'GET'});
+      res.status(200).send(response.data);
+      break;
+
+    case 'POST':
+      response = await axios({url: `${base_url}/${postEndPoint}`, method: 'POST', data: body});
       res.status(200).send(response.data);
       break;
 

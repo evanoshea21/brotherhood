@@ -48,14 +48,14 @@ module.exports = {
   },
 
   addBadge: (req, res) => {
-    const {params} = req;
+    const {body} = req;
 
-    let qString = `SELECT * FROM badges WHERE id = ${params.id};`;
+    let qString = `INSERT INTO badges (name, requirements, rundown, description, image_path) VALUES ('${body.name}', '${body.requirements}', '${body.rundown}', '${body.description}', '${body.image_path}');`;
 
     db.query(qString, function(err, results) {
       if(err) {
         console.log('Error in Controllers: \n', err.sqlMessage);
-        res.status(500).send(err.sqlMessage);
+        res.status(500).send(err);
         return;
       }
       res.status(200).send(results);
@@ -65,18 +65,11 @@ module.exports = {
   addBadgeEarned: (req, res) => {
     const {body} = req;
 
-    // user_id` INT NOT NULL,
-    // `badge_id` INT NOT NULL,
-    // `date_earned` DATE NULL,
-    // -- `victory_title` VARCHAR(30) NULL,
-    // `victory_story` VARCHAR(250) NULL,
-    // `verified`
-
-    let qString = `INSERT INTO badges_earned (user_id,badge_id, date_earned, victory_story, verified) VALUES ();`;
+    let qString = `INSERT INTO badges_earned (user_id,badge_id, date_earned, victory_story, verified) VALUES (${body.user_id}, ${body.badge_id}, DATE '${body.date_earned}', '${body.victory_story}', ${body.verified});`;
 
     db.query(qString, function(err, results) {
       if(err) {
-        console.log('Error in Controllers: \n', err.sqlMessage);
+        console.log('Error in Controllers: \n', err);
         res.status(500).send(err.sqlMessage);
         return;
       }

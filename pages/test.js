@@ -32,6 +32,35 @@ import axios from 'axios';
     .catch(err => console.error(err))
   }
 
+  function addBadgeEarned() {
+    let postObj = {
+      type: 'earned',
+      user_id: 1,
+      badge_id: 1,
+      date_earned: '2022-01-01',
+      victory_story: 'Victory story of this badge earned goes here',
+      verified: 1
+    };
+
+    axios({url: '/api/badges', method: 'POST', data: postObj})
+    .then(res => console.log('Posted Badge Earned?\n', res.data))
+    .catch(err => console.error(err))
+  }
+  function addBadge() {
+    let postObj = {
+      type: 'badge',
+      name: '600 pushups',
+      requirements: '1. do 600 pushups2. Then post it online',
+      rundown: 'Do 600 pushups',
+      description: 'Do 600 pushups all day every day baby more description goes here all day....yup yup.',
+      image_path: '/badges/black.png',
+    };
+
+    axios({url: '/api/badges', method: 'POST', data: postObj})
+    .then(res => console.log('Posted Badge?\n', res.data))
+    .catch(err => console.error(err))
+  }
+
 
 
 
@@ -50,6 +79,8 @@ import axios from 'axios';
     <button onClick={() => getAllBadges()}>Get All badges</button>
     <button onClick={() => getBadgeById(2)}>Get Badge by id 2</button>
     <button onClick={() => getUsersBadges()}>Get Badges for userid 1</button>
+    <button onClick={() => addBadgeEarned()}>Add Badge Earned</button>
+    <button onClick={() => addBadge()}>Add Badge!</button>
     </>
   )
 };
