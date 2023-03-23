@@ -80,7 +80,7 @@ const Badges = () => {
         {allBadges && (
           <>
           {allBadges.map(badgeData => (
-            <div id={badgeData.id} className={classes.badgeCard}>
+            <div id={`badges-${badgeData.id}`} className={classes.badgeCard}>
               <div className={classes.content}>
                 <div className={classes.badge}>
                   <Badge diameterPx='150px' defaultData={badgeData}/>

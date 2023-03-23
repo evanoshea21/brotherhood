@@ -60,7 +60,7 @@ React.useEffect(() => {
 
                 <div className={classes.badgeBtn} onClick={() => router.push({
           pathname: '/addbadgeEarned',
-          query: { fname: memberData.fname, lname: memberData.lname,
+          query: { userid: memberData.id, fname: memberData.fname, lname: memberData.lname,
           pic: memberData.pic }
         })} >
                   <i class="fa-solid fa-medal"></i>

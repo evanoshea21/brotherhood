@@ -8,7 +8,7 @@ module.exports = {
 
     db.query(qString, function(err, results) {
       if(err) {
-        console.log('Error in Controllers: \n', err.sqlMessage);
+        console.log('Error in Controllers: \n', err);
         res.status(500).send(err.sqlMessage);
         return;
       }
@@ -21,7 +21,7 @@ module.exports = {
 
     db.query(qString, function(err, results) {
       if(err) {
-        console.log('Error in Controllers: \n', err.sqlMessage);
+        console.log('Error in Controllers: \n', err);
         res.status(500).send(err.sqlMessage);
         return;
       }
@@ -36,7 +36,7 @@ module.exports = {
 
     db.query(qString, function(err, results) {
       if(err) {
-        console.log('Error in Controllers: \n', err.sqlMessage);
+        console.log('Error in Controllers: \n', err);
         res.status(500).send(err.sqlMessage);
         return;
       }
@@ -51,7 +51,7 @@ module.exports = {
 
     db.query(qString, function(err, results) {
       if(err) {
-        console.log('Error in Controllers: \n', err.sqlMessage);
+        console.log('Error in Controllers: \n', err);
         res.status(500).send(err.sqlMessage);
         return;
       }
@@ -67,7 +67,7 @@ module.exports = {
 
     db.query(qString, function(err, results) {
       if(err) {
-        console.log('Error in Controllers: \n', err.sqlMessage);
+        console.log('Error in Controllers: \n', err);
         res.status(500).send(err);
         return;
       }

@@ -42,7 +42,7 @@ CREATE TABLE badges_earned (
   `badge_id` INT NOT NULL,
   `date_earned` DATE NULL,
   -- `victory_title` VARCHAR(30) NULL,
-  `victory_story` VARCHAR(250) NULL,
+  `victory_story` VARCHAR(400) NULL,
   `verified` TINYINT DEFAULT 0,
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (badge_id) REFERENCES badges(id)

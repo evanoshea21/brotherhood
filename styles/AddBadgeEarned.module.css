@@ -1,0 +1,41 @@
+.main, .formContainer {
+  margin: 0;
+  padding: 0;
+  max-width: 600px;
+
+}
+
+.h1, .avatar {
+  padding-left: 30px;
+}
+
+
+.badgeForm {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+}
+
+.submitBtn {
+  width: 150px;
+  padding: 20px 40px;
+  margin: 20px;
+}
+.textArea {
+  font-family: 'var(--font2)';
+  font-size: 1.2rem;
+  height: 200px;
+}
+.badgePick {
+  display: flex;
+  flex-direction: column;
+}
+.rundown {
+  /* background-color: brown; */
+  /* max-width: 100%; */
+  white-space: normal;
+}
+
+.badgePick * {
+  flex: 0;
+}

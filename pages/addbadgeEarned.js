@@ -3,94 +3,180 @@ import React from 'react';
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { Context } from '../globals/context.js';
-import classes from '../styles/AddBadge.module.css';
+import classes from '../styles/AddBadgeEarned.module.css';
 import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] })
-import {Avatar, Button, TextField, Typography} from '@mui/material';
+import {Avatar, Switch, Button, TextField, Typography} from '@mui/material';
+import Badge from '../components/ui/Badge.js';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
+
+
+
 import axios from 'axios';
+
 
 export default function AddBadgeEarned() {
   const router = useRouter();
 
-  const [userObj, setUserObj] = React.useState({})
-
+  const [userObj, setUserObj] = React.useState({});
+  const [badgeId, setBadgeId] = React.useState(1);
+  const [render, setRender] = React.useState(true);
   const [storyText, setStoryText] = React.useState('');
+  const [verifiedChecked, setVerifiedChecked] = React.useState(true);
+
+
+  const [badges, setBadges] = React.useState([]);
   // Form ERROR Handling
   const [errorLabel, setErrorLabel] = React.useState('');
-  const [nameErr, setNameErr] = React.useState();
-  const [rundownErr, setRundownErr] = React.useState();
-  const [descErr, setDescErr] = React.useState();
-  const [imgPathErr, setImgPathErr] = React.useState();
+
 
 
   React.useEffect(() => {
     if(router.isReady) {
-      let {fname, lname, pic} = router.query;
-      let queryUserObj = {fname, lname, pic};
+      let {userid, fname, lname, pic} = router.query;
+      let queryUserObj = {id: userid, fname, lname, pic};
       setUserObj(queryUserObj);
     }
   },[router.query]);
 
+  React.useEffect(() => {
+    axios({url: `/api/badges`, method: 'GET'})
+    .then(res => setBadges(res.data))
+    .catch(err => console.log(err))
 
+  },[]);
 
-  const nameRef = React.useRef(null);
-  const rundownRef = React.useRef(null);
-  const descRef = React.useRef(null);
-  const imgPathRef = React.useRef(null);
   function submitForm() {
-
-    //get form data
-    let name = nameRef.current.value;
-    let rundown = rundownRef.current.value;
-    let imgPath = imgPathRef.current.value;
 
     // FORM ERROR HANDLING
     let oneError = {};
-    let passMatchCheck = false;
-    if(!name) { setNameErr(true); oneError.name = true;}
-    if(!rundown) { setRundownErr(true); oneError.rundown = true;}
-    if(!descText.length) { setDescErr(true); oneError.desc = true;}
-    if(!imgPath) { setImgPathErr(true); oneError.desc = true;}
+    //check badge chosen
+    //check userid
+    if(!badgeId) { setNameErr(true); oneError.name = true;}
+    if(!userObj.id) { setNameErr(true); oneError.name = true;}
 
-    if(Object.keys(oneError).length) {console.log('input error', oneError); setErrorLabel('field is empty'); return}
+    if(Object.keys(oneError).length) {console.log('input error', oneError); setErrorLabel('a field is empty'); return}
     console.log('got passed form error check...');
     setErrorLabel('');
 
     // POST BADGE
 
-      let postObj = {
-        type: 'badge',
-        name,
-        requirements: '1, 2, 3',
-        rundown,
-        description: descText,
-        image_path: imgPath,
-      };
+    let postObj = {
+      type: 'earned',
+      user_id: userObj.id,
+      badge_id: badgeId,
+      date_earned: formatDate(),
+      victory_story: storyText,
+      verified: verifiedChecked ? 1 : 0
+    };
+    console.log('post obj earned: ', postObj);
+    // return;
 
-      axios({url: '/api/badges', method: 'POST', data: postObj})
-      .then(res => console.log('Posted Badge?\n', res.data))
-      .catch(err => console.error(err))
+    axios({url: '/api/badges', method: 'POST', data: postObj})
+    .then(res => console.log('Posted Badge Earned?\n', res.data))
+    .catch(err => console.error(err))
 
   }
+
+  function formatDate() {
+    let newDate = new Date();
+    let month = (newDate.getMonth() + 1)
+    let date = newDate.getDate()
+    if(month < 10) {
+      month = '0' + month;
+    }
+    if(date < 10) {
+      date = '0' + date;
+    }
+    let finaldate = newDate.getFullYear() + '-' + month + '-' +  date;
+    return finaldate;
+  }
+
+  const switchVerified = (event) => {
+    setVerifiedChecked(event.target.checked);
+  };
 
   return (
     <>
     <div className={classes.main}>
 
-      <h1>Add Badge Earned for {userObj.fname}</h1>
+      <h1 className={classes.h1} >Add Badge Earned for {userObj.fname}</h1>
+      <div className={classes.avatar}>
+        <Avatar alt="Pic" src={userObj?.pic}
+          sx={{ width: 84, height: 84 }}
+        />
+      </div>
 
     <div className={classes.formContainer}>
+
     <form className={classes.badgeForm}  onSubmit={e => {e.preventDefault(); submitForm()}}>
+
+      <h2>Victory Story</h2>
       <textarea
         className={classes.textArea}
         maxLength="400"
         onChange={(e) => {
           setStoryText(e.target.value);
         }}
-      />
+        />
 
+        <h2>Select Badge</h2>
+
+      <div className={classes.badgeSelect}>
+
+        {badges.length && (
+        <Select
+          sx={{ width: '100%' }}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={badgeId}
+          label="Badge"
+            MenuProps={{
+              style: {
+                maxHeight: 400,
+                maxWidth: 300,
+                // color: 'blue'
+                    },
+              PaperProps: {
+                sx: {
+                  "& .MuiMenuItem-root.Mui-selected:hover": {
+                    backgroundColor: "var(--bright-color)"
+                  },
+                  "& .MuiMenuItem-root:hover": {
+                    backgroundColor: "var(--bright-color)"
+                  },
+                }
+              }
+            }}
+          onChange={(e) => {setBadgeId(e.target.value)}}
+          >
+          {badges.map(badge => (
+
+            <MenuItem key={badge.id} value={badge.id}>
+              <div className={classes.badgePick}>
+                <div className={classes.name}>
+                <Badge diameterPx='80px' defaultData={badge}/>
+                  {badge.name}
+                </div>
+                <p className={classes.rundown}>
+                  {badge.rundown}
+                </p>
+              </div>
+            </MenuItem>
+          ))}
+        </Select>
+        )}
+      </div>
+      <h2>Verified?</h2>
+      <Switch
+      checked={verifiedChecked}
+      onChange={switchVerified}
+      inputProps={{ 'aria-label': 'controlled' }}
+    />
+      <p>{errorLabel}</p>
       <button className={classes.submitBtn}  type='submit'>Submit</button>
 
     </form>

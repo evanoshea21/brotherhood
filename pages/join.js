@@ -123,7 +123,10 @@ export default function Join() {
         //post to db
       let postResponse = await axios({url: '/api/users', method: 'POST', data: userObj});
       console.log('db success, added user. response: ', postResponse.data)
-      setUserData(userObj);
+
+      let getUser = await axios({url: `/api/users/email/${email}`, method: 'GET'});
+
+      setUserData(getUser.data[0]);
       router.replace('/community');
 
     } catch(err) {

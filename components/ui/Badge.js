@@ -9,6 +9,11 @@ const Badge = ({badgeEarned, diameterPx, defaultData}) => {
   //DATA -->  `id` `user_id` `badge_id` `date_earned` `victory_story` `verified`
   const [badgeData, setBadgeData] = React.useState(defaultData);
 
+  React.useEffect(() => {
+    if(defaultData) {
+      setBadgeData(defaultData);
+    }
+  },[defaultData]);
 
   React.useEffect(() => {
     if(!badges && badgeEarned) {
@@ -25,7 +30,7 @@ const Badge = ({badgeEarned, diameterPx, defaultData}) => {
       }
       setBadgeData(badgeInfo);
     }
-  },[]);
+  }, []);
 
   const [fontSizeCalc, setFontSizeCalc] = React.useState('40px');
   const [fontColor, setFontColor] = React.useState('gold');
@@ -37,7 +42,7 @@ const Badge = ({badgeEarned, diameterPx, defaultData}) => {
       let start = badgeData.image_path.indexOf('/', 2) + 1;
       let end = badgeData.image_path.indexOf('.png');
       let badgeColor = badgeData.image_path.slice(start, end);
-      console.log('badge color: ', badgeColor);
+      // console.log('badge color: ', badgeColor);
       if(['gold','high-gold','green'].includes(badgeColor)) {
         setFontColor('white');
       }

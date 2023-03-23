@@ -26,7 +26,6 @@ const MemberCard = ({memberData, badgesEarned}) => {
       });
       setUserEarnedBadges(filteredArr);
     }
-    console.log('userEarned Badges: ', userEarnedBadges);
   },[badgesEarned]);
 
   return (
