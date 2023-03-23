@@ -1,0 +1,68 @@
+.main {
+  /* background-color: aqua; */
+}
+.card {
+  border: 3px solid rgb(116, 116, 116);
+  margin: 20px 0;
+}
+
+.members {
+  /* padding: 0 60px; */
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  /* background-color: aquamarine; */
+}
+.members * {
+  /* background-color: #1778F2; */
+  flex: 1 1 400px;
+  max-width: 400px;
+}
+
+/* EDIT SECTION  */
+
+.adminEditBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+.adminEditBox * {
+  flex: 1 160px;
+}
+
+.trashBtn,
+.badgeBtn
+{
+  margin: 8px;
+  cursor: pointer;
+  padding-left: 14px;
+  font-size: 1.1rem;
+  color: white;
+  width: 170px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 10px;
+}
+.trashBtn i,
+.badgeBtn i
+{
+  flex: 0;
+  padding-left: 10px;
+  padding-right: 40px;
+}
+
+.trashBtn {
+  background-color: #ea4335;
+}
+.badgeBtn {
+  background-color: #6e35ea;
+}
+
+.typeSelect {
+  /* border: 3px solid blue; */
+  display: flex;
+  justify-content: flex-end;
+  /* width: 100%; */
+}

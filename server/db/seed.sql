@@ -27,7 +27,7 @@ VALUES ("Push500", "['Do this','And This', 'Video yourself']", "500 pushups in o
 INSERT INTO badges (name, requirements, rundown, description, image_path)
 VALUES ("First Speech", "['Do X','And Y', 'And Z Last']", "Pick a topic, craft a speech, and deliver in front of the group.", "Pick topic, do speech. So you have to do this by filming a video etc more info on this badge....yeah so complete it and fill out form.", "/badges/green.png");
 INSERT INTO badges (name, requirements, rundown, description, image_path)
-VALUES ("Run 5", "['Do this','And XYZ', 'Post video on IG']", "Complete a 5mile run before 7am.", "Complete a 5mile run before 7am. You have to do this by filming a video etc more info on this badge....yeah so complete it and fill out form.", "/badges/blue.png");
+VALUES ("Run 5", "['Do this','And XYZ', 'Post video on IG']", "Complete a 5mile run before 7am.", "Complete a 5mile run before 7am. You have to do this by filming a video etc more info on this badge....yeah so complete it and fill out form.am. You have to do this by filming a video etc more info on this badge....yeah so complete it and fill out form.", "/badges/blue.png");
 
 --  BADGES EARNED --------------
 

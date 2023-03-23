@@ -4,18 +4,18 @@ import Tooltip from '../ui/BadgeTooltip.js';
 import axios from 'axios';
 import { Context } from '../../globals/context.js';
 
-const Badge = ({badgeEarned, diameterPx}) => {
+const Badge = ({badgeEarned, diameterPx, defaultData}) => {
   const { badges } = React.useContext(Context);
   //DATA -->  `id` `user_id` `badge_id` `date_earned` `victory_story` `verified`
-  const [badgeData, setBadgeData] = React.useState();
+  const [badgeData, setBadgeData] = React.useState(defaultData);
 
 
   React.useEffect(() => {
-    if(!badges) {
+    if(!badges && badgeEarned) {
       axios({url: `/api/badges/${badgeEarned.badge_id}`, method: 'GET'})
       .then(res =>  setBadgeData(res.data[0]))
       .catch(err => console.error(err));
-    } else {
+    } else if (badgeEarned) {
       let badgeInfo;
       for(let i = 0; i < badges.length; i++) {
         if(badges[i].id === badgeEarned.badge_id) {
@@ -52,26 +52,39 @@ const Badge = ({badgeEarned, diameterPx}) => {
     console.log('pixels str', strPx, typeof strPx);
   }
 
-  return (
+
+  return badgeData && (
     <>
-    {!badgeData ? (
+    {!badgeData && (
       <p>..</p>
-      ) : (
-        <span className={classes.badge}>
+      )}
+    {defaultData ? (
+      <span className={classes.badge}>
+      <div style={{width: diameterPx, height: diameterPx}} className={classes.badgeBox}>
+
+<div style={{color: fontColor, fontSize: `${fontSizeCalc}`}} className={classes.badgeTitle}>{badgeData.id}</div>
+
+<img className={classes.img}  src={badgeData.image_path} />
+
+</div>
+    </span>
+    ) : (
+      <span className={classes.badge}>
 
         <Tooltip title={badgeData.name} rundown={badgeData.rundown} date_earned={badgeEarned.date_earned} story={badgeEarned.victory_story} verified={badgeEarned.verified} badge_id={badgeData.id}
         >
-
         <div style={{width: diameterPx, height: diameterPx}} className={classes.badgeBox}>
 
-        <div style={{color: fontColor, fontSize: `${fontSizeCalc}`}} className={classes.badgeTitle}>{badgeData.id}</div>
+<div style={{color: fontColor, fontSize: `${fontSizeCalc}`}} className={classes.badgeTitle}>{badgeData.id}</div>
 
-        <img className={classes.img}  src={badgeData.image_path} />
+<img className={classes.img}  src={badgeData.image_path} />
 
-        </div>
+</div>
       </Tooltip>
       </span>
-      )}
+    )}
+
+
       </>
 
   )

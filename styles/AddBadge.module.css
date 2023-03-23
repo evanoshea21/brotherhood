@@ -1,0 +1,24 @@
+.main {
+  /* background-color: blueviolet; */
+}
+
+.badgeForm {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+}
+.submitBtn {
+  width: 100px;
+  padding: 10px 20px;
+  margin: 20px;
+}
+.textArea {
+  font-family: 'var(--font2)';
+  font-size: 1.2rem;
+  max-width: 600px;
+  height: 200px;
+}
+
+
+
+

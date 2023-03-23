@@ -1,0 +1,73 @@
+.main {
+  /* background-color: aqua; */
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.badgeCard {
+   flex: 1 270px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   margin: 10px;
+   padding: 5px;
+   max-width: 350px;
+   border: 3px solid var(--secondary-color);
+   border-radius: 8px;
+   /* background-color: blueviolet; */
+}
+.badgeCard * {
+  /* background-color: antiquewhite; */
+  margin: 2px;
+}
+
+.badge {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+}
+.description {
+  margin: 10px;
+  font-size: 1.1rem;
+}
+/* .iconBox {
+  display: flex;
+  justify-content: center;
+} */
+.iconBox * {
+  font-size: 3rem;
+  /* text-align: center; */
+}
+.check,.add {
+  text-align: center;
+}
+.check * {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: green;
+}
+.add * {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: red;
+}
+.add *:hover {
+  cursor: pointer;
+}
+
+.text {
+  font-size: 1.4rem;
+  margin: 0;
+  padding: 0;
+  color: black;
+  transform: translate(0, -40%);
+}

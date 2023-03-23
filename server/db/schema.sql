@@ -30,9 +30,9 @@ CREATE TABLE users (
 CREATE TABLE badges (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(20) NOT NULL UNIQUE,
-  `requirements` VARCHAR(300) NOT NULL,
+  `requirements` VARCHAR(400) NOT NULL,
   `rundown` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(300) NOT NULL,
+  `description` VARCHAR(400) NOT NULL,
   `image_path` VARCHAR(250) NOT NULL
 );
 

@@ -7,7 +7,7 @@ import { Context } from '../globals/context.js';
 import Badge from '../components/ui/Badge.js';
 
 const MemberCard = ({memberData, badgesEarned}) => {
-  const [userEarnedBadges, setUserEarnedBadges] = React.useState()
+  const [userEarnedBadges, setUserEarnedBadges] = React.useState([])
   const [age, setAge] = React.useState();
   const [test, setTest] = React.useState(false);
   const router = useRouter();
@@ -17,41 +17,50 @@ const MemberCard = ({memberData, badgesEarned}) => {
       let theirAge = getAge(memberData.date_of_birth);
       setAge(theirAge);
     }
+  }, [])
+
+  React.useEffect(() => {
     if(badgesEarned) {
       let filteredArr = badgesEarned.filter(badge => {
         return badge.user_id === memberData.id;
       });
       setUserEarnedBadges(filteredArr);
     }
-  }, [])
+    console.log('userEarned Badges: ', userEarnedBadges);
+  },[badgesEarned]);
 
   return (
     <div className={classes.card}>
-      <div className={classes.div}>
+      {/* <div className={classes.div}> */}
 
         <div onClick={() => router.push(`profile/${memberData.id}`)}  className={classes.pic}>
           <Avatar alt="Remy Sharp" src={memberData.pic}
-          sx={{ width: 74, height: 74 }}
+          sx={{ width: 84, height: 84 }}
           />
           {/* <img src={memberData.pic}></img> */}
         </div>
+
         <div className={classes.userInfo}>
-          <h3  onClick={() => router.push(`profile/${memberData.id}`)} className={classes.name}  >{memberData.fname} {memberData.lname}</h3>
+          <h3 className={classes.name} onClick={() => router.push(`profile/${memberData.id}`)}>{memberData.fname} {memberData.lname}</h3>
+
           <p>{age} | {memberData.city}</p>
+
           <p className={classes.bio} >{memberData.bio}</p>
+
           <h3>Earned Badges</h3>
+
           <div className={classes.badgeList}>
-          {userEarnedBadges && (
+          {userEarnedBadges.length && (
             userEarnedBadges.map((earned, i) => {
               return (
-                  <Badge key={earned.id} badgeEarned={earned} diameterPx='40px'/>
+                  <Badge key={earned.id} badgeEarned={earned} diameterPx='38px'/>
                   )
                 })
                 )}
           </div>
 
         </div>
-      </div>
+      {/* </div> */}
     </div>
   )
 }

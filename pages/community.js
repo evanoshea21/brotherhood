@@ -54,6 +54,9 @@ React.useEffect(() => {
     })
     .catch(err => console.error(err))
   }
+  else {
+    console.log('badgesEarnedUpdate', badgesEarnedUpdate);
+  }
 },[]);
 
   return (
