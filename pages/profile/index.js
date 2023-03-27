@@ -116,6 +116,7 @@ let uploadFileToS3 = async () => {
       setEditMode(false);
     })
     .catch(err => console.warn(err));
+    setImageChange(false);
     return;
 
   } else {
