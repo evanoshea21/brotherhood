@@ -65,7 +65,8 @@ const UserProfile = () => {
             </div>
           </div>
           <div className={classes.links}>
-            <h3>Links</h3>
+            <h3>Personal Resources</h3>
+            {thisUser?.email}
             <div className={classes.linkBox}>
               Discord
             </div>

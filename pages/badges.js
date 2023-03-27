@@ -47,14 +47,14 @@ const Badges = () => {
   React.useEffect(() => {
     console.log('all badges', allBadges);
 
-    if(!badgesEarned) {
+    if(!badgesEarned && userData?.email) {
       axios({url: `/badges/fromuser/${userData.id}`, method: 'GET'})
       .then(res => {
         let ids = res.data.map(earned => earned.badge_id)
         setEarnedIds(ids);
       })
       .catch(err => console.error(err));
-    } else {
+    } else if (userData?.email) {
       let filtered = badgesEarned.filter(badge => {
         return badge.user_id === userData.id;
       })

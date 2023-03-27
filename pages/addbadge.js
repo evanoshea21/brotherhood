@@ -14,8 +14,10 @@ import axios from 'axios';
 
 export default function AddBadge() {
   const router = useRouter();
+  const { setBadges } = React.useContext(Context);
 
   // Form ERROR Handling
+  const [displaySuccess, setDisplaySuccess] = React.useState(false);
   const [charsLeft, setCharsLeft] = React.useState(400);
   const [descText, setDescText] = React.useState('');
   const [errorLabel, setErrorLabel] = React.useState('');
@@ -63,7 +65,13 @@ export default function AddBadge() {
       };
 
       axios({url: '/api/badges', method: 'POST', data: postObj})
-      .then(res => console.log('Posted Badge?\n', res.data))
+      .then(res => {
+        console.log('Posted Badge?\n', res.data);
+        setDisplaySuccess(true);
+        axios({url: `/api/badges`, method: 'GET'})
+        .then(res => setBadges(res.data))
+        .catch(err => console.log('error getting badges after adding...', err));
+      })
       .catch(err => console.error(err))
 
   }
@@ -116,7 +124,18 @@ export default function AddBadge() {
       sx={{my: '20px', width: '270px'}}
       />
       <p>{errorLabel}</p>
-      <button className={classes.submitBtn}  type='submit'>Submit</button>
+      {displaySuccess && (
+        <p style={{color: 'green'}}>Successfully Posted Badge</p>
+      )}
+
+      {displaySuccess ? (
+        <>
+        <div onClick={() => router.push('/badges')}  className={classes.submitBtn2}>Return to Badges</div>
+        <div onClick={() => setDisplaySuccess(false)}  className={classes.submitBtn2}>Add Another</div>
+        </>
+      ) : (
+        <button className={classes.submitBtn}  type='submit'>Submit</button>
+      )}
 
     </form>
     </div>

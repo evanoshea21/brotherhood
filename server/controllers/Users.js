@@ -4,9 +4,14 @@ module.exports = {
 
   createUser: (req, res) => {
     const {body} = req;
-
-    let qString = `INSERT INTO users (email, fname, lname, city, pic, date_of_birth, join_date)
-    VALUES ("${body.email}", "${body.fname}", "${body.lname}", "${body.city}", "${body.pic}", DATE '${body.date_of_birth}', DATE '${body.join_date}');`;
+    let qString;
+    if(body.pic) {
+      qString = `INSERT INTO users (email, fname, lname, city, pic, date_of_birth, join_date)
+      VALUES ("${body.email}", "${body.fname}", "${body.lname}", "${body.city}", "${body.pic}", DATE '${body.date_of_birth}', DATE '${body.join_date}');`;
+    } else {
+      qString = `INSERT INTO users (email, fname, lname, city, date_of_birth, join_date)
+      VALUES ("${body.email}", "${body.fname}", "${body.lname}", "${body.city}", DATE '${body.date_of_birth}', DATE '${body.join_date}');`;
+    }
 
     db.query(qString, function(err, results) {
       if(err) {
@@ -19,6 +24,20 @@ module.exports = {
     })
   },
 
+  updateUserType: (req, res) => {
+    const {id, newType} = req.body;
+
+    let qString = `UPDATE users SET member_type = "${newType}" WHERE id = ${id};`;
+
+    db.query(qString, function(err, results) {
+      if(err) {
+        console.log('Error in Controllers: \n', err);
+        res.status(500).send(err);
+        return;
+      }
+      res.status(200).send(results);
+    })
+  },
   updateUserMember: (req, res) => {
     const {body} = req;
     const picUpdate = body?.pic ? `, pic = "${body.pic}"` : '';

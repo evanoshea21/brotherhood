@@ -36,6 +36,8 @@ const ContextProvider = ({children}) => {
   }, []);
 
   React.useEffect(() => {
+    //set userdata
+
     // set all badges
     axios({url: `/api/badges`, method: 'GET'})
     .then(res => setBadges(res.data))
@@ -63,6 +65,7 @@ const ContextProvider = ({children}) => {
       // isLoading,
       testContext,
       badges,
+      setBadges,
       badgesEarned,
       setBadgesEarned,
       handleSignOut

@@ -54,7 +54,7 @@ export default function AccountMenu({userData, diameter}) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: diameter, height: diameter }}>
+            <Avatar sx={{ backgroundColor: 'var(--primary2-color)', width: diameter, height: diameter }}>
               <Typography fontSize='1.8rem'>{userData.fname.slice(0,1).toUpperCase()}</Typography>
               {/* {userData.fname.slice(0,1)} */}
               </Avatar>

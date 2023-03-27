@@ -37,7 +37,7 @@ const Layout = ({children}) => {
   const [homeNavStyle, setHomeNavStyle] = React.useState({});
   const router = useRouter();
   // const userData = {};
-  const {userData} = React.useContext(Context);
+  const {userData, handleSignOut} = React.useContext(Context);
 
   React.useEffect(() => {
     console.log('CURRENT USERDATA: ', userData);
@@ -135,6 +135,7 @@ const Layout = ({children}) => {
       <div className={classes.footer}>
         This is a footer
       </div>
+      <button onClick={() => handleSignOut()} >Sign out</button>
     </div>
     </LocalizationProvider>
       </ThemeProvider>

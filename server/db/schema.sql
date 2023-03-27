@@ -17,7 +17,7 @@ CREATE TABLE users (
   `fname` VARCHAR(50) NOT NULL,
   `lname` VARCHAR(50) NOT NULL,
   `city` VARCHAR(50),
-  `pic` VARCHAR(255) NULL,
+  `pic` VARCHAR(255) DEFAULT '/defaultProfilePic.jpeg',
   `bio` VARCHAR(1000) NULL,
   `member_type` VARCHAR(20) DEFAULT 'limited',
   `discord_handle` VARCHAR(50) NULL,

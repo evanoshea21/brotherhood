@@ -9,6 +9,7 @@ router.get('/user/id/:id', Users.getUser);
 router.put('/user', Users.updateUserMember); //
 router.put('/admin/user', Users.updateUserAdmin); //
 router.post('/user', Users.createUser);
+router.put('/user/type', Users.updateUserType);
 
 //Badges routes
 router.get('/badges', Badges.getAll);

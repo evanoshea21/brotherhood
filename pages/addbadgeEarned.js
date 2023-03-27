@@ -11,6 +11,8 @@ import Badge from '../components/ui/Badge.js';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 
@@ -20,6 +22,7 @@ import axios from 'axios';
 
 export default function AddBadgeEarned() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [userObj, setUserObj] = React.useState({});
   const [badgeId, setBadgeId] = React.useState(1);
@@ -30,6 +33,7 @@ export default function AddBadgeEarned() {
 
   const [badges, setBadges] = React.useState([]);
   // Form ERROR Handling
+  const [displaySuccess, setDisplaySuccess] = React.useState(false);
   const [errorLabel, setErrorLabel] = React.useState('');
 
 
@@ -50,7 +54,8 @@ export default function AddBadgeEarned() {
   },[]);
 
   function submitForm() {
-
+    if(isLoading) {console.log('still loading'); return;}
+    setIsLoading(true);
     // FORM ERROR HANDLING
     let oneError = {};
     //check badge chosen
@@ -58,7 +63,7 @@ export default function AddBadgeEarned() {
     if(!badgeId) { setNameErr(true); oneError.name = true;}
     if(!userObj.id) { setNameErr(true); oneError.name = true;}
 
-    if(Object.keys(oneError).length) {console.log('input error', oneError); setErrorLabel('a field is empty'); return}
+    if(Object.keys(oneError).length) {console.log('input error', oneError); setErrorLabel('a field is empty'); setIsLoading(false); return}
     console.log('got passed form error check...');
     setErrorLabel('');
 
@@ -76,9 +81,8 @@ export default function AddBadgeEarned() {
     // return;
 
     axios({url: '/api/badges', method: 'POST', data: postObj})
-    .then(res => console.log('Posted Badge Earned?\n', res.data))
-    .catch(err => console.error(err))
-
+    .then(res => {console.log('Posted Badge Earned?\n', res.data); setIsLoading(false); setDisplaySuccess(true)})
+    .catch(err => {console.error(err); setIsLoading(false);})
   }
 
   function formatDate() {
@@ -103,7 +107,7 @@ export default function AddBadgeEarned() {
     <>
     <div className={classes.main}>
 
-      <h1 className={classes.h1} >Add Badge Earned for {userObj.fname}</h1>
+      <h1 className={classes.h1} >Add Badge Earned for {userObj.fname} {userObj.lname}</h1>
       <div className={classes.avatar}>
         <Avatar alt="Pic" src={userObj?.pic}
           sx={{ width: 84, height: 84 }}
@@ -177,7 +181,22 @@ export default function AddBadgeEarned() {
       inputProps={{ 'aria-label': 'controlled' }}
     />
       <p>{errorLabel}</p>
-      <button className={classes.submitBtn}  type='submit'>Submit</button>
+      {displaySuccess && (
+        <p style={{color: 'green'}}>Successfully Posted</p>
+      )}
+      {(!isLoading && !displaySuccess) && (
+        <button className={classes.submitBtn}  type='submit'>Submit</button>
+        )}
+      {(isLoading && !displaySuccess) && (
+        <CircularProgress />
+      )}
+      {(!isLoading && displaySuccess) && (
+        <div onClick={(e) => {
+          e.preventDefault();
+          router.push('/admin/members')
+        }}  className={classes.submitBtn2} >Back to Members</div>
+      )}
+
 
     </form>
     </div>

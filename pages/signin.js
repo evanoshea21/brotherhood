@@ -7,10 +7,13 @@ const inter = Inter({ subsets: ['latin'] })
 import {Button, TextField, Typography} from '@mui/material';
 import axios from 'axios';
 import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 export default function Join() {
   const router = useRouter();
+  const [progress, setProgress] = React.useState(0);
+  const [isLoading, setIsLoading] = React.useState(false);
   const {setUserData} = React.useContext(Context);
   const [showReset, setShowReset] = React.useState(false);
   const [resetLabel, setResetLabel] = React.useState('Forgot Password?');
@@ -29,7 +32,8 @@ export default function Join() {
   // setPersistence(auth, browserSessionPersistence)
 
   async function submitForm() {
-
+    if(isLoading) {console.log('still loading'); return;}
+    setIsLoading(true);
     //get form data
     let email = emailRef.current.value;
     let pass = passRef.current.value;
@@ -38,7 +42,7 @@ export default function Join() {
     let oneError = {};
     if(!email) { setEmailErr(true); oneError.email = true;}
     if(!pass) { setPassErr(true); oneError.pass = true;}
-    if(Object.keys(oneError).length) {console.log('input error', oneError); setErrorLabel('a field is empty'); return}
+    if(Object.keys(oneError).length) {console.log('input error', oneError); setErrorLabel('a field is empty'); setIsLoading(false); return}
 
     console.log('got passed form error check...');
     setErrorLabel('');
@@ -53,11 +57,12 @@ export default function Join() {
       console.log('got user from db:\n', getResponse.data);
 
       setUserData(getResponse.data[0]);
+      setIsLoading(false);
       router.replace('/community');
-
     } catch(err) {
       console.log('getting to err: ', err);
       console.log('FB / DB sign in', err.code);
+      setIsLoading(false);
       /* CODES:  (err.code)
       1. auth/user-not-found
       2. auth/wrong-password
@@ -81,6 +86,8 @@ export default function Join() {
   }
 
   function sendResetLink() {
+    if(isLoading) {console.log('still loading reset link'); return;}
+    setIsLoading(true);
     let email = emailRef.current.value;
     let actionCodeSettings, displayName;
     //check if email exists...
@@ -89,11 +96,13 @@ export default function Join() {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         setErrorLabel('');
+        setIsLoading(false);
         setSuccessLabel('Email link sent!');
         // Password reset email sent!
         // ..
       })
     .catch((error) => {
+      setIsLoading(false);
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log('password reset email FAIL, ', errorCode);
@@ -155,12 +164,27 @@ export default function Join() {
       <Typography fontSize='1rem' color='green' variant="h6" component="h6" sx={{textAlign: 'center'}}>
         {successLabel}
       </Typography>
-      {!showReset ? (
+
+      {(!showReset && !isLoading) && (
         <button className={classes.submitBtn}  type='submit'>Submit</button>
-        ) : (
+        )}
+      {(!showReset && isLoading) && (
+        // <button className={classes.submitBtn}  type='submit'>
+        <div className={classes.loadingBox}>
+          <CircularProgress color="primary"/>
+        </div>
+        // </button>
+        )}
+
+      {(showReset && !isLoading) && (
         <div onClick={() => {
           setShowReset(false); setErrorLabel(''); setResetLabel('Forgot Password?'); setSuccessLabel('');
         }}  className={classes.submitBtn2}>Back to Login</div>
+      )}
+      {(showReset && isLoading) && (
+        <div className={classes.loadingBox}>
+          <CircularProgress/>
+        </div>
       )}
 
     </form>

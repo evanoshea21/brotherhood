@@ -12,6 +12,17 @@
   padding: 10px 20px;
   margin: 20px;
 }
+
+.submitBtn2 {
+  text-align: center;
+  width: 150px;
+  padding: 10px 20px;
+  margin: 20px;
+  background-color: rgb(216, 215, 215);
+}
+.submitBtn2:hover {
+  cursor: pointer;
+}
 .textArea {
   font-family: 'var(--font2)';
   font-size: 1.2rem;

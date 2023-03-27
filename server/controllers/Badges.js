@@ -78,7 +78,7 @@ module.exports = {
   addBadgeEarned: (req, res) => {
     const {body} = req;
 
-    let qString = `INSERT INTO badges_earned (user_id,badge_id, date_earned, victory_story, verified) VALUES (${body.user_id}, ${body.badge_id}, DATE '${body.date_earned}', '${body.victory_story}', ${body.verified});`;
+    let qString = `INSERT INTO badges_earned (user_id,badge_id, date_earned, victory_story, verified) VALUES (${body.user_id}, ${body.badge_id}, DATE '${body.date_earned}', "${body.victory_story}", ${body.verified});`;
 
     db.query(qString, function(err, results) {
       if(err) {

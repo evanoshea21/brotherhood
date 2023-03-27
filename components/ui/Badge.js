@@ -54,7 +54,7 @@ const Badge = ({badgeEarned, diameterPx, defaultData}) => {
     let str = String(Number(diameterPx.slice(0,-2))/2.4);
     let strPx = str + 'px';
     return strPx;
-    console.log('pixels str', strPx, typeof strPx);
+    // console.log('pixels str', strPx, typeof strPx);
   }
 
 
