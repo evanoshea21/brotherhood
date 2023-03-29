@@ -63,7 +63,7 @@ module.exports = {
   addBadge: (req, res) => {
     const {body} = req;
 
-    let qString = `INSERT INTO badges (name, requirements, rundown, description, image_path) VALUES ('${body.name}', '${body.requirements}', '${body.rundown}', '${body.description}', '${body.image_path}');`;
+    let qString = `INSERT INTO badges (name, requirements, rundown, description, image_path, xp) VALUES ('${body.name}', '${body.requirements}', '${body.rundown}', '${body.description}', '${body.image_path}', ${body.xp});`;
 
     db.query(qString, function(err, results) {
       if(err) {

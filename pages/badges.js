@@ -11,61 +11,27 @@ import { useRouter } from 'next/router';
 
 import axios from 'axios';
 
-const Badges = () => {
+const Badges = ({allBadges}) => {
   const router = useRouter();
-  const { userData, badges, setBadges, badgesEarned, setBadgesEarned } = React.useContext(Context);
-  const [allBadges, setAllBadges] = React.useState(badges)
+  const { userData } = React.useContext(Context);
   const [earnedIds, setEarnedIds] = React.useState([])
-  const [windowSize, setWindowSize] = React.useState([]);
-
-  React.useEffect(() => { //window resize
-    if(window) {
-      const handleWindowResize = () => {
-        setWindowSize([window.innerWidth, window.innerHeight]);
-      };
-      handleWindowResize();
-      window.addEventListener('resize', handleWindowResize);
-
-      return () => {
-        window.removeEventListener('resize', handleWindowResize);
-      };
-    }
-  }, []);
-
-
-  React.useEffect(() => {//set badges if not global
-    if(!badges.length) {
-      axios({url: `/api/badges`, method: 'GET'})
-      .then(res => {
-        setAllBadges(res.data);
-        setBadges(res.data);
-      })
-      .catch(err => console.error(err));
-    }
-  },[]);
 
   React.useEffect(() => {
     console.log('all badges', allBadges);
 
-    if(!badgesEarned && userData?.email) {
-      axios({url: `/badges/fromuser/${userData.id}`, method: 'GET'})
+    if(userData?.email) {
+      axios({url: `/api/badges/fromuser/${userData.id}`, method: 'GET'})
       .then(res => {
         let ids = res.data.map(earned => earned.badge_id)
         setEarnedIds(ids);
       })
       .catch(err => console.error(err));
-    } else if (userData?.email) {
-      let filtered = badgesEarned.filter(badge => {
-        return badge.user_id === userData.id;
-      })
-      let ids = filtered.map(earned => earned.badge_id)
-      setEarnedIds(ids);
     }
+
   },[allBadges]);
 
   const addToWishList = (badgeId) => {
     console.log('adding to wishlist badge and user:', badgeId, userData.id);
-
     //create add wishlist route
   };
 
@@ -74,13 +40,16 @@ const Badges = () => {
   return (
     <div className={classes.main}>
       <h1>Badges</h1>
-      <Button onClick={() => router.push('/addbadge')}  sx={{ml: '30px', p: '10px 20px'}} variant="contained">Add Badge</Button>
+      {['superadmin'].includes(userData?.member_type) && (
+        <Button onClick={() => router.push('/addbadge')}  sx={{ml: '30px', p: '10px 20px'}} variant="contained">Add Badge</Button>
+      )}
       {/* <h2>Width: {windowSize[0]}</h2> */}
       <div className={classes.list}>
         {allBadges && (
           <>
           {allBadges.map(badgeData => (
             <div id={`badges-${badgeData.id}`} className={classes.badgeCard}>
+              <div className={classes.xp}>{badgeData.xp} XP</div>
               <div className={classes.content}>
                 <div className={classes.badge}>
                   <Badge diameterPx='150px' defaultData={badgeData}/>
@@ -115,4 +84,22 @@ const Badges = () => {
   )
 }
 
-export default Badges
+export default Badges;
+
+export async function getStaticProps(context) {
+  const HOST = process.env.SERVER_HOST || 'localhost';
+  const PORT = process.env.SERVER_PORT || '5003';
+  const base_url = `http://${HOST}:${PORT}`;
+    // do async stuff to get data
+    let badgesRes = await axios({url: `${base_url}/badges`, method: 'GET'});
+
+    const allBadges = badgesRes.data;
+
+    return {
+      props: {
+        allBadges
+      },
+      revalidate: 300, // 5 minutes
+    }
+
+  } //end getStaticProps

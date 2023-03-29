@@ -14,7 +14,7 @@ import axios from 'axios';
 
 export default function AddBadge() {
   const router = useRouter();
-  const { setBadges } = React.useContext(Context);
+  const { userData, setBadges } = React.useContext(Context);
 
   // Form ERROR Handling
   const [displaySuccess, setDisplaySuccess] = React.useState(false);
@@ -31,6 +31,7 @@ export default function AddBadge() {
   const rundownRef = React.useRef(null);
   const descRef = React.useRef(null);
   const imgPathRef = React.useRef(null);
+  const xpRef = React.useRef(null);
 
 
 
@@ -40,6 +41,7 @@ export default function AddBadge() {
     let name = nameRef.current.value;
     let rundown = rundownRef.current.value;
     let imgPath = imgPathRef.current.value;
+    let xp = Number(xpRef.current.value);
 
     // FORM ERROR HANDLING
     let oneError = {};
@@ -62,7 +64,9 @@ export default function AddBadge() {
         rundown,
         description: descText,
         image_path: imgPath,
+        xp
       };
+
 
       axios({url: '/api/badges', method: 'POST', data: postObj})
       .then(res => {
@@ -74,6 +78,12 @@ export default function AddBadge() {
       })
       .catch(err => console.error(err))
 
+  }
+
+  if(!['superadmin', 'admin'].includes(userData?.member_type)) {
+    return (
+      <h1>Sorry, you must be an admin..</h1>
+    )
   }
 
   return (
@@ -104,7 +114,18 @@ export default function AddBadge() {
       variant="outlined"
       sx={{my: '20px', width: '270px'}}
       />
+      <TextField
+      color='secondary'
+      InputLabelProps={{style: { color: '#800A01' }}}
+      label="XP"
+      type="number"
+      InputProps={{ inputProps: { min: 0, max: 500 } }}
+      inputRef={xpRef}
+      variant="outlined"
+      sx={{my: '20px', width: '270px'}}
+      />
       <textarea
+        placeholder='description'
         className={classes.textArea}
         maxLength="400"
         onChange={(e) => {

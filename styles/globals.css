@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=GFS+Neohellenic:ital,wght@0,400;0,700;1,400&family=League+Spartan:wght@200;400;600&family=Nunito+Sans:wght@300;400;700&family=Quantico:wght@400;700&family=Sono:wght@200;500;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=GFS+Neohellenic:ital,wght@0,400;0,700;1,400&family=League+Spartan:wght@200;400;600&family=Nunito+Sans:wght@300;400;700&family=Poppins:wght@300;400;600&family=Quantico:wght@400;700&family=Sono:wght@200;500;700&display=swap');
 /*
 font-family: 'GFS Neohellenic', sans-serif;
 font-family: 'League Spartan', sans-serif;
@@ -22,6 +22,7 @@ font-family: 'Sono', sans-serif;
   --font2: 'Sono', sans-serif;
   --font3: 'League Spartan', sans-serif;
   --font4: 'Quantico', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
 
 }
 
@@ -29,5 +30,19 @@ body {
   /* background-color: var(--dark-color); */
   margin: 0;
   padding: 0;
+  font-family: var(--font3);
+  font-weight: 200;
+  line-height: 1.2;
+}
+h1,h2,h3,h4,h5,h6 {
   font-family: var(--font);
+}
+
+.badgeTooltip * {
+  font-family: var(--font3);
+}
+
+.badgeTooltip {
+  width: 300px;
+  padding: 10px;
 }

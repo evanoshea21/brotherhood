@@ -13,7 +13,7 @@
   flex-wrap: wrap;
   /* background-color: aquamarine; */
 }
-.members * {
+.members > * {
   /* background-color: #1778F2; */
   flex: 1 1 400px;
   max-width: 400px;

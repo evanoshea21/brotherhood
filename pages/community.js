@@ -9,55 +9,14 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import axios from 'axios';
 
 
-const Community = () => {
+const Community = ({members, badgesEarned}) => {
 
-  const {userData, badgesEarned, setBadgesEarned} = React.useContext(Context);
-  const [members, setMembers] = React.useState([
-    {
-    name: 'Evan',
-    pic: 'https://barbend.com/wp-content/uploads/2016/11/06_01_mariusz_pudzianowski_064.jpg',
-    age: 23,
-    city: 'Everett',
-    bio: 'My name is Evan, I love to conquer the world. Come work out with me.',
-    badges: '["fa-discord", "fa-square-facebook", "fa-google"]'
-  },
-    {
-    name: 'Joe',
-    pic: 'https://barbend.com/wp-content/uploads/2016/11/06_01_mariusz_pudzianowski_064.jpg',
-    age: 23,
-    city: 'Everett',
-    bio: 'My name is Evan, I love to conquer the world. Come work out with me.',
-    badges: '["fa-discord", "fa-square-facebook", "fa-google"]'
-  },
-    {
-    name: 'Bob',
-    pic: 'https://barbend.com/wp-content/uploads/2016/11/06_01_mariusz_pudzianowski_064.jpg',
-    age: 23,
-    city: 'Everett',
-    bio: 'My name is Evan, I love to conquer the world. Come work out with me.',
-    badges: '["fa-discord", "fa-square-facebook", "fa-google"]'
-  }
-]);
-  const [realMembers, setRealMembers] = React.useState([]);
-  const [badgesEarnedUpdate, setBadgesEarnedUpdate] = React.useState(badgesEarned);
+  const {userData} = React.useContext(Context);
 
-React.useEffect(() => {
-  axios({url: '/api/users', method: 'GET'})
-  .then(res => setRealMembers(res.data))
-  .catch(err => console.warn(err));
+  // const [realMembers, setRealMembers] = React.useState([]);
+  // const [badgesEarnedUpdate, setBadgesEarnedUpdate] = React.useState(badgesEarned);
+  console.log('earned\n\n', badgesEarned);
 
-  if(!badgesEarned.length) {
-    axios({url: `/api/badges/fromuser`, method: 'GET'})
-    .then(res => {
-      setBadgesEarnedUpdate(res.data);
-      setBadgesEarned(res.data);
-    })
-    .catch(err => console.error(err))
-  }
-  else {
-    // console.log('badgesEarnedUpdate', badgesEarnedUpdate);
-  }
-},[]);
 
   return (
     <div className={classes.comm} >
@@ -73,10 +32,10 @@ React.useEffect(() => {
         <InlineWidget
         url="https://calendly.com/spartanbrotherhood/speech"
         prefill={{
-          email: userData.email,
+          email: userData?.email,
           firstName: userData?.fname,
-          lastName: userData.lname,
-          name: `${userData.fname} ${userData.lname}`,
+          lastName: userData?.lname,
+          name: `${userData?.fname} ${userData?.lname}`,
           customAnswers: {
             a1: 'Optional..',
           },
@@ -127,9 +86,9 @@ React.useEffect(() => {
       <div>
         <h1>Members</h1>
         <div className={classes.members}>
-        {realMembers.map(memberData => {
+        {members.map(memberData => {
           return (
-            <MemberCard key={memberData.id} memberData={memberData} badgesEarned={badgesEarnedUpdate}/>
+            <MemberCard key={memberData.id} memberData={memberData} badgesEarned={badgesEarned}/>
           )
         })}
         </div>
@@ -140,4 +99,36 @@ React.useEffect(() => {
   )
 }
 
-export default Community
+export default Community;
+
+export async function getStaticProps(context) {
+  const HOST = process.env.SERVER_HOST || 'localhost';
+  const PORT = process.env.SERVER_PORT || '5003';
+  const base_url = `http://${HOST}:${PORT}`;
+    // do async stuff to get data
+    let membersRes = await axios({url: `${base_url}/users`, method: 'GET'});
+    let badgesEarnedRes = await axios({url: `${base_url}/badges/earned`, method: 'GET'});
+
+    const members = membersRes.data;
+    const badgesEarned = badgesEarnedRes.data;
+
+    // console.log('SSG: members..', members[0], '\n\nEARNED\n\n', badgesEarned[0]);
+
+    // if(!data) {
+    //   return {
+    //     destination: '/not-found'
+    //   }
+    // }
+    // if(!data.length) {
+    // return {notFound: true}; //redirects to 404 page
+    // }
+
+    return {
+      props: {
+        members,
+        badgesEarned
+      },
+      revalidate: 300, // 5 minutes
+    }
+
+  } //end getStaticProps

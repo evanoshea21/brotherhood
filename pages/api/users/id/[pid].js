@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const { method, query, body } = req;
   let response;
-
+  console.log('getting user by id');
   switch(method) {
 
     case 'GET':
@@ -17,8 +17,15 @@ export default async function handler(req, res) {
       break;
 
     case 'PUT':
-      response = await axios({url: `${base_url}/user/type`, method: 'PUT', data: body});
-      res.status(200).send(response.data);
+      if(body?.field === 'xp') {
+        console.log('updating XP....');
+        response = await axios({url: `${base_url}/user/xp`, method: 'PUT', data: body});
+        res.status(200).send(response.data);
+      } else {
+        console.log('updating member TYPE....');
+        response = await axios({url: `${base_url}/user/type`, method: 'PUT', data: body});
+        res.status(200).send(response.data);
+      }
       break;
 
     case 'DELETE':

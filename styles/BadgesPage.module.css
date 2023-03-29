@@ -18,7 +18,15 @@
    max-width: 350px;
    border: 3px solid var(--secondary-color);
    border-radius: 8px;
+   position: relative;
    /* background-color: blueviolet; */
+}
+.xp {
+  color: var(--secondary-color);
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  font-size: 1.2rem;
 }
 .badgeCard * {
   /* background-color: antiquewhite; */

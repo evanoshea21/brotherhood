@@ -49,6 +49,12 @@ import { Context } from '../globals/context.js';
     .then(res => console.log('Posted Badge Earned?\n', res.data))
     .catch(err => console.error(err))
   }
+  function getById() {
+
+    axios({url: '/api/users/id/11', method: 'GET'})
+    .then(res => console.log('User by id 10\n', res.data[0]))
+    .catch(err => console.error(err))
+  }
   function addBadge() {
     let postObj = {
       type: 'badge',
@@ -89,6 +95,7 @@ import { Context } from '../globals/context.js';
     </div>
 
     <button onClick={() => printEarned()}>Print Earned Badges.. context</button>
+    <button onClick={() => getById()}>Get user 10</button>
     </>
   )
 };

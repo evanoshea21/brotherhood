@@ -89,6 +89,7 @@ module.exports = {
   getUser: (req, res) => {
     const email = req.params.email
     const id = req.params.id
+    console.log('type of id: ', typeof id);
     const whereClaus = id ? `WHERE id = ${id}` : `WHERE email = "${email}"`;
     // console.log('GETTING USER with email of', userEmail);
 
@@ -107,6 +108,21 @@ module.exports = {
   getAllUsers: (req, res) => {
     const qString = `SELECT * FROM users;`;
     console.log('got to getAllUsers!')
+
+    db.query(qString, function (err, results) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+        return;
+      }
+      res.status(200).send(results);
+    });
+  },
+
+  changeXP: (req, res) => {
+    const {userId, xp} = req.body;
+
+    let qString = `UPDATE users SET xp = xp + "${xp}" WHERE id = ${userId};`;
 
     db.query(qString, function (err, results) {
       if (err) {

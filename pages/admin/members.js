@@ -52,31 +52,36 @@ const changeUserType = (id, val) => {
   .catch(err => console.error(err));
 }
 
+  if(!['superadmin', 'admin'].includes(userData?.member_type)) {
+    return (
+      <h1>Sorry, you must be an admin..</h1>
+    )
+  }
 
   return (
     <div className={classes.main}>
-      <h1>Members Page</h1>
+      <h1 style={{paddingLeft: '60px'}}>Admin Members Page</h1>
       <div>
-        <h1>Members</h1>
         <div className={classes.members}>
         {badgesEarnedUpdate.length && members.map(memberData => {
           return (
-            <div className={classes.card}>
-              <MemberCard key={memberData.id} memberData={memberData} badgesEarned={badgesEarnedUpdate}/>
+            <div key={memberData.id} className={classes.card}>
+              <MemberCard memberData={memberData} badgesEarned={badgesEarnedUpdate}/>
 
               <div className={classes.adminEditBox}>
-
-                <div className={classes.trashBtn}>
-                  <i class="fa-solid fa-trash"></i>
-                  <p>Delete User</p>
-                </div>
+                {userData?.member_type === 'superadmin' && (
+                  <div className={classes.trashBtn}>
+                    <i className="fa-solid fa-trash"></i>
+                    <p>Delete User</p>
+                  </div>
+                )}
 
                 <div className={classes.badgeBtn} onClick={() => router.push({
           pathname: '/addbadgeEarned',
           query: { userid: memberData.id, fname: memberData.fname, lname: memberData.lname,
           pic: memberData.pic }
         })} >
-                  <i class="fa-solid fa-medal"></i>
+                  <i className="fa-solid fa-medal"></i>
                   <p>Add Badge</p>
                 </div>
                 {successType[`user${memberData.id}`] && (
@@ -102,8 +107,12 @@ const changeUserType = (id, val) => {
                     >
                     <MenuItem value='limited'>Limited</MenuItem>
                     <MenuItem value='member'>Member</MenuItem>
-                    <MenuItem value='admin'>Admin</MenuItem>
-                    <MenuItem value='superadmin'>Superadmin</MenuItem>
+                    {userData?.member_type === 'superadmin' && (
+                      [
+                        <MenuItem value='admin'>Admin</MenuItem>,
+                        <MenuItem value='superadmin'>Superadmin</MenuItem>
+                      ]
+                    )}
                   </Select>
                 </div>
 

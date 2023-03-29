@@ -10,6 +10,7 @@ router.put('/user', Users.updateUserMember); //
 router.put('/admin/user', Users.updateUserAdmin); //
 router.post('/user', Users.createUser);
 router.put('/user/type', Users.updateUserType);
+router.put('/user/xp', Users.changeXP);
 
 //Badges routes
 router.get('/badges', Badges.getAll);

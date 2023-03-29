@@ -23,6 +23,7 @@ CREATE TABLE users (
   `discord_handle` VARCHAR(50) NULL,
   `notion_link` VARCHAR(255) NULL,
   `speech_count` INT DEFAULT 0,
+  `xp` INT DEFAULT 0,
   `date_of_birth` DATE NULL,
   `join_date` DATE NULL
 );
@@ -33,7 +34,8 @@ CREATE TABLE badges (
   `requirements` VARCHAR(400) NOT NULL,
   `rundown` VARCHAR(100) NOT NULL,
   `description` VARCHAR(400) NOT NULL,
-  `image_path` VARCHAR(250) NOT NULL
+  `image_path` VARCHAR(250) NOT NULL,
+  `xp` INT DEFAULT 0
 );
 
 CREATE TABLE badges_earned (

@@ -3,6 +3,8 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { dateParsed } from '../../globals/utils.js';
+import classes from '../../styles/tooltip.module.css';
 
 // const LightTooltip = styled(({ className, ...props }) => (
 //   <Tooltip {...props} classes={{ popper: className }} />
@@ -42,27 +44,46 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 
 // <div id="myContent">
 
-export default function HtmlTooltipUI({children, title, rundown, date_earned, story, verified, badge_id}) {
+export default function HtmlTooltipUI({children, title, rundown, date_earned, story, verified, badge_id, xp}) {
+
+  const [dateStr, setDateStr] = React.useState('');
+
+  React.useEffect(() => {
+    let dateObj = dateParsed(date_earned);
+    setDateStr(`${dateObj.monthStr} ${dateObj.date}, ${dateObj.year}`);
+  },[]);
 
   return (
     <HtmlTooltip
         title={
-          <React.Fragment>
-            <Typography fontSize='2rem' color="inherit">{title}</Typography>
-            <Typography fontSize='1rem' color="inherit">
-              Earned on {date_earned}
+          // <React.Fragment>
+          <div className='badgeTooltip'>
+
+            <Typography textAlign='center' fontSize='2rem' color="inherit">{title}</Typography>
+
+            <div className={classes.dateAndXp}>
+              <Typography fontSize='1rem' color="inherit">
+                {dateStr}
+              </Typography>
+              <Typography fontSize='1rem' color="inherit">
+                |
+              </Typography>
+              <Typography fontWeight='800' fontSize='1rem' color="inherit">
+                {xp} XP
+              </Typography>
+            </div>
+            <Typography sx={{pb: '10px'}} fontSize='1.2rem' color="inherit">
+              <strong style={{paddingRight: '10px'}}>Info:</strong> {rundown}
             </Typography>
-            <Typography fontSize='1.2rem' color="inherit">
-              Desc: {rundown}
-            </Typography>
-            <Typography fontSize='1.4rem' color="inherit">
-              Story: {story}
+            <Typography sx={{borderTop: '2px solid grey', p: '20px 5px'}} fontSize='1.3rem' color="inherit">
+              {story}
             </Typography>
             <Typography color={verified ? 'green' : 'orange'} fontSize='1rem'>
               {verified ? 'Verified' : 'Not Verified'}
             </Typography>
             <Button href={`/badges#badges-${badge_id}`} sx={{color: 'blue'}}>View Badge Info</Button>
-          </React.Fragment>
+          </div>
+          // </React.Fragment>
         }
       >
         {/* <button>Hello</button> */}

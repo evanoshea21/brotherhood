@@ -1,0 +1,99 @@
+.main {
+  font-size: 1.3rem;
+}
+
+.bodyBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  padding-bottom: 80px;
+}
+.title {
+  padding-top: 60px;
+  font-size: 4rem;
+  text-align: center;
+  /* border: 2px solid red; */
+}
+.header {
+  font-size: 2.8rem;
+  text-align: center;
+}
+.smallHeader {
+  font-size: 2rem;
+  text-align: center;
+}
+.hero {
+  font-family: var(--font3);
+  line-height: 1.3;
+  font-weight: 200;
+  font-size: 1.6rem;
+  max-width: 700px;
+  text-align: center;
+}
+.hero span {
+  font-weight: 800;
+}
+
+.objectives {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.objectives > * {
+  /* border: 1px solid red; */
+  margin: 0 20px;
+  flex-grow: 1;
+  flex-basis: 294px;
+  max-width: 600px;
+}
+.objectives p {
+  font-size: 1.3rem;
+  text-align: justify;
+}
+
+.para {
+  max-width: 600px;
+  text-align: justify;
+}
+
+.para span {
+  font-weight: 800;
+}
+.aboutme {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 30px;
+  /* border: 1px solid red; */
+}
+.aboutme > * {
+  /* border: 1px solid blue; */
+  margin: 10px;
+}
+.aboutme p {
+  /* margin: 10px 80px; */
+  flex: 1 1 344px;
+}
+.pic {
+  padding: 20px;
+  padding-top: 0px;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 460px) {
+  .aboutme {
+    padding: 10px 5px;
+    margin: 0;
+  }
+  .bodyBox {
+    padding: 10px 0;
+  }
+  .para, .hero {
+    padding: 5px 20px;
+  }
+  .header {
+    padding: 0 10px;
+  }
+}

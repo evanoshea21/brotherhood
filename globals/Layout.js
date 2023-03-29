@@ -10,34 +10,18 @@ import { useRouter } from 'next/router';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import ProfileMenu from '../components/ProfileMenu.js';
+import axios from 'axios';
 
 
-
-const theme = createTheme({
-  palette: {
-    text:{
-      primary: "#800A01",
-      secondary: "#B8860B"
-    },
-    primary: {
-      main: '#B8860B', //gold
-      // main: '#800A01',
-    },
-    secondary: {
-      main: '#800A01', // maroon
-      // main: '#B8860B',
-    },
-  },
-  typography: {
-    fontFamily: 'GFS Neohellenic, sans-serif',
-  }
-});
 
 const Layout = ({children}) => {
   const [homeNavStyle, setHomeNavStyle] = React.useState({});
+  const [displayAdmin, setDisplayAdmin] = React.useState(false);
+  const [passwordField, setPasswordField] = React.useState(false);
+  const [statusLabel, setStatusLabel] = React.useState();
   const router = useRouter();
   // const userData = {};
-  const {userData, handleSignOut} = React.useContext(Context);
+  const {userData, setUserData, handleSignOut} = React.useContext(Context);
 
   React.useEffect(() => {
     console.log('CURRENT USERDATA: ', userData);
@@ -53,16 +37,34 @@ const Layout = ({children}) => {
       }
     }
 
+
   const routeHome = () => {
     if(router.pathname !== '/') {
       router.push('/')
     }
-  }
+  };
   const routeJoin = () => {
     if(router.pathname !== '/join') {
       router.push('/join')
     }
-  }
+  };
+
+  const adminPassword = React.useRef();
+  const adminCheck = async () => {
+    let responseStatus = await axios({url: `/api/createAdmin`, method: 'POST', data: {id: userData?.id, password: adminPassword.current.value}});
+    console.log('response status admin pass: ', responseStatus.data);
+
+    if(responseStatus.data === 'success') {
+      setStatusLabel(['green', 'Successfully changed']);
+
+      let user = await axios({url: `/api/users/id/${userData?.id}`, method: 'GET'});
+      setUserData(user.data[0]);
+
+    } else {
+      setStatusLabel(['red', 'Error']);
+    }
+  };
+
 
 
   return (
@@ -133,9 +135,25 @@ const Layout = ({children}) => {
 
       {/* FOOTER */}
       <div className={classes.footer}>
-        This is a footer
+        <p>This is a footer</p>
+        <p onClick={() => setDisplayAdmin(!displayAdmin)} >Admin Controls</p>
       </div>
-      <button onClick={() => handleSignOut()} >Sign out</button>
+      {displayAdmin && (
+        <>
+
+        <button onClick={() => handleSignOut()} >Sign out</button>
+        <button onClick={() => setPasswordField(!passwordField)} >Become Admin</button>
+        {passwordField && (
+          <>
+          <input ref={adminPassword} type='text'></input>
+          <button onClick={() => adminCheck()} >Send</button>
+          </>
+        )}
+        {statusLabel && (
+          <span style={{color: statusLabel[0]}}>{statusLabel[1]}</span>
+        )}
+        </>
+      )}
     </div>
     </LocalizationProvider>
       </ThemeProvider>
@@ -144,3 +162,23 @@ const Layout = ({children}) => {
 };
 
 export default Layout;
+
+const theme = createTheme({
+  palette: {
+    text:{
+      primary: "#800A01",
+      secondary: "#B8860B"
+    },
+    primary: {
+      main: '#B8860B', //gold
+      // main: '#800A01',
+    },
+    secondary: {
+      main: '#800A01', // maroon
+      // main: '#B8860B',
+    },
+  },
+  typography: {
+    fontFamily: 'GFS Neohellenic, sans-serif',
+  }
+});

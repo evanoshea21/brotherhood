@@ -1,0 +1,9 @@
+
+
+.dateAndXp {
+  display: flex;
+  justify-content: center;
+}
+.dateAndXp * {
+  margin: 5px;
+}

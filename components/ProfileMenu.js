@@ -99,22 +99,27 @@ export default function AccountMenu({userData, diameter}) {
         <MenuItem onClick={() => router.push('/profile')} >
           <Avatar src={userData?.pic}/> Profile
         </MenuItem>
-        {/* <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem> */}
+
         <MenuItem onClick={() => router.push('/community')} >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Community Page
         </MenuItem>
+        <Divider />
+        {['superadmin', 'admin'].includes(userData?.member_type) && (
+          <MenuItem onClick={() => router.push('/admin/members')}>
+            [ADMIN] Members Page
+          </MenuItem>
+        )}
+        {/* <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          Add another account
+        </MenuItem> */}
+
+
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />

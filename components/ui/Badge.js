@@ -76,7 +76,7 @@ const Badge = ({badgeEarned, diameterPx, defaultData}) => {
     ) : (
       <span className={classes.badge}>
 
-        <Tooltip title={badgeData.name} rundown={badgeData.rundown} date_earned={badgeEarned.date_earned} story={badgeEarned.victory_story} verified={badgeEarned.verified} badge_id={badgeData.id}
+        <Tooltip title={badgeData.name} rundown={badgeData.rundown} date_earned={badgeEarned.date_earned} story={badgeEarned.victory_story} verified={badgeEarned.verified} badge_id={badgeData.id} xp={badgeData.xp}
         >
         <div style={{width: diameterPx, height: diameterPx}} className={classes.badgeBox}>
 

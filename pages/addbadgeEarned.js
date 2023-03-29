@@ -22,6 +22,8 @@ import axios from 'axios';
 
 export default function AddBadgeEarned() {
   const router = useRouter();
+  const { userData } = React.useContext(Context);
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [userObj, setUserObj] = React.useState({});
@@ -81,7 +83,14 @@ export default function AddBadgeEarned() {
     // return;
 
     axios({url: '/api/badges', method: 'POST', data: postObj})
-    .then(res => {console.log('Posted Badge Earned?\n', res.data); setIsLoading(false); setDisplaySuccess(true)})
+    .then(res => {
+      console.log('Posted Badge Earned?\n', res.data);
+      axios({url: `/api/users/id/${postObj.user_id}`, method: 'PUT', data: {userId: postObj.user_id, field: 'xp', xp: 100}})
+      .then(res => {
+        console.log('updated XP? ', res.data);
+        setIsLoading(false); setDisplaySuccess(true);
+      })
+    })
     .catch(err => {console.error(err); setIsLoading(false);})
   }
 
@@ -102,6 +111,12 @@ export default function AddBadgeEarned() {
   const switchVerified = (event) => {
     setVerifiedChecked(event.target.checked);
   };
+
+  if(!['superadmin', 'admin'].includes(userData?.member_type)) {
+    return (
+      <h1>Sorry, you must be an admin..</h1>
+    )
+  }
 
   return (
     <>
