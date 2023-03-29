@@ -1,3 +1,12 @@
+.badgeTooltip * {
+  font-family: var(--font3);
+}
+
+.badgeTooltip {
+  width: 300px;
+  padding: 10px;
+}
+
 
 
 .dateAndXp {

@@ -4,8 +4,7 @@ import Tooltip from '../ui/BadgeTooltip.js';
 import axios from 'axios';
 import { Context } from '../../globals/context.js';
 
-const Badge = ({badgeEarned, diameterPx, defaultData}) => {
-  const { badges } = React.useContext(Context);
+const Badge = ({badgeEarned, badges, diameterPx, defaultData}) => {
   //DATA -->  `id` `user_id` `badge_id` `date_earned` `victory_story` `verified`
   const [badgeData, setBadgeData] = React.useState(defaultData);
 
@@ -16,20 +15,17 @@ const Badge = ({badgeEarned, diameterPx, defaultData}) => {
   },[defaultData]);
 
   React.useEffect(() => {
-    if(!badges && badgeEarned) {
-      axios({url: `/api/badges/${badgeEarned.badge_id}`, method: 'GET'})
-      .then(res =>  setBadgeData(res.data[0]))
-      .catch(err => console.error(err));
-    } else if (badgeEarned) {
+    if(badgeEarned) {
       let badgeInfo;
       for(let i = 0; i < badges.length; i++) {
         if(badges[i].id === badgeEarned.badge_id) {
           badgeInfo = badges[i];
           break;
         }
-      }
-      setBadgeData(badgeInfo);
     }
+    setBadgeData(badgeInfo);
+      }
+
   }, []);
 
   const [fontSizeCalc, setFontSizeCalc] = React.useState('40px');

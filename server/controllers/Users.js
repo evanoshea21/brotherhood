@@ -106,8 +106,13 @@ module.exports = {
   },
 
   getAllUsers: (req, res) => {
-    const qString = `SELECT * FROM users;`;
-    console.log('got to getAllUsers!')
+    const { orderBy } = req.body;
+    let qString = `SELECT * FROM users;`;
+    if(orderBy === 'date') {
+      qString = `SELECT * FROM users ORDER BY join_date;`;
+    } else if (orderBy === 'xp') {
+      qString = `SELECT * FROM users ORDER BY xp;;`;
+    }
 
     db.query(qString, function (err, results) {
       if (err) {
@@ -122,7 +127,7 @@ module.exports = {
   changeXP: (req, res) => {
     const {userId, xp} = req.body;
 
-    let qString = `UPDATE users SET xp = xp + "${xp}" WHERE id = ${userId};`;
+    let qString = `UPDATE users SET xp = xp + ${xp} WHERE id = ${userId};`;
 
     db.query(qString, function (err, results) {
       if (err) {

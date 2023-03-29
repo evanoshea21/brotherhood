@@ -9,14 +9,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import axios from 'axios';
 
 
-const Community = ({members, badgesEarned}) => {
+const Community = ({members, badges, badgesEarned}) => {
 
   const {userData} = React.useContext(Context);
-
-  // const [realMembers, setRealMembers] = React.useState([]);
-  // const [badgesEarnedUpdate, setBadgesEarnedUpdate] = React.useState(badgesEarned);
-  console.log('earned\n\n', badgesEarned);
-
 
   return (
     <div className={classes.comm} >
@@ -88,7 +83,7 @@ const Community = ({members, badgesEarned}) => {
         <div className={classes.members}>
         {members.map(memberData => {
           return (
-            <MemberCard key={memberData.id} memberData={memberData} badgesEarned={badgesEarned}/>
+            <MemberCard key={memberData.id} memberData={memberData} badges={badges} badgesEarned={badgesEarned}/>
           )
         })}
         </div>
@@ -108,9 +103,11 @@ export async function getStaticProps(context) {
     // do async stuff to get data
     let membersRes = await axios({url: `${base_url}/users`, method: 'GET'});
     let badgesEarnedRes = await axios({url: `${base_url}/badges/earned`, method: 'GET'});
+    let badgesRes = await axios({url: `${base_url}/badges`, method: 'GET'});
 
     const members = membersRes.data;
     const badgesEarned = badgesEarnedRes.data;
+    const badges = badgesRes.data;
 
     // console.log('SSG: members..', members[0], '\n\nEARNED\n\n', badgesEarned[0]);
 
@@ -126,7 +123,8 @@ export async function getStaticProps(context) {
     return {
       props: {
         members,
-        badgesEarned
+        badgesEarned,
+        badges
       },
       revalidate: 300, // 5 minutes
     }

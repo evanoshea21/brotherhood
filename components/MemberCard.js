@@ -8,8 +8,10 @@ import { Context } from '../globals/context.js';
 import Badge from '../components/ui/Badge.js';
 import { dateParsed, daysSince } from '../globals/utils.js';
 
-const MemberCard = ({memberData, badgesEarned}) => {
-  const [userEarnedBadges, setUserEarnedBadges] = React.useState([])
+const MemberCard = ({memberData, badges, badgesEarned}) => {
+  const [userEarnedBadges, setUserEarnedBadges] = React.useState();
+  const [theseBadges, setTheseBadges] = React.useState();
+
   const [justJoined, setJustJoined] = React.useState(false);
   const [age, setAge] = React.useState();
   const [test, setTest] = React.useState(false);
@@ -39,8 +41,30 @@ const MemberCard = ({memberData, badgesEarned}) => {
       });
       // console.log('badges for ', memberData.fname, '\n', filteredArr);
       setUserEarnedBadges(filteredArr);
+      // console.log('should have set userEarnedBadges.....');
     }
-  },[badgesEarned]);
+  }, [badgesEarned]);
+
+  // React.useEffect(() => {
+  //   console.log('badges, userEarned', badges, '\n..', userEarnedBadges);
+  //   if(badges && userEarnedBadges) {
+  //     //go through userearned
+  //     let badgeIds = {};
+  //     userEarnedBadges.forEach(badgeEarned => {
+  //       badgeIds[`${badgeEarned.badge_id}`] = true;
+  //     });
+  //     //find all badges and push into array
+  //     let filteredBadges = [];
+  //     badges.forEach(badge => {
+  //       if(badgeIds[`${badge.id}`]) {
+  //         filteredBadges.push(badge);
+  //       }
+  //     });
+  //     console.log('filtered badges: ', filteredBadges);
+  //     setTheseBadges(filteredBadges);
+
+  //   }
+  // }, [badges, userEarnedBadges]);
 
   return (
     <div className={classes.card}>
@@ -66,13 +90,15 @@ const MemberCard = ({memberData, badgesEarned}) => {
 
           <p className={classes.bio} >{memberData.bio}</p>
 
-          <h3>Earned Badges</h3>
+          {(userEarnedBadges?.length !== 0) && (
+            <h3 className={classes.badgeListTitle} >Earned Badges</h3>
+          )}
 
           <div className={classes.badgeList}>
-          {userEarnedBadges.length && (
+          {userEarnedBadges && (
             userEarnedBadges.map((earned, i) => {
               return (
-                  <Badge key={earned.id} badgeEarned={earned} diameterPx='38px'/>
+                  <Badge key={earned.id} badges={badges} badgeEarned={earned} diameterPx='38px'/>
                   )
                 })
                 )}

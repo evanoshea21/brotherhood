@@ -35,20 +35,6 @@ const ContextProvider = ({children}) => {
     return () => {unsubscribe()}
   }, []);
 
-  React.useEffect(() => {
-    //set userdata
-
-    // set all badges
-    axios({url: `/api/badges`, method: 'GET'})
-    .then(res => setBadges(res.data))
-    .catch(err => console.error(err))
-
-    //set badges_earned
-    axios({url: `/api/badges/fromuser`, method: 'GET'})
-    .then(res => setBadgesEarned(res.data))
-    .catch(err => console.error(err))
-  },[]);
-
 
   const handleSignOut = () => {
     signOut(auth)

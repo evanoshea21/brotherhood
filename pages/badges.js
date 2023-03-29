@@ -14,10 +14,19 @@ import axios from 'axios';
 const Badges = ({allBadges}) => {
   const router = useRouter();
   const { userData } = React.useContext(Context);
+  const [badges, setBadges] = React.useState(allBadges);
   const [earnedIds, setEarnedIds] = React.useState([])
 
   React.useEffect(() => {
-    console.log('all badges', allBadges);
+    if(['superadmin', 'admin'].includes(userData?.member_type)) {
+      //get badges
+      axios({url: `/api/badges`, method: 'GET'})
+      .then(res => setBadges(res.data))
+      .catch(err => {console.error(err)});
+    }
+  },[]);
+  // use effect to get all badges that are currently accomplished by this user
+  React.useEffect(() => {
 
     if(userData?.email) {
       axios({url: `/api/badges/fromuser/${userData.id}`, method: 'GET'})
@@ -40,14 +49,16 @@ const Badges = ({allBadges}) => {
   return (
     <div className={classes.main}>
       <h1>Badges</h1>
+      {/* Add Badge button for superadmin only (may add admin in future) */}
       {['superadmin'].includes(userData?.member_type) && (
         <Button onClick={() => router.push('/addbadge')}  sx={{ml: '30px', p: '10px 20px'}} variant="contained">Add Badge</Button>
       )}
-      {/* <h2>Width: {windowSize[0]}</h2> */}
+
+      {/* LIST OF BADGES */}
       <div className={classes.list}>
-        {allBadges && (
+        {badges && (
           <>
-          {allBadges.map(badgeData => (
+          {badges.map(badgeData => (
             <div id={`badges-${badgeData.id}`} className={classes.badgeCard}>
               <div className={classes.xp}>{badgeData.xp} XP</div>
               <div className={classes.content}>
@@ -67,7 +78,6 @@ const Badges = ({allBadges}) => {
                     <p className={classes.text}  >Accomplished</p>
                   </div>
                 ) : (
-
                   <div onClick={() => addToWishList(badgeData.id)}  className={classes.add}>
                     <PlaylistAddIcon />
                     <p className={classes.text}>Add to Wishlist</p>

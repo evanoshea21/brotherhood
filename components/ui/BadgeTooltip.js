@@ -57,7 +57,7 @@ export default function HtmlTooltipUI({children, title, rundown, date_earned, st
     <HtmlTooltip
         title={
           // <React.Fragment>
-          <div className='badgeTooltip'>
+          <div className={classes.badgeTooltip} >
 
             <Typography textAlign='center' fontSize='2rem' color="inherit">{title}</Typography>
 

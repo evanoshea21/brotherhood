@@ -8,7 +8,6 @@ export default async function handler(req, res) {
 
   const { method, query, body } = req;
   let response;
-  console.log('getting user by id');
   switch(method) {
 
     case 'GET':

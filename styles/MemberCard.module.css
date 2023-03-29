@@ -3,7 +3,7 @@
   /* height: 300px; */
   border-radius: 12px;
   padding: 20px;
-  margin: 30px 10px;
+  margin: 20px 10px;
   color: white;
   position: relative;
   display: flex;
@@ -74,6 +74,9 @@
 .badgeList * {
   /* background-color: antiquewhite; */
   flex: 0;
+}
+.badgeListTitle {
+  margin-bottom: 7px;
 }
 
 @media (max-width: 450px) {
