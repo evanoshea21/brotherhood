@@ -72,16 +72,18 @@ export default function HtmlTooltipUI({children, title, rundown, date_earned, st
                 {xp} XP
               </Typography>
             </div>
+            <Typography textAlign='center' color={verified ? 'green' : 'orange'} fontSize='1rem'>
+              {verified ? 'Verified' : 'Not Verified'}
+            </Typography>
             <Typography sx={{pb: '10px'}} fontSize='1.2rem' color="inherit">
               <strong style={{paddingRight: '10px'}}>Info:</strong> {rundown}
             </Typography>
             <Typography sx={{borderTop: '2px solid grey', p: '20px 5px'}} fontSize='1.3rem' color="inherit">
               {story}
             </Typography>
-            <Typography color={verified ? 'green' : 'orange'} fontSize='1rem'>
-              {verified ? 'Verified' : 'Not Verified'}
-            </Typography>
-            <Button href={`/badges#badges-${badge_id}`} sx={{color: 'blue'}}>View Badge Info</Button>
+            <div className={classes.btn}>
+              <Button href={`/badges#badges-${badge_id}`} sx={{p: '10px', m: '5px', backgroundColor: 'var(--primary-color)'}}>View Badge Info</Button>
+            </div>
           </div>
           // </React.Fragment>
         }

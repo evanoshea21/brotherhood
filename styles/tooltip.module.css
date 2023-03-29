@@ -7,3 +7,7 @@
 .dateAndXp * {
   margin: 5px;
 }
+.btn {
+  display: flex;
+  justify-content: center;
+}
