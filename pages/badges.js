@@ -59,7 +59,7 @@ const Badges = ({allBadges}) => {
         {badges && (
           <>
           {badges.map(badgeData => (
-            <div id={`badges-${badgeData.id}`} className={classes.badgeCard}>
+            <div key={`badges${badgeData.id}`} id={`badges-${badgeData.id}`} className={classes.badgeCard}>
               <div className={classes.xp}>{badgeData.xp} XP</div>
               <div className={classes.content}>
                 <div className={classes.badge}>
@@ -74,12 +74,12 @@ const Badges = ({allBadges}) => {
               <div className={classes.iconBox}>
                 {earnedIds.includes(badgeData.id) ? (
                   <div className={classes.check}>
-                    <PlaylistAddCheckIcon />
+                    <PlaylistAddCheckIcon sx={{fontSize: '2.6rem'}}/>
                     <p className={classes.text}  >Accomplished</p>
                   </div>
                 ) : (
                   <div onClick={() => addToWishList(badgeData.id)}  className={classes.add}>
-                    <PlaylistAddIcon />
+                    <PlaylistAddIcon sx={{fontSize: '2.6rem'}}/>
                     <p className={classes.text}>Add to Wishlist</p>
                   </div>
                 )}

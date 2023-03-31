@@ -2,16 +2,16 @@ import React from 'react'
 import classes from '../styles/MemberCard.module.css';
 import classes2 from '../styles/ribbon.module.css';
 import Avatar from '@mui/material/Avatar';
-import { getAge } from '../globals/utils.js';
 import { useRouter } from 'next/router';
 import { Context } from '../globals/context.js';
 import Badge from '../components/ui/Badge.js';
-import { dateParsed, daysSince } from '../globals/utils.js';
+import { getAge, dateParsed, daysSince } from '../globals/utils.js';
 
 const MemberCard = ({memberData, badges, badgesEarned}) => {
   const [userEarnedBadges, setUserEarnedBadges] = React.useState();
   const [theseBadges, setTheseBadges] = React.useState();
 
+  const [bio, setBio] = React.useState('');
   const [justJoined, setJustJoined] = React.useState(false);
   const [age, setAge] = React.useState();
   const [test, setTest] = React.useState(false);
@@ -24,12 +24,21 @@ const MemberCard = ({memberData, badges, badgesEarned}) => {
       setAge(theirAge);
       let joinD = dateParsed(memberData.join_date);
       //joinD = {date, month, monthStr, year}
-      setJoinString(`${joinD.monthStr} ${joinD.year}`);
+      setJoinString(`${joinD.date} ${joinD.monthStr} ${joinD.year}`);
 
       let daysSinceJoining = daysSince(memberData.join_date);
 
       if(daysSinceJoining < 10) {
         setJustJoined(true);
+      }
+
+      //BIO
+      if(memberData.bio?.length > 130) {
+        let bioText = memberData.bio.slice(0,130) + '...';
+
+        setBio(bioText);
+      } else {
+        setBio(memberData.bio);
       }
     }
   }, [])
@@ -40,7 +49,7 @@ const MemberCard = ({memberData, badges, badgesEarned}) => {
         return badge.user_id === memberData.id;
       });
       // console.log('badges for ', memberData.fname, '\n', filteredArr);
-      setUserEarnedBadges(filteredArr);
+      setUserEarnedBadges(filteredArr.reverse());
       // console.log('should have set userEarnedBadges.....');
     }
   }, [badgesEarned]);
@@ -75,7 +84,7 @@ const MemberCard = ({memberData, badges, badgesEarned}) => {
         )}
       {/* <div className={classes.div}> */}
 
-        <div onClick={() => router.push(`profile/${memberData.id}`)}  className={classes.pic}>
+        <div onClick={() => router.push(`/profile/${memberData.id}`)}  className={classes.pic}>
           <Avatar alt="Remy Sharp" src={memberData.pic}
           sx={{ width: 84, height: 84 }}
           />
@@ -88,7 +97,7 @@ const MemberCard = ({memberData, badges, badgesEarned}) => {
 
           <p>{age} | {memberData.city}</p>
 
-          <p className={classes.bio} >{memberData.bio}</p>
+          <p className={classes.bio} >{bio}</p>
 
           {(userEarnedBadges?.length !== 0) && (
             <h3 className={classes.badgeListTitle} >Earned Badges</h3>

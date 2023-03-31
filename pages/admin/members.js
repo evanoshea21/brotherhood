@@ -18,6 +18,7 @@ const Members = () => {
 
   const [successType, setSuccessType] = React.useState({});
   const [members, setMembers] = React.useState([]);
+  const [badges, setBadges] = React.useState([]);
   const [badgesEarnedUpdate, setBadgesEarnedUpdate] = React.useState([]);
 
   React.useEffect(() => {
@@ -25,8 +26,13 @@ const Members = () => {
   },[successType]);
 
 React.useEffect(() => {
+  console.log('refreshing badges, earned, users');
   axios({url: '/api/users', method: 'GET'})
   .then(res => setMembers(res.data))
+  .catch(err => console.warn(err));
+
+  axios({url: '/api/badges', method: 'GET'})
+  .then(res => setBadges(res.data))
   .catch(err => console.warn(err));
 
     axios({url: `/api/badges/fromuser`, method: 'GET'})
@@ -66,7 +72,7 @@ const changeUserType = (id, val) => {
         {badgesEarnedUpdate.length && members.map(memberData => {
           return (
             <div key={memberData.id} className={classes.card}>
-              <MemberCard memberData={memberData} badgesEarned={badgesEarnedUpdate}/>
+              <MemberCard badges={badges} memberData={memberData} badgesEarned={badgesEarnedUpdate}/>
 
               <div className={classes.adminEditBox}>
                 {userData?.member_type === 'superadmin' && (

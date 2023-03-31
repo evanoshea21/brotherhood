@@ -1,5 +1,5 @@
-.main {
-  /* background-color: aquamarine; */
+.main a {
+  text-decoration: none;
   /* height: 50vh; */
 }
 .card {
@@ -9,7 +9,9 @@
   min-height: 600px;
 }
 .title {
-  background-color: antiquewhite;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 14px;
   display: flex;
   justify-content: space-between;
   padding: 10px 30px;
@@ -32,11 +34,25 @@
 }
 .pic {
   /* background-color: aqua; */
-  height: 270px;
+  /* height: 270px; */
   padding: 20px 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   flex: 1 300px;
+}
+.xp {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 20px;
+  color: var(--primary-color)
+}
+.joinDate {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 200;
+  /* color: var(--secondary-color) */
 }
 .info {
   flex: 1.2 400px;
@@ -54,40 +70,79 @@
   font-size: 1.3rem;
 }
 
-.bodyBox {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 .btnPic {
   margin: 10px 0;
 }
-.bodyBox * {
-  background-color: antiquewhite;
-  padding-left: 10px;
-  padding-right: 10px;
-}
+
 .bio {
   flex: 1.5 1 300px;
 }
+ /* BODY  */
+ .bodyBox {
+  /* background-color: aqua; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .badges {
-  flex: 1 1 200px;
+  /* background-color: rgb(0, 255, 72); */
+  flex: 2 1 400px;
+  padding: 20px 10px;
 }
-.links {
-  flex: 1 1 200px;
+.badges h1, .personalLinks h1 {
+  /* padding-left: 60px; */
+  text-align: center;
+}
+.badgeList {
+  display: flex;
+  margin: 0 auto;
+  /* justify-content: center; */
+  max-width: 440px;
+  flex-wrap: wrap;
 }
 
-.bio,.badges,.links {
-  background-color: azure;
-  margin: 1px;
-  padding-left: 20px;
-  padding-bottom: 20px;
-  /* max-width: 760px; */
+.personalLinks {
+  /* background-color: rgb(255, 0, 242); */
+  flex: 1 1 300px;
+ }
+
+.personalLinks div {
+  /* margin-left: 40px; */
+  margin: 10px auto;
+ }
+
+ .link
+ {
+  margin: 8px;
+  cursor: pointer;
+  padding: 0 14px;
+  font-size: 1.1rem;
+  color: white;
+  width: 165px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 10px;
+}
+.link * {
+  margin: 5px;
+  line-height: 0;
 }
 
-.bio h3, .badges h3, .links h3 {
-  font-size: 2rem;
+.discord {
+  background-color: #5865F2;
 }
+.email {
+  background-color: #5a5a5a;
+}
+.notion {
+  background-color: #242424;
+}
+
+ /* END BODY  */
+
 
 .textArea {
   font-family: 'var(--font2)';
@@ -96,6 +151,7 @@
   height: 250px;
 }
 .bioText {
+  padding-top: 9px;
   font-size: 1.4rem;
 }
 .errorMsg {
@@ -115,6 +171,10 @@
 @media (max-width: 650px) {
   .info {
     padding: 20px 0;
+  }
+  .bioText {
+    /* background-color: aqua; */
+    margin: 15px;
   }
 }
 @media (max-width: 400px) {

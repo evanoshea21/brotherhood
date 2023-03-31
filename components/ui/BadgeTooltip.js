@@ -65,7 +65,7 @@ export default function HtmlTooltipUI({children, title, rundown, date_earned, st
               <Typography fontSize='1rem' color="inherit">
                 {dateStr}
               </Typography>
-              <Typography fontSize='1rem' color="inherit">
+              <Typography sx={{mx: '8px'}} fontSize='1rem' color="inherit">
                 |
               </Typography>
               <Typography fontWeight='800' fontSize='1rem' color="inherit">

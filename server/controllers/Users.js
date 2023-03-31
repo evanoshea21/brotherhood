@@ -42,7 +42,7 @@ module.exports = {
     const {body} = req;
     const picUpdate = body?.pic ? `, pic = "${body.pic}"` : '';
 
-    let qString = `UPDATE users SET fname = "${body.fname}", lname = "${body.lname}", city = "${body.city}", bio = "${body.bio}" ${picUpdate} WHERE id = ${body.id};`;
+    let qString = `UPDATE users SET fname = "${body.fname}", lname = "${body.lname}", city = "${body.city}", discord_handle = "${body.discord_handle}", notion_link = "${body.notion_link}", bio = "${body.bio}" ${picUpdate} WHERE id = ${body.id};`;
 
     db.query(qString, function(err, results) {
       if(err) {

@@ -135,7 +135,7 @@ const Layout = ({children}) => {
 
       {/* FOOTER */}
       <div className={classes.footer}>
-        <p>This is a footer</p>
+        {/* <p>This is a footer</p> */}
         <p onClick={() => setDisplayAdmin(!displayAdmin)} >Admin Controls</p>
       </div>
       {displayAdmin && (

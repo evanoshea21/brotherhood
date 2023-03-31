@@ -8,8 +8,9 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CropModal from '../../components/CropModal.js';
 import { useS3Upload } from "next-s3-upload";
-import { getAge } from '../../globals/utils.js';
+import { getAge, dateParsed, daysSince } from '../../globals/utils.js';
 import { handleOptimization } from '../../globals/utils.js';
+import Badge from '../../components/ui/Badge.js';
 
 
 import axios from 'axios';
@@ -19,8 +20,12 @@ const Profile = () => {
   const router = useRouter();
   const {userData, setUserData} = React.useContext(Context);
   const [age, setAge] = React.useState('');
+  const [joinString, setJoinString] = React.useState('');
+
 
   const [bioText, setBioText] = React.useState('');
+  const [earnedBadges, setEarnedBadges] = React.useState([]);
+  const [badges, setBadges] = React.useState([]);
   const [editMode, setEditMode] = React.useState(false);
   const [imageChange, setImageChange] = React.useState(false);
   const [inputErr, setInputErr] = React.useState(false);
@@ -48,18 +53,27 @@ const Profile = () => {
       setPreviewUrl(URL.createObjectURL(file));
     };
 
-
-    React.useEffect(() => {
-      console.log('preview url: ', !!previewUrl);
-    },[previewUrl]);
-
   React.useEffect(() => {
     if(userData?.email) {
       let userAge = getAge(userData?.date_of_birth);
       setAge(userAge);
+      let joinD = dateParsed(userData.join_date);
+      //joinD = {date, month, monthStr, year}
+      setJoinString(`${joinD.date} ${joinD.monthStr} ${joinD.year}`);
+
+      let daysSinceJoining = daysSince(userData.join_date);
       setBioText(userData?.bio);
+
+      //get earned badges from userData.id
+      axios({url: `/api/badges/fromuser/${userData.id}`, method: 'GET'})
+      .then(res => setEarnedBadges(res.data.reverse()))
+      .catch(err => console.error(err));
+      axios({url: `/api/badges`, method: 'GET'})
+      .then(res => setBadges(res.data))
+      .catch(err => console.error(err));
+
     }
-  },[userData]);
+  }, [userData]);
 
 let uploadFileToS3 = async () => {
   let oldPicUrl = userData.pic;
@@ -89,12 +103,16 @@ let uploadFileToS3 = async () => {
   const fnameRef = useRef();
   const lnameRef = useRef();
   const cityRef = useRef();
+  const discordRef = useRef();
+  const notionRef = useRef();
 
   function updateProfile() {
     setIsLoading(true);
     let fname = fnameRef.current.value;
     let lname = lnameRef.current.value;
     let city = cityRef.current.value;
+    let discord_handle = discordRef.current.value;
+    let notion_link = notionRef.current.value;
     let bio = bioText;
 
     if(!fname.length || !lname.length || !city.length) {
@@ -103,8 +121,7 @@ let uploadFileToS3 = async () => {
     }
     setInputErr(false);
 
-
-    let editObj = {id: userData?.id, fname, lname, city, bio};
+    let editObj = {id: userData?.id, fname, lname, city, bio, discord_handle, notion_link};
 
     //upload to s3
     if(file && imageChange) {
@@ -153,9 +170,13 @@ let uploadFileToS3 = async () => {
         <div className={classes.header}>
           <div className={classes.pic}>
             {!editMode ? (
+              <>
               <Avatar alt={userData.name} src={userData.pic}
               sx={{ width: 144, height: 144 }}
               />
+              <div className={classes.xp}>{userData.xp} xp</div>
+              <div className={classes.joinDate}>Member Since <br/>{joinString}</div>
+              </>
             ) : (
               // {/* IMAGE PICK AND CROP  */}
                 <div className={`${classes2.imagePick} ${previewUrl ? classes2.growAnim : ''}`} >
@@ -222,7 +243,7 @@ let uploadFileToS3 = async () => {
         ) : (
           //edit mode
           <>
-          23 |
+          {age} |
           <TextField
           // color='secondary'
           // error={cityErr}
@@ -235,12 +256,7 @@ let uploadFileToS3 = async () => {
           variant="outlined" />
           </>
         )}
-            <div className={classes.speechCount}>Speech: {userData.speech_count}</div>
-          </div>
-        </div>
-        <div className={classes.bodyBox}>
-          <div className={classes.bio}>
-            <h3>Bio</h3>
+            {/* <div className={classes.speechCount}>Speech: {userData.speech_count}</div> */}
             {!editMode ? (
           //display
           <p className={classes.bioText}  >{userData.bio ? userData.bio : 'No bio added yet...'}</p>
@@ -255,19 +271,78 @@ let uploadFileToS3 = async () => {
             />
         )}
           </div>
-          <div className={classes.badges}>
-            <h3>Badges</h3>
-            <div className={classes.badgeBox}>
+        </div>
 
+        {/* BODY */}
+
+        <div className={classes.bodyBox}>
+          <div className={classes.badges}>
+
+            <h1>Badges</h1>
+            <div className={classes.badgeList}>
+              {/* //badgeEarned, badges, diameterPx, defaultData */}
+              {(earnedBadges.length && badges.length) && (
+                earnedBadges.map(earned => (
+                  <Badge key={`earned${earned.id}`} badgeEarned={earned} badges={badges} diameterPx='60px'/>
+                ))
+              )}
             </div>
+
           </div>
-          <div className={classes.links}>
-            <h3>Links</h3>
-            <div className={classes.linkBox}>
-              Discord
-            </div>
+          <div className={classes.personalLinks}>
+            <h1>Personal Links</h1>
+            {!editMode ? (
+              <>
+              {userData?.notion_link && (
+                <a href="http://notion.com">
+                  <div className={`${classes.link} ${classes.notion}`}>
+                  <i className="fa-regular fa-file-lines"></i>
+                  <p>NOTION PAGE</p>
+                  </div>
+                </a>
+              )}
+              {userData?.discord_handle && (
+                <a href="http://discord.com">
+                  <div className={`${classes.link} ${classes.discord}`}>
+                  <i className="fa-brands fa-discord"></i>
+                  <p>DISCORD</p>
+                  </div>
+                </a>
+              )}
+            <a href={`mailto: ${userData?.email}`}>
+              <div className={`${classes.link} ${classes.email}`}>
+              <i className="fa-sharp fa-solid fa-envelope"></i>
+              <p>EMAIL</p>
+              </div>
+            </a>
+            </>
+            ) : (
+              <>
+              <TextField
+                helperText=''
+                InputLabelProps={{style: { color: '#800A01' }}}
+                label="Your Discord Handle"
+                defaultValue={userData?.discord_handle}
+                inputRef={discordRef}
+                variant="outlined"
+              />
+              <TextField
+                helperText=''
+                InputLabelProps={{style: { color: '#800A01' }}}
+                label="Your Notion Page"
+                defaultValue={userData?.notion_link}
+                inputRef={notionRef}
+                variant="outlined"
+              />
+              </>
+            )}
+
+
           </div>
         </div>
+
+
+
       </div>
     </div>
   )

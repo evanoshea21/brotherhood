@@ -26,7 +26,7 @@ export default function Home() {
   }
 
   return (
-    <>
+  <div className={classes.main} >
     <div className={classes.paddingTop}></div>
       <div className={classes.header}>
       <div className={classes.headerBox}>
@@ -83,26 +83,32 @@ export default function Home() {
         <h1>How we Operate</h1>
         <p>Time to level up and represent your progress.<br/><br/>Just as you would earn your stripes in the army or achievements in a video-game.</p>
         <div className={classes.opCols}>
-          <p>
-          (1) Your profile page will represent all your achievements: badges, contributions, records, victories
-          </p>
-          <p>
-          (2) Earn more badges, earn more respect, & unlock membership privileges, gifts, & we shall celebrate
-          </p>
-          <p>
-          (3) Badges are earned by completing defined challenges, stepping out of your comfort zone, and by contributing to the cause. (See all)
-          </p>
+          <div>
+            <h3>1</h3>
+            <p>
+            Your profile page will represent all your achievements: badges, contributions, records, victories.
+            </p>
+          </div>
+          <div>
+            <h3>2</h3>
+            <p>
+            Earn more badges, earn more respect, & unlock membership privileges, gifts, & we shall celebrate.
+            </p>
+          </div>
+          <div className={classes.lastDiv} >
+            <h3>3</h3>
+            <p>
+            Badges are earned by completing defined challenges, stepping out of your comfort zone, and by contributing to the cause.
+            </p>
+            <a href='/badges'>(See all)</a>
+          </div>
         </div>
         <p>Bring back victories for the group to celebrate. Time to start Winning. Earn your badges and help prove to the world that this tribe only consists of winners.</p>
-        <div onClick={() => routePage('/join')}>JOIN THE BROTHERHOOD</div>
+        <div className={classes.btnJoin}  onClick={() => routePage('/join')}>JOIN THE BROTHERHOOD</div>
       </div>
 
 
-
-
-
-
-    </>
+  </div>
 
   )
 }
