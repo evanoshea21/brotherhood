@@ -106,12 +106,25 @@ module.exports = {
   },
 
   getAllUsers: (req, res) => {
-    const { orderBy } = req.body;
     let qString = `SELECT * FROM users;`;
-    if(orderBy === 'date') {
+
+    db.query(qString, function (err, results) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+        return;
+      }
+      res.status(200).send(results);
+    });
+  },
+
+  getUsersOrdered: (req, res) => {
+    const { order } = req.params;
+    let qString;
+    if(order === 'dateJoined') {
       qString = `SELECT * FROM users ORDER BY join_date;`;
-    } else if (orderBy === 'xp') {
-      qString = `SELECT * FROM users ORDER BY xp;;`;
+    } else if (order === 'xp') {
+      qString = `SELECT * FROM users ORDER BY xp DESC;`;
     }
 
     db.query(qString, function (err, results) {

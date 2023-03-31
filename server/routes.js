@@ -4,6 +4,7 @@ const Badges = require('./controllers/Badges.js');
 
 //User routes
 router.get('/users', Users.getAllUsers);
+router.get('/users/orderBy/:order', Users.getUsersOrdered);
 router.get('/user/:email', Users.getUser);
 router.get('/user/id/:id', Users.getUser);
 router.put('/user', Users.updateUserMember); //
