@@ -68,7 +68,7 @@ const UserProfile = ({badgesEarned, badges}) => {
           </div>
           <div className={classes.info}>
             <div className={classes.name}>{thisUser?.fname} {thisUser?.lname}</div>
-            <div className={classes.ageCity}>{age} | {thisUser?.city}</div>
+            <div className={classes.ageCity}>{age} <span style={{margin: '4px'}}>|</span> {thisUser?.city}</div>
             {/* <div className={classes.speechCount}>Speech: {thisUser?.speech_count}</div> */}
               <p className={classes.bioText}>{thisUser?.bio ? thisUser?.bio : 'No bio added yet...'}</p>
 

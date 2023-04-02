@@ -54,12 +54,19 @@
 .pic:hover, .name:hover {
   cursor: pointer;
 }
+.name {
+  font-size: 1.8rem;
+}
 
 .userInfo {
   flex: 4;
   /* width: 20px; */
   /* background-color: azure; */
   padding-left: 47px;
+}
+.ageCity {
+  /* background-color: blue; */
+  margin: -15px 0 0 0;
 }
 .bio {
   margin: 20px 0;

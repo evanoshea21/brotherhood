@@ -48,8 +48,11 @@ const Badges = ({allBadges}) => {
 
   return (
     <div className={classes.main}>
-      <h1>Badges</h1>
+      <h1 className={classes.mainTitle} >Badges</h1>
       {/* Add Badge button for superadmin only (may add admin in future) */}
+      <div className={classes.welcomeBox}>
+        <p className={classes.welcome} >Welcome to the wall of badges. These badges, once earned, <span style={{fontWeight: '400', color: 'var(--primary-color)'}}>are forever </span>engraved into your profile card.</p>
+      </div>
       {['superadmin'].includes(userData?.member_type) && (
         <Button onClick={() => router.push('/addbadge')}  sx={{ml: '30px', p: '10px 20px'}} variant="contained">Add Badge</Button>
       )}

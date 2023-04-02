@@ -26,7 +26,8 @@
   position: absolute;
   top: 2%;
   left: 2%;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
 }
 .badgeCard * {
   /* background-color: antiquewhite; */
@@ -38,12 +39,38 @@
   justify-content: center;
 }
 
+.mainTitle {
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.welcomeBox {
+  display: flex;
+  /* background-color: aquamarine; */
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.welcome {
+  max-width: 580px;
+  margin: 20px;
+  text-align: center;
+  font-size: 2rem
+}
+@media (max-width: 400px) {
+  .welcome {
+    font-size: 1.7rem;
+  }
+}
+
 .title {
   text-align: center;
+  font-size: 2rem;
+  margin: 15px 0;
 }
 .description {
   margin: 10px;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 /* .iconBox {
   display: flex;

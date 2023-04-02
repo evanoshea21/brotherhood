@@ -95,12 +95,12 @@ const MemberCard = ({memberData, badges, badgesEarned}) => {
         <div className={classes.userInfo}>
           <h3 className={classes.name} onClick={() => router.push(`profile/${memberData.id}`)}>{memberData.fname} {memberData.lname}</h3>
 
-          <p>{age} | {memberData.city}</p>
+          <p className={classes.ageCity} >{age} | {memberData.city}</p>
 
           <p className={classes.bio} >{bio}</p>
 
           {(userEarnedBadges?.length !== 0) && (
-            <h3 className={classes.badgeListTitle} >Earned Badges</h3>
+            <h3 className={classes.badgeListTitle} >Badges Earned</h3>
           )}
 
           <div className={classes.badgeList}>

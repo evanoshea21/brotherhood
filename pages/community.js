@@ -9,34 +9,38 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import axios from 'axios';
 
 
+
 const Community = ({members, badges, badgesEarned}) => {
 
   const {userData} = React.useContext(Context);
 
+  const getEvents = () => {
+    return;
+  };
+
+
   return (
     <div className={classes.comm} >
-      <h1>COMMUNITY</h1>
-      <div className={classes.header}>
-        <div className={classes.calendly}>
-          <div className={classes.scrollArrow}>
-            <p>Scroll</p>
-            <KeyboardArrowDownIcon
-            sx={{width: '50px', height: '50px'}}
-            />
-          </div>
+      <div className={classes.calendly1}>
         <InlineWidget
-        url="https://calendly.com/spartanbrotherhood/speech"
-        prefill={{
-          email: userData?.email,
-          firstName: userData?.fname,
-          lastName: userData?.lname,
-          name: `${userData?.fname} ${userData?.lname}`,
-          customAnswers: {
-            a1: 'Optional..',
-          },
-          // date: new Date(Date.now() + 86400000)
-        }}
-        />
+          url="https://calendly.com/spartanbrotherhood/speech"
+          prefill={{
+            email: userData?.email,
+            firstName: userData?.fname,
+            lastName: userData?.lname,
+            name: `${userData?.fname} ${userData?.lname}`,
+            customAnswers: {
+              a1: 'Optional..',
+            },
+            // date: new Date(Date.now() + 86400000)
+          }}
+          />
+
+      </div>
+      <h1 className={classes.mainTitle} >COMMUNITY</h1>
+      <div className={classes.header}>
+        <div className={classes.calendar}>
+          <button onClick={() => getEvents()} >Get calendar events</button>
         </div>
         <div className={classes.resources}>
           <h2>Resources</h2>
@@ -108,17 +112,6 @@ export async function getStaticProps(context) {
     const members = membersRes.data;
     const badgesEarned = badgesEarnedRes.data;
     const badges = badgesRes.data;
-
-    // console.log('SSG: members..', members[0], '\n\nEARNED\n\n', badgesEarned[0]);
-
-    // if(!data) {
-    //   return {
-    //     destination: '/not-found'
-    //   }
-    // }
-    // if(!data.length) {
-    // return {notFound: true}; //redirects to 404 page
-    // }
 
     return {
       props: {

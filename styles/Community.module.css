@@ -4,9 +4,16 @@
 .comm h1, .comm h2 {
   font-family: 'GFS Neohellenic';
 }
+.mainTitle {
+  text-align: center;
+  color: var(--secondary-color);
+  font-size: 3rem;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
 
 .header {
-  /* background-color: aquamarine; */
+  background-color: aquamarine;
   display: flex;
   justify-content: space-between;
 }
@@ -38,6 +45,11 @@
   overflow-y: hidden;
   overflow-x: hidden;
   /* background-color: antiquewhite; */
+}
+.calendly1 {
+  border: 10px solid #006bff;
+  border-radius: 3rem;
+  margin: 10px;
 }
 .scrollArrow {
   position: absolute;

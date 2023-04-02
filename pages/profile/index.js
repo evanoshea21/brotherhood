@@ -263,6 +263,7 @@ let uploadFileToS3 = async () => {
           ) : (
             //edit mode
             <textarea
+            placeholder='insert bio here'
             className={classes.textArea}
             // rows={10}
             // cols={40}
@@ -281,7 +282,7 @@ let uploadFileToS3 = async () => {
             <h1>Badges</h1>
             <div className={classes.badgeList}>
               {/* //badgeEarned, badges, diameterPx, defaultData */}
-              {(earnedBadges.length && badges.length) && (
+              {(earnedBadges && badges) && (
                 earnedBadges.map(earned => (
                   <Badge key={`earned${earned.id}`} badgeEarned={earned} badges={badges} diameterPx='60px'/>
                 ))
