@@ -114,7 +114,9 @@
 }
 .logoBox {
   padding-left: 0px;
-
+}
+.logoBox:hover {
+  cursor: pointer;
 }
 
 }

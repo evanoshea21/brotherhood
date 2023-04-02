@@ -122,7 +122,7 @@ export default function Join() {
     <>
     <div className={classes.main}>
 
-      <h1>Sign In</h1>
+      <h1 className={classes.title} >Sign In</h1>
 
     <div className={classes.formContainer}>
     <form className={classes.joinForm}  onSubmit={e => {e.preventDefault(); submitForm()}}>

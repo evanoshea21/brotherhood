@@ -220,7 +220,11 @@ export default function Join() {
     <>
     <div className={classes.main}>
 
-      <h1>JOIN: </h1>
+      <h1 className={classes.title}>Join Today</h1>
+
+      <div className={classes.welcome}>
+        <p className={classes.welcomePara} >If you have any questions, reach out to us! <br/>Otherwise, feel free to Join by registering below. </p>
+      </div>
 
       {/* IMAGE PICK AND CROP  */}
       <div className={`${classes.imagePick} ${previewUrl ? classes.growAnim : ''}`} >
@@ -232,7 +236,7 @@ export default function Join() {
 
       {/* RESIZE / CROP IMAGE MODAL  */}
       <div className={`${classes.imgPreview} ${previewUrl ? classes.fadeInAnim : ''}`}>
-        <Avatar alt="Remy Sharp" src={previewUrl}
+        <Avatar alt="Remy Sharp" src={previewUrl || '/defaultProfilePic.jpeg'}
         sx={{ width: 154, height: 154 }}
         />
         {localUrl && (

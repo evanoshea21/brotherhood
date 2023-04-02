@@ -76,7 +76,7 @@ const Layout = ({children}) => {
       <div className={classes.container}>
 
         <div style={homeNavStyle} className={classes.bigNav}>
-          <div className={classes.logoBox}>
+          <div onClick={() => routeHome()}className={classes.logoBox}>
             {/* <img onClick={routeHome} src='/helmetLogo.png'/> */}
             <h1 className={classes.logo} >Seattle Speakers</h1>
 
@@ -113,24 +113,24 @@ const Layout = ({children}) => {
                   textAlign: 'center', borderRadius: '4px',
                   backgroundColor: 'var(--primary-color)',
                   // border: '2px solid var(--secondary2-color)',
-                  ml: {xs: '10px', sm: '30px'}, mb: '8px',
+                  ml: {xs: '0px', sm: '0px'}, mb: '8px',
                   py: '8px'
                 }}
                 color='var(--secondary2-color)'
                 >Sign In</Typography>
-                <Button onClick={routeJoin} sx={{p: '10px 25px', ml: {xs: '10px', sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+                <Button onClick={routeJoin} sx={{p: '4px 6px', ml: {xs: '0px', sm: '0px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
               </div>
 
             )}
 
           </div>
-          <div className={classes.logoBox}>
+          <div onClick={() => routeHome()}  className={classes.logoBox}>
             {/* <img src='/helmetLogo.png'/> */}
             <h1 className={classes.logo1} >Seattle Speakers</h1>
             <h1 className={classes.logo2} >Seattle<br/>Speakers</h1>
           </div>
           <div className={classes.drawer}>
-            <Drawer dimension='70px' color='text.secondary'/>
+            <Drawer dimension='60px' color='text.secondary'/>
           </div>
         </div>
 

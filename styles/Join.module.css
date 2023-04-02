@@ -3,6 +3,23 @@
   font-family: var(--font2);
   padding-bottom: 50px;
 }
+.title {
+  text-align: center;
+  font-size: 3rem;
+}
+.welcome {
+  display: flex;
+  justify-content: center;
+  margin: 0 15px;
+}
+.welcomePara {
+  margin: 5px 0 25px 0;
+  max-width: 600px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-family: var(--font3);
+  font-weight: 400;
+}
 
 .formContainer {
   width: 300px;
@@ -56,6 +73,7 @@
   flex-direction: column;
   align-items: center;
   height: 220px;
+  margin-bottom: 30px;
 }
 .growAnim {
   animation: grow .5s ease;

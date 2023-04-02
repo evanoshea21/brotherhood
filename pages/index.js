@@ -47,18 +47,33 @@ export default function Home() {
         <p className={classes.p1}>You will be surrounded by men who want to be the best versions of themselves. In this environment, you will learn: </p>
         <div className={classes.threeCols}>
           <div>
+            <div className={classes.iconBox}>
+              <div className={classes.icon}>
+                <img src='/mic2.png' />
+              </div>
+            </div>
           <div className={classes.sectionH2}>
               <h2>Confidence and Articulation</h2>
             </div>
             <p>Practice public speaking so you can improve your social skills in both small and large groups of people.</p>
           </div>
           <div>
+          <div className={classes.iconBox}>
+              <div className={classes.icon}>
+                <img src='/mind2.png' />
+              </div>
+            </div>
             <div className={classes.sectionH2b}>
               <h2>Mental Fortitude</h2>
             </div>
             <p>Master your mind and become disciplined and stoic, so you can attack goals with conviction.<br/><br/>This starts with building your self-identity.</p>
           </div>
           <div>
+          <div className={classes.iconBox}>
+              <div className={classes.icon}>
+                <img src='/contract.png' />
+              </div>
+            </div>
           <div className={classes.sectionH2}>
               <h2>Accountability</h2>
             </div>
