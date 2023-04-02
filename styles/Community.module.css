@@ -13,15 +13,45 @@
 }
 
 .header {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.header * {
+.header > * {
   margin: 0 20px;
   /* background-color: rgb(72, 72, 221); */
   /* height: 1000px; */
 }
+.calendarBox {
+  /* background-color: #ea4335; */
+  height: 300px;
+  /* max-width: 90vw; */
+  flex: 1 1 375px;
+}
+.calendarBox:hover {
+  cursor: pointer;
+}
+@media (max-width: 400px) {
+  .calendarBox {
+    height: 200px;
+  }
+  .img {
+    border: 0px solid white;
+  }
+  .header > * {
+    margin: 5px;
+  }
+}
+.img {
+  /* border: 4px solid #006aff8c; */
+  border-radius: 14px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
 .resources {
   padding: 20px 0;
 }
@@ -36,21 +66,6 @@
   align-items: center;
 }
 
-.calendly {
-  position: relative;
-  flex: 1.5;
-  max-width: 500px;
-  /* height: 1000px; */
-  max-height: 450px;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  /* background-color: antiquewhite; */
-}
-.calendly1 {
-  border: 10px solid #006bff;
-  border-radius: 3rem;
-  margin: 10px;
-}
 .scrollArrow {
   position: absolute;
   top: 80%;
@@ -79,6 +94,7 @@
 /* RESOURCES */
 
 .discord,
+.notion,
 .facebook,
 .googleCalIcon
 {
@@ -96,6 +112,10 @@
 }
 .discord {
   background-color: #5865F2;
+}
+.notion {
+  background-color: #c5c5c5;
+  color: black;
 }
 .discord i {
   transform: translateX(-3px);

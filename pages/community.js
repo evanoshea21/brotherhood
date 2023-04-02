@@ -7,21 +7,20 @@ import MemberCard from '../components/MemberCard.js';
 import { Context } from '../globals/context.js';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import axios from 'axios';
-
+import { useRouter } from 'next/router';
 
 
 const Community = ({members, badges, badgesEarned}) => {
-
+  const router = useRouter();
   const {userData} = React.useContext(Context);
+  const [showCalendly, setShowCalendly] = React.useState(false);
 
-  const getEvents = () => {
-    return;
-  };
-
+  members.reverse();
 
   return (
     <div className={classes.comm} >
       <div className={classes.calendly1}>
+        {/* {showCalendly && (
         <InlineWidget
           url="https://calendly.com/spartanbrotherhood/speech"
           prefill={{
@@ -35,17 +34,21 @@ const Community = ({members, badges, badgesEarned}) => {
             // date: new Date(Date.now() + 86400000)
           }}
           />
-
+        )} */}
       </div>
       <h1 className={classes.mainTitle} >COMMUNITY</h1>
       <div className={classes.header}>
-        <div className={classes.calendar}>
-          <button onClick={() => getEvents()} >Get calendar events</button>
+        <div onClick={() => router.push('/schedule')}  className={classes.calendarBox}>
+          <img className={classes.img}  src='/calendly2.png'></img>
         </div>
         <div className={classes.resources}>
           <h2>Resources</h2>
 
           <div className={classes.buttons}>
+          <div className={classes.notion}>
+          <i className="fa-sharp fa-solid fa-n"></i>
+            <p>Notion Page</p>
+          </div>
           <div className={classes.discord}>
             <i className="fa-brands fa-discord"></i>
             <p>DISCORD</p>
@@ -83,7 +86,7 @@ const Community = ({members, badges, badgesEarned}) => {
 
       {/* MEMBERS  */}
       <div>
-        <h1>Members</h1>
+        <h1 className={classes.mainTitle} >Members</h1>
         <div className={classes.members}>
         {members.map(memberData => {
           return (

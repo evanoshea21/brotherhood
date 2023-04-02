@@ -24,7 +24,7 @@ const Mission = () => {
         Confidence in expression will ultimately aid you in creating meaningful connections, standing up for what you believe in, getting a promotion or raise at work, meeting and courting your future partner, and more.</p>
       </div>
       <div className={classes.col2}>
-        <h3 className={classes.smallHeader} >Mind Control</h3>
+        <h3 className={classes.smallHeader} >Mentality Training</h3>
         <p>The only thing that man can control is the contents of his mind. Here we foster a powerful self-Identity and practice positive Self-talk as it massively impacts success and self-worth. Without mental stoicism and discipline, man lays at the mercy of his environment.
         <br/><br/>
 

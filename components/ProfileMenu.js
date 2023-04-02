@@ -14,6 +14,7 @@ import Logout from '@mui/icons-material/Logout';
 import { getAuth, signOut } from "firebase/auth";
 import { Context } from '../globals/context.js';
 import {useRouter} from 'next/router'
+import PeopleIcon from '@mui/icons-material/People';
 
 export default function AccountMenu({userData, diameter}) {
   const router = useRouter();
@@ -102,14 +103,17 @@ export default function AccountMenu({userData, diameter}) {
 
         <MenuItem onClick={() => router.push('/community')} >
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <PeopleIcon fontSize="small" />
           </ListItemIcon>
           Community Page
         </MenuItem>
         <Divider />
         {['superadmin', 'admin'].includes(userData?.member_type) && (
           <MenuItem onClick={() => router.push('/admin/members')}>
-            [ADMIN] Members Page
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+            Members Page (Admin)
           </MenuItem>
         )}
         {/* <MenuItem onClick={handleClose}>
