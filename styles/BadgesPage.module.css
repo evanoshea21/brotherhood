@@ -71,6 +71,7 @@
 .description {
   margin: 10px;
   font-size: 1.3rem;
+  text-align: justify;
 }
 /* .iconBox {
   display: flex;

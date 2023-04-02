@@ -25,7 +25,7 @@ VALUES ("jeffrey23@gmail.com", "Jeff", "Stevenson", "Richmond", "https://theaggi
 --  BADGES --------------
 
 INSERT INTO badges (name, requirements, rundown, description, image_path)
-VALUES ("Attend your First Meeting", "['Do X','And Y', 'And Z Last']", "Show Up and Earn your First Badge", "By attending our club meeting, you are demonstrating to us and to yourself that you are taking this challenge seriously.", "/badges/green.png");
+VALUES ("Attend your First Meeting", "['Do X','And Y', 'And Z Last']", "Show Up and Earn your First Badge", "By attending our club meeting, you are demonstrating to us and to yourself that you are taking this challenge of public speaking seriously.", "/badges/green.png");
 INSERT INTO badges (name, requirements, rundown, description, image_path)
 VALUES ("First Speech", "['Do this','And This', 'Video yourself']", "Give your first Speech", "Give your first speech in front of the group. You'll introduce yourself and receive feedback so you have a clear starting point in your journey to becoming better!", "/badges/high-gold.png");
 INSERT INTO badges (name, requirements, rundown, description, image_path)
@@ -33,7 +33,7 @@ VALUES ("Rhetorical", "['Do this','And XYZ', 'Post video on IG']", "Build a Slid
 INSERT INTO badges (name, requirements, rundown, description, image_path)
 VALUES ("Tell a Story", "['Do this','And XYZ', 'Post video on IG']", "Recite from memory a Story", "Practice your ability to pace yourself and nail the qualities of a good storyteller. This involves setting the scene, building tension, and surprising your audience with a climactic event of some sort.", "/badges/gold.png");
 INSERT INTO badges (name, requirements, rundown, description, image_path)
-VALUES ("Engage the Audience", "['Do this','And XYZ', 'Post video on IG']", "Involve the audience and Improvise", "This challenge involves Preparing a speech that serves like a group discussion. You will ask of the engagement of the audience and think on your feet to keep the conversation going.", "/badges/blue.png");
+VALUES ("Engage the Audience", "['Do this','And XYZ', 'Post video on IG']", "Involve the audience and Improvise", "This challenge involves Preparing a speech that serves like a group discussion. You will request engagement from the audience and must think on your feet to keep the conversation going.", "/badges/blue.png");
 
 --  BADGES EARNED --------------
 
