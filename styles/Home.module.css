@@ -18,6 +18,9 @@
   .paddingTop {
     height: 90vh;
   }
+  .headerBox {
+    /* padding-top: 100px; */
+  }
   .imgBox {
     display: absolute;
     transform: translate(0, 100px);
@@ -27,7 +30,7 @@
 }
 @media (min-width: 850px) {
   .header {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     height: 100vh;
   }
 }
@@ -56,6 +59,8 @@
   background-color: black;
 }
 .headerBox {
+  /* border: 10px solid red; */
+  /* padding-top: 30px; */
   /* background-color: aquamarine; */
   max-width: 1000px;
   display: flex;
@@ -63,6 +68,21 @@
   flex-wrap: wrap;
   /* justify-content: center; */
 }
+@media (min-width: 850px) {
+  .headerBox {
+    padding-top: 50px;
+  }
+}
+@media screen and (max-width: 400),
+       screen and (max-height: 790px) {
+        .headerBox img {
+          /* border: 10px solid red; */
+          opacity: .3;
+        }
+        .headerBox h1 {
+          transform: translate(0, -100px);
+        }
+       }
 .headerBox * {
   flex: 1 1 425px;
 }
@@ -90,14 +110,15 @@
   height: 70vh;
   /* background: linear-gradient(290deg, var(--primary-color) 10%, var(--bright-color)); */
   /* background: var(--bright-color); */
-  mask-image: url('/spartanClip2.png');
-  mask-size: contain;
+  /* mask-image: url('/spartanClip2.png'); */
+  /* mask-image: url('/cicero.png'); */
+  /* mask-size: contain;
   mask-repeat: no-repeat;
-  mask-position: center;
+  mask-position: center; */
 }
 .imgBox img {
-  mix-blend-mode: multiply;
-  object-fit: cover;
+  /* mix-blend-mode: multiply; */
+  object-fit: contain;
   width: 100%;
   height: 100%;
 }
@@ -129,12 +150,13 @@
   margin-top: 30px;
   flex-wrap: wrap;
 }
+
 .threeCols * {
   /* background-color: var(--bg-color); */
   background-color: var(--primary-color);
-  flex: 1 1 250px;
+  flex: 1 1 280px;
   margin: 10px;
-  padding: 5px;
+  /* padding: 5px; */
   max-width: 400px;
 }
 .sectionH2,.sectionH2b {
@@ -155,7 +177,8 @@
   font-weight: 400;
   margin: 20px;
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  line-height: 1.4;
 }
 
 @media (max-width: 672px) {

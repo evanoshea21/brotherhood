@@ -80,7 +80,9 @@ const MemberCard = ({memberData, badges, badgesEarned}) => {
         {justJoined ? (
           <div className={`${classes2.ribbon} ${classes2.ribbonTopRight}`}><span>Just Joined !</span></div>
           ) : (
-          <div className={classes.xp}>{memberData.xp} XP</div>
+            <>
+            </>
+          // <div className={classes.xp}>{memberData.xp} XP</div>
         )}
       {/* <div className={classes.div}> */}
 

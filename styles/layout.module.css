@@ -36,9 +36,42 @@
   color: var(--secondary-color);
 }
 
+.logo {
+  font-family: var(--font);
+  font-size: 3rem;
+  color: var(--bright-color);
+}
+.logo1, .logo2 {
+  /* background-color: grey; */
+  transform: translate(0, 10px);
+  font-family: var(--font);
+  font-size: 2.5rem;
+  color: var(--bright-color);
+}
+.logo2 {
+  display: none;
+}
+@media (max-width: 485px) {
+  .logo1 {
+    font-size: 1.8rem;
+    text-align: center;
+    transform: translate(0, 28px);
+  }
+}
+@media (max-width: 420px) {
+  .logo1 {
+    display: none;
+  }
+  .logo2 {
+    display: block;
+    text-align: center;
+    transform: translate(0, 0px);
+  }
+}
+
 .logoBox {
   /* background-color: rgb(196, 196, 196); */
-  width: 130px;
+  /* width: 130px; */
   height: 130px;
   padding-left: 30px;
 }
@@ -68,7 +101,7 @@
   display: none;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 814px) {
   .bigNav
   {
   display: none;

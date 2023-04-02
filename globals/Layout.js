@@ -77,7 +77,9 @@ const Layout = ({children}) => {
 
         <div style={homeNavStyle} className={classes.bigNav}>
           <div className={classes.logoBox}>
-            <img onClick={routeHome} src='/helmetLogo.png'/>
+            {/* <img onClick={routeHome} src='/helmetLogo.png'/> */}
+            <h1 className={classes.logo} >Seattle Speakers</h1>
+
           </div>
           <div className={classes.navItems}>
             <Link className={classes.link} href='/tenets'>Tenets</Link>
@@ -123,7 +125,9 @@ const Layout = ({children}) => {
 
           </div>
           <div className={classes.logoBox}>
-            <img src='/helmetLogo.png'/>
+            {/* <img src='/helmetLogo.png'/> */}
+            <h1 className={classes.logo1} >Seattle Speakers</h1>
+            <h1 className={classes.logo2} >Seattle<br/>Speakers</h1>
           </div>
           <div className={classes.drawer}>
             <Drawer dimension='70px' color='text.secondary'/>

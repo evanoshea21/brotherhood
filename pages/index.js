@@ -31,10 +31,12 @@ export default function Home() {
       <div className={classes.header}>
       <div className={classes.headerBox}>
         <div className={classes.imgBox}>
-          <img src='/redGold.png' />
+          {/* <img src='/redGold.png' /> */}
+          <img src='/cicero.png' />
         </div>
         <div className={classes.title}>
-          <h1>Building a <span style={{fontWeight: 700}}>Strong</span> Tribe of Men in Washington State</h1>
+          <h1>Building an <span style={{fontWeight: 700}}>Articulate</span> Tribe of Men in Washington State</h1>
+          {/* <h1>Building a <span style={{fontWeight: 700}}>Strong</span> Tribe of Men in Washington State</h1> */}
         </div>
       </div>
       </div>
@@ -48,19 +50,19 @@ export default function Home() {
           <div className={classes.sectionH2}>
               <h2>Confidence and Articulation</h2>
             </div>
-            <p>You will practice public speaking so you can improve your social skills in both small and large groups of people.</p>
+            <p>Practice public speaking so you can improve your social skills in both small and large groups of people.</p>
           </div>
           <div>
             <div className={classes.sectionH2b}>
               <h2>Mental Fortitude</h2>
             </div>
-            <p>You will master your own mind and become disciplined, so you can attack goals with pure belief in yourself. This begins with building your self-identity.</p>
+            <p>Master your mind and become disciplined and stoic, so you can attack goals with conviction.<br/><br/>This starts with building your self-identity.</p>
           </div>
           <div>
           <div className={classes.sectionH2}>
               <h2>Accountability</h2>
             </div>
-            <p>You will be surrounded by Winners who will lift you up and keep you accountable. This brotherhood is what makes us strong.</p>
+            <p>You will be surrounded by Optimistic Men who will lift you up and keep you accountable. This brotherhood is what makes us strong.</p>
           </div>
 
         </div>
@@ -87,7 +89,7 @@ export default function Home() {
           <div>
             <h3>1</h3>
             <p>
-            Complete a Challenge. Earn a Badge that is pinned on your profile.
+            Complete a Challenge. Earn a Badge that is etched into your profile forever.
             </p>
           </div>
           <div>
@@ -99,7 +101,7 @@ export default function Home() {
           <div className={classes.lastDiv} >
             <h3>3</h3>
             <p>
-            Test your comfort zone both physically and mentally. Badges can also be earned by giving presentations or making contributions to the group.
+            Test your comfort zone both physically and mentally.
             </p>
             <a style={{fontSize: '1.3rem'}} href='/badges'>(View all Badges)</a>
           </div>

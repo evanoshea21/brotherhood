@@ -63,7 +63,7 @@ const Badges = ({allBadges}) => {
           <>
           {badges.map(badgeData => (
             <div key={`badges${badgeData.id}`} id={`badges-${badgeData.id}`} className={classes.badgeCard}>
-              <div className={classes.xp}>{badgeData.xp} XP</div>
+              {/* <div className={classes.xp}>{badgeData.xp} XP</div> */}
               <div className={classes.content}>
                 <div className={classes.badge}>
                   <Badge diameterPx='150px' defaultData={badgeData}/>
