@@ -104,7 +104,7 @@ export default function Home() {
           <div>
             <h3>1</h3>
             <p>
-            Complete a Challenge. Earn a Badge that is etched into your profile forever.
+            Complete a Challenge and you'll earn a <span style={{fontWeight: '800'}}>Badge</span> that is etched into your profile forever.
             </p>
           </div>
           <div>
@@ -118,7 +118,7 @@ export default function Home() {
             <p>
             Test your comfort zone both physically and mentally.
             </p>
-            <a style={{fontSize: '1.3rem'}} href='/badges'>(View all Badges)</a>
+            <a style={{color: 'var(--secondary-color)', fontSize: '1.3rem'}} href='/badges'>(View all Badges)</a>
           </div>
         </div>
         <p>Time to start Winning. Bring back victories and help build a strong reputation for the tribe and for yourself.</p>
