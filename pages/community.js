@@ -13,9 +13,13 @@ import { useRouter } from 'next/router';
 const Community = ({members, badges, badgesEarned}) => {
   const router = useRouter();
   const {userData} = React.useContext(Context);
-  const [showCalendly, setShowCalendly] = React.useState(false);
+  const [shownMembers, setShownMembers] = React.useState([]);
 
-  members.reverse();
+  React.useEffect(() => {
+    if(Array.isArray(members)) {
+      setShownMembers(members.reverse());
+    }
+  },[]);
 
   if(!userData?.email) {
     return (
@@ -26,21 +30,6 @@ const Community = ({members, badges, badgesEarned}) => {
   return (
     <div className={classes.comm} >
       <div className={classes.calendly1}>
-        {/* {showCalendly && (
-        <InlineWidget
-          url="https://calendly.com/spartanbrotherhood/speech"
-          prefill={{
-            email: userData?.email,
-            firstName: userData?.fname,
-            lastName: userData?.lname,
-            name: `${userData?.fname} ${userData?.lname}`,
-            customAnswers: {
-              a1: 'Optional..',
-            },
-            // date: new Date(Date.now() + 86400000)
-          }}
-          />
-        )} */}
       </div>
       <h1 className={classes.mainTitle} >COMMUNITY</h1>
       <div className={classes.header}>
@@ -94,7 +83,7 @@ const Community = ({members, badges, badgesEarned}) => {
       <div>
         <h1 className={classes.mainTitle} >Members</h1>
         <div className={classes.members}>
-        {members.map(memberData => {
+        {shownMembers.map(memberData => {
           return (
             <MemberCard key={memberData.id} memberData={memberData} badges={badges} badgesEarned={badgesEarned}/>
           )
