@@ -112,14 +112,16 @@ const Layout = ({children}) => {
                 onClick={() => router.push('/signin')}
                 sx={{
                   textAlign: 'center', borderRadius: '4px',
-                  backgroundColor: 'var(--primary-color)',
+                  ':hover': {cursor: 'pointer', backgroundColor: 'text.primary', color: 'text.bright'},
+                  backgroundColor: 'var(--primary2-color)',
+
                   // border: '2px solid var(--secondary2-color)',
                   ml: {xs: '0px', sm: '0px'}, mb: '8px',
                   py: '8px'
                 }}
-                color='var(--secondary2-color)'
+                color='var(--bright-color)'
                 >Sign In</Typography>
-                <Button onClick={routeJoin} sx={{p: '4px 6px', ml: {xs: '0px', sm: '0px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+                <Button onClick={routeJoin} sx={{':hover': {backgroundColor: 'text.primary', color: 'text.bright'}, backgroundColor: 'text.bright', p: '4px 6px', ml: {xs: '0px', sm: '0px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
               </div>
 
             )}
