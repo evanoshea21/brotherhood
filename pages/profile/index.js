@@ -229,7 +229,9 @@ let uploadFileToS3 = async () => {
           label="First Name"
           defaultValue={userData?.fname}
           inputRef={fnameRef}
-          variant="outlined" />
+          variant="outlined"
+          sx={{m: '6px'}}
+          />
 
           <TextField
           // color='secondary'
@@ -240,6 +242,7 @@ let uploadFileToS3 = async () => {
           label="Last Name"
           defaultValue={userData?.lname}
           inputRef={lnameRef}
+          sx={{m: '6px'}}
           variant="outlined" />
           </div>
         )}
@@ -254,6 +257,7 @@ let uploadFileToS3 = async () => {
           // color='secondary'
           // error={cityErr}
           helperText=''
+          sx={{m: '6px'}}
           // InputProps={{onFocus: () => setFnameErr(false)}}
           InputLabelProps={{style: { color: '#800A01' }}}
           label="City"
@@ -269,7 +273,7 @@ let uploadFileToS3 = async () => {
           ) : (
             //edit mode
             <textarea
-            placeholder='insert bio here'
+            placeholder='Insert your bio here. ie: "Hi, my name is Josh. I recently joined this group because I want to xyz."'
             className={classes.textArea}
             // rows={10}
             // cols={40}
@@ -331,6 +335,7 @@ let uploadFileToS3 = async () => {
                 label="Your Discord Handle"
                 defaultValue={userData?.discord_handle}
                 inputRef={discordRef}
+                sx={{m: '6px'}}
                 variant="outlined"
               />
               <TextField
@@ -339,6 +344,7 @@ let uploadFileToS3 = async () => {
                 label="Your Notion Page"
                 defaultValue={userData?.notion_link}
                 inputRef={notionRef}
+                sx={{m: '6px'}}
                 variant="outlined"
               />
               </>
