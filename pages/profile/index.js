@@ -157,7 +157,7 @@ let uploadFileToS3 = async () => {
 
   if(!userData?.email) {
     return (
-      <h1>Must be logges in to see this page</h1>
+      <h1>Must be logged in to see this page</h1>
     )
   }
 
