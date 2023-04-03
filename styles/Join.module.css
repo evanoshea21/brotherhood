@@ -39,12 +39,12 @@
   font-family: var(--font2);
 }
 .submitBtn {
-  appearance: none;
+  -webkit-appearance: none;
   padding: 14px;
   margin-top: 20px;
 }
 .submitBtn3 {
-  appearance: none;
+  -webkit-appearance: none;
   padding: 5px;
   margin-top: 20px;
 }
