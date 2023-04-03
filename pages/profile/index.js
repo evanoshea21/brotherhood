@@ -155,6 +155,12 @@ let uploadFileToS3 = async () => {
     .catch(err => console.warn(err));
   }
 
+  if(!userData?.email) {
+    return (
+      <h1>Must be logges in to see this page</h1>
+    )
+  }
+
 
   return (
     <div className={classes.main}>
