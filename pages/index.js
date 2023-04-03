@@ -35,7 +35,7 @@ export default function Home() {
           <img src='/cicero.png' />
         </div>
         <div className={classes.title}>
-          <h1>Building an <span style={{fontWeight: 700}}>Articulate</span> Tribe of Men in Washington State</h1>
+          <h1 style={{zIndex: '10'}}>Building an <span style={{fontWeight: 700}}>Articulate</span> Tribe of Men in Washington State</h1>
           {/* <h1>Building a <span style={{fontWeight: 700}}>Strong</span> Tribe of Men in Washington State</h1> */}
         </div>
       </div>
