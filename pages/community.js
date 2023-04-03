@@ -122,7 +122,7 @@ export async function getStaticProps(context) {
         badgesEarned,
         badges
       },
-      revalidate: 300, // 5 minutes
+      revalidate: 30, // 30 seconds
     }
 
   } //end getStaticProps
