@@ -43,7 +43,7 @@ export default function TemporaryDrawer({dimension, color}) {
             <ListItemButton onClick={() => router.push(`/${text.toLowerCase()}`)} >
               <ListItemIcon>
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primaryTypographyProps={{fontSize: '2rem'}} primary={text} />
             </ListItemButton>
           </ListItem>
         ))}

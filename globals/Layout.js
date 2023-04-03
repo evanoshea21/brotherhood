@@ -89,8 +89,9 @@ const Layout = ({children}) => {
               <ProfileMenu userData={userData} diameter='50px'/>
             ) : (
               <>
-              <Button onClick={routeJoin} sx={{p: '6px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
-              <Button onClick={() => router.push('/signin')} sx={{p: '6px 10px', ml: {sm: '10px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="outlined">Sign in</Button>
+              <Button onClick={routeJoin} sx={{':hover': {backgroundColor: 'text.primary', color: 'text.bright'}, backgroundColor: 'text.bright', p: '6px 25px', ml: {sm: '30px'}, color: 'text.primary', fontWeight: 700, fontSize: '1.2rem'}} variant="contained">JOIN</Button>
+
+              <Button onClick={() => router.push('/signin')} sx={{':hover': {backgroundColor: 'text.primary', color: 'text.bright'}, p: '6px 10px', ml: {sm: '10px'}, color: 'text.bright', fontWeight: 700, fontSize: '1.2rem'}} variant="outlined">Sign in</Button>
               </>
 
             )}
@@ -171,7 +172,8 @@ const theme = createTheme({
   palette: {
     text:{
       primary: "#800A01",
-      secondary: "#B8860B"
+      secondary: "#B8860B",
+      bright: "#fac02c"
     },
     primary: {
       main: '#B8860B', //gold
@@ -183,6 +185,6 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'GFS Neohellenic, sans-serif',
+    fontFamily: 'League Spartan, sans-serif',
   }
 });
