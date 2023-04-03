@@ -13,13 +13,6 @@ import { useRouter } from 'next/router';
 const Community = ({members, badges, badgesEarned}) => {
   const router = useRouter();
   const {userData} = React.useContext(Context);
-  const [shownMembers, setShownMembers] = React.useState([]);
-
-  React.useEffect(() => {
-    if(Array.isArray(members)) {
-      setShownMembers(members.reverse());
-    }
-  },[]);
 
   if(!userData?.email) {
     return (
@@ -83,7 +76,7 @@ const Community = ({members, badges, badgesEarned}) => {
       <div>
         <h1 className={classes.mainTitle} >Members</h1>
         <div className={classes.members}>
-        {shownMembers.map(memberData => {
+        {members.map(memberData => {
           return (
             <MemberCard key={memberData.id} memberData={memberData} badges={badges} badgesEarned={badgesEarned}/>
           )
@@ -111,6 +104,7 @@ export async function getStaticProps(context) {
     const badgesEarned = badgesEarnedRes.data;
     const badges = badgesRes.data;
 
+    members.reverse(); // return reversed order
     return {
       props: {
         members,
