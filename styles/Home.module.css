@@ -78,6 +78,7 @@
     .headerBox img {
       opacity: .3;
     }
+
     .headerBox h1 {
       transform: translate(0, -100px);
     }
@@ -375,7 +376,10 @@
 .fadeInAnim {
   animation: fadeIn 1.8s ease .2s;
   animation-fill-mode: both;
-
+}
+.fadeInAnimSmall {
+  animation: fadeInSmall 1.8s ease .2s;
+  animation-fill-mode: both;
 }
 
 @keyframes fadeUp {
@@ -398,6 +402,18 @@
     /* transform: translate(0, 0px); */
     scale: 1;
     opacity: 1;
+  }
+}
+@keyframes fadeInSmall {
+  from {
+    /* transform: translate(0, 30px); */
+    scale: .97;
+    opacity: 0;
+  }
+  to {
+    /* transform: translate(0, 0px); */
+    scale: 1;
+    opacity: .3;
   }
 }
 

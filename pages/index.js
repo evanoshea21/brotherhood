@@ -86,7 +86,7 @@ export default function Home() {
             </>
           )}
           {windowSize[0] <= 900 && (
-            <img className={classes.fadeInAnim}  src='/cicero.png' />
+            <img className={(windowSize[0] < 400 && windowSize[1] < 790) ? classes.fadeInAnimSmall : (classes.fadeInAnim)}  src='/cicero.png' />
           )}
 
 
