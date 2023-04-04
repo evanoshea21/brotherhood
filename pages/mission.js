@@ -100,7 +100,7 @@ const Mission = () => {
     This group was founded by Evan O'Shea based
     out of Everett, WA. He was tired of seeing an epidemic of young men with no purpose and little confidence in what they believe in.
     <br/> <br/>
-    He whole-heartedly believes that men are stronger when they get together and hold each other accounntable. Being unified by a single purpose builds a forward momentum that isn't deterred as easily by the everyday obstacles of life.
+    He whole-heartedly believes that men are stronger when they get together and hold each other accountable. Being unified by a single purpose builds a forward momentum that isn't deterred as easily by the everyday obstacles of life.
     <br/><br/>
     </p>
     </div>
