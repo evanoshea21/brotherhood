@@ -8,7 +8,9 @@ import axios from 'axios';
 import { Context } from '../globals/context.js';
 import classes from '../styles/Home.module.css';
 import { useRouter } from 'next/router';
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
+import { useInViewport } from 'react-in-viewport';
+
 
 // const pageCenter = {
 //   display: 'flex',
@@ -20,6 +22,13 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const { testContext } = React.useContext(Context);
   const router = useRouter();
+
+  //IN VIEWPORT REF
+  const myRef = React.useRef();
+  let config;
+  const {inViewport, enterCount, leaveCount} =
+  useInViewport(myRef, {}, config = { disconnectOnLeave: false }
+  );
 
   const routePage = (path) => {
     router.push(path);
@@ -100,20 +109,20 @@ export default function Home() {
         <p>
         Don't know where to begin? We have a set of challenges that you can conquer.
         <br/></p>
-        <div className={classes.opCols}>
-          <div>
+        <div ref={myRef} className={classes.opCols}>
+          <div className={inViewport ? classes.fadeUpSlow : ''}>
             <h3>1</h3>
             <p>
             Complete a Challenge and you'll earn a <span style={{fontWeight: '800'}}>Badge</span> that is etched into your profile forever.
             </p>
           </div>
-          <div>
+          <div className={inViewport ? classes.fadeUpMed : ''} >
             <h3>2</h3>
             <p>
             Earn more badges, build your character, and celebrate your achievements with the group.
             </p>
           </div>
-          <div className={classes.lastDiv} >
+          <div className={inViewport ? classes.fadeUpFast : ''}>
             <h3>3</h3>
             <p>
             Test your comfort zone both physically and mentally.
