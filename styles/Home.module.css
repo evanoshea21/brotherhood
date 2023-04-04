@@ -111,8 +111,10 @@
 }
 
 .imgBox {
+  position: relative;
   width: 50%;
   height: 70vh;
+  /* border: 2px solid green; */
   /* background: linear-gradient(290deg, var(--primary-color) 10%, var(--bright-color)); */
   /* background: var(--bright-color); */
   /* mask-image: url('/spartanClip2.png'); */
@@ -121,6 +123,20 @@
   mask-repeat: no-repeat;
   mask-position: center; */
 }
+.video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* z-index: 100; */
+  /* rotate: -90deg; */
+  /* border: 1px solid green; */
+  object-fit: cover;
+  object-position: 50px;
+  /* top: 0; */
+  /* left: 0; */
+  mix-blend-mode: multiply;
+}
+
 .imgBox img {
   /* mix-blend-mode: multiply; */
   object-fit: contain;
@@ -356,6 +372,12 @@
 
 }
 
+.fadeInAnim {
+  animation: fadeIn 1.8s ease .2s;
+  animation-fill-mode: both;
+
+}
+
 @keyframes fadeUp {
   from {
     transform: translate(0, 30px);
@@ -363,6 +385,18 @@
   }
   to {
     transform: translate(0, 0px);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    /* transform: translate(0, 30px); */
+    scale: .97;
+    opacity: 0;
+  }
+  to {
+    /* transform: translate(0, 0px); */
+    scale: 1;
     opacity: 1;
   }
 }

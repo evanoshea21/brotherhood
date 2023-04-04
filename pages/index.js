@@ -23,6 +23,9 @@ export default function Home() {
   const { testContext } = React.useContext(Context);
   const router = useRouter();
 
+  const [hideVideo, setHideVideo] = React.useState(false);
+  const [vidReady, setVidReady] = React.useState(false);
+
   //IN VIEWPORT REF
   const myRef = React.useRef();
   let config;
@@ -34,14 +37,59 @@ export default function Home() {
     router.push(path);
   }
 
-  return (
+  const [windowSize, setWindowSize] = React.useState([]);
+
+  React.useEffect(() => { //window resize
+    if(window) {
+      const handleWindowResize = () => {
+        setWindowSize([window.innerWidth, window.innerHeight]);
+      };
+      handleWindowResize();
+      window.addEventListener('resize', handleWindowResize);
+
+      return () => {
+        window.removeEventListener('resize', handleWindowResize);
+      };
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if(vidReady) {
+      setTimeout(() => {
+        setHideVideo(true);
+      }, 3800);
+
+    }
+  },[vidReady]);
+
+
+  return (windowSize) && (
   <div className={classes.main} >
     <div className={classes.paddingTop}></div>
       <div className={classes.header}>
       <div className={classes.headerBox}>
-        <div className={classes.imgBox}>
-          {/* <img src='/redGold.png' /> */}
-          <img src='/cicero.png' />
+        <div className={`${classes.imgBox}`}>
+          {windowSize[0] > 900 && (
+            <>
+            {!hideVideo && (
+            <video className={classes.video}  autoPlay
+            // loop
+            muted
+            onLoadedData={() => setVidReady(true)}
+            >
+              <source src='/smoke.mp4' type='video/mp4'/>
+            </video>
+          )}
+          {vidReady && (
+            <img src='/cicero.png' />
+          )}
+            </>
+          )}
+          {windowSize[0] <= 900 && (
+            <img className={classes.fadeInAnim}  src='/cicero.png' />
+          )}
+
+
         </div>
         <div className={classes.title}>
           <h1 style={{zIndex: '10'}}>Building an <span style={{fontWeight: 700}}>Articulate</span> Tribe of Men in Washington State</h1>
@@ -110,19 +158,19 @@ export default function Home() {
         Don't know where to begin? We have a set of challenges that you can conquer.
         <br/></p>
         <div ref={myRef} className={classes.opCols}>
-          <div className={inViewport ? classes.fadeUpSlow : ''}>
+          <div className={enterCount === 1 ? classes.fadeUpSlow : ''}>
             <h3>1</h3>
             <p>
             Complete a Challenge and you'll earn a <span style={{fontWeight: '800'}}>Badge</span> that is etched into your profile forever.
             </p>
           </div>
-          <div className={inViewport ? classes.fadeUpMed : ''} >
+          <div className={enterCount === 1 ? classes.fadeUpMed : ''} >
             <h3>2</h3>
             <p>
             Earn more badges, build your character, and celebrate your achievements with the group.
             </p>
           </div>
-          <div className={inViewport ? classes.fadeUpFast : ''}>
+          <div className={enterCount === 1 ? classes.fadeUpFast : ''}>
             <h3>3</h3>
             <p>
             Test your comfort zone both physically and mentally.
