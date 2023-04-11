@@ -100,6 +100,7 @@ export default function Home() {
 
 
       <div className={classes.section1}>
+        <h1 className={classes.sectionH1}>[To Sales Callers] NOT INTERESTED in SEO/website services</h1>
         <h1 className={classes.sectionH1}>How you will change</h1>
         <p className={classes.p1}>You will be surrounded by men who want to be the best versions of themselves. In this environment, you will learn: </p>
         <div className={classes.threeCols}>
