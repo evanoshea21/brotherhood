@@ -129,8 +129,11 @@ export default function Join() {
     console.log('got passed form error check...');
     setErrorLabel('');
 
-    // FIREBASE CHECK -> s3 upload -> DB post user
+    // Test Server running -> FIREBASE CHECK -> s3 upload -> DB post user
     try {
+      let serverResponse = await axios({url: '/api/test', method: 'GET'});
+      console.log('server response, ', serverResponse.data);
+
       let firebaseResponse = await signUpUserFB(email, pass);
       setProgress(50);
       console.log('FB sucess:', firebaseResponse);
@@ -176,6 +179,9 @@ export default function Join() {
         setErrorLabel('invalid email');
         setEmailErr(true);
         break;
+      default:
+        setErrorLabel('server error... try again later');
+        setEmailErr(true);
      }
     }
   }
