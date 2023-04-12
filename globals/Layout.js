@@ -18,6 +18,7 @@ const Layout = ({children}) => {
   const [homeNavStyle, setHomeNavStyle] = React.useState({});
   const [displayAdmin, setDisplayAdmin] = React.useState(false);
   const [passwordField, setPasswordField] = React.useState(false);
+  const [serverLabel, setServerLabel] = React.useState(['orange', 'not yet tested']);
   const [statusLabel, setStatusLabel] = React.useState();
   const router = useRouter();
   // const userData = {};
@@ -66,6 +67,15 @@ const Layout = ({children}) => {
   };
 
 
+  function testServer() {
+    axios({url: '/api/test', method: 'GET'})
+    .then(res => {
+      setServerLabel(['green', res.data])
+    })
+    .catch(err => {
+      setServerLabel(['red', err.response.data])
+  });
+  }
 
   return (
 
@@ -145,8 +155,11 @@ const Layout = ({children}) => {
         {/* <p>This is a footer</p> */}
         <p onClick={() => setDisplayAdmin(!displayAdmin)} >Admin Controls</p>
       </div>
+
       {displayAdmin && (
         <>
+        <button onClick={testServer}>Test Server</button>
+        <span style={{color: serverLabel[0]}}>{serverLabel[1]}</span>
 
         <button onClick={() => handleSignOut()} >Sign out</button>
         <button onClick={() => setPasswordField(!passwordField)} >Become Admin</button>

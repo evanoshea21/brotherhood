@@ -6,6 +6,15 @@ export default async function handler(req, res) {
   const PORT = process.env.SERVER_PORT || '5003';
   const base_url = `http://${HOST}:${PORT}`;
 
-  res.status(200).send('test response');
+  console.log('base url test', base_url);
+
+  try {
+    const response = await axios({url: `${base_url}/test`, method: 'GET'});
+
+    console.log('res.data', response.data);
+    res.status(200).send(response.data);
+  } catch(e) {
+    res.status(500).send('not running baby..');
+  }
 
 }

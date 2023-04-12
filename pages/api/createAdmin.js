@@ -9,7 +9,8 @@ export default async function handler(req, res) {
   const { body } = req;
   let response;
 
-  if(body.password === process.env.ADMIN_PASSWORD) {
+  if (body.password === process.env.ADMIN_PASSWORD) {
+
     //send request to database to create superadmin
     response = await axios({url: `${base_url}/user/type`, method: 'PUT', data: {id: body.id, newType: 'superadmin'}});
       res.status(200).send('success');
