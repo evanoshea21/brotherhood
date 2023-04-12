@@ -62,7 +62,7 @@
   flex: 4;
   /* width: 20px; */
   /* background-color: azure; */
-  padding-left: 47px;
+  padding-left: 20px;
 }
 .ageCity {
   /* background-color: blue; */
@@ -95,6 +95,7 @@
     padding: 10px;
   }
   .pic {
+    background-color: red;
     margin: 40px 0;
     padding-left: 10px;
   }
