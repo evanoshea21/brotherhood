@@ -1,5 +1,6 @@
 import React from 'react'
 import {ContextProvider, Context} from './context.js';
+import Head from 'next/head'
 import classes from '../styles/layout.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -81,6 +82,10 @@ const Layout = ({children}) => {
 
       <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+      <Head>
+        <title>Seattle Speakers</title>
+      </Head>
 
       {/* NAVBAR */}
       <div className={classes.container}>
