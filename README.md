@@ -8,12 +8,12 @@ A backend was created to store user credentials (such as profile picture, name, 
 
 ### Fully Responsive Design
 <p align="center">
-<img src="./images/responsiveDemo.gif"  width="80%">
+<img src="./images/responsiveDemo.gif"  width="90%">
 </p>
 
 ### System Architecture
 <p align="center">
-<img src="./images/speakersArchitecture.png"  width="60%">
+<img src="./images/speakersArchitecture.png"  width="70%">
 </p>
 
 * Front-end Next.js app deployed on Vercel
@@ -44,6 +44,11 @@ A backend was created to store user credentials (such as profile picture, name, 
 4. Last was to store the user's form data (name, email, etc) into the MySQL db, including the returned S3 pic URI.
 5. Finally, the user is grabbed from the DB (as the models-controllers construct default values the client didn't set), and is signed into app via firebase, and the page routes the community page—simulating a login.
 
+### Login with Image Crop
+<p align="center">
+<img src="./images/loginDemo.gif"  width="70%">
+</p>
+
 ##### Image Optimizations
 I wanted to keep s3 storage down and, additionally, speed up the image crop feature I implemented. 
 1. Images were immedietely optimized upon selection from user device (capped to 200kb) via a browser image optimizing function I used.
@@ -51,7 +56,7 @@ I wanted to keep s3 storage down and, additionally, speed up the image crop feat
 2. In order to prevent old user images from taking up space, if a user updates their profile pic, code was written to trigger the deletion of the user's previous image from the S3 bucket. This reduced the storage space the required.
 
 <p align="center">
-<img src="./images/speakersArchitecture.png"  width="60%">
+<img src="./images/speakersArchitecture.png"  width="70%">
 </p>
 
 ## Performance Optimization & Refactoring
@@ -68,7 +73,7 @@ The relational database consists of 3 tables:
 
 ### Admin adding Badge to User profile (Demo)
 <p align="center">
-<img src="./images/badgeDemo.gif"  width="60%">
+<img src="./images/badgeDemo.gif"  width="70%">
 </p>
 
 Relationships between the badges and badges earned were made to reduce redundant db entries. The badges_earned table references the user_id and the badge_id.
