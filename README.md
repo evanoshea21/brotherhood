@@ -10,7 +10,7 @@
 #### Summary
 A [Website](https://seattlespeakers.us) to host a club for men who want to improve their public speaking skills.
 The design of this site was focused around gamify-ing self-improvement by providing badges to users for completing challenges.
-A backend was created to store user credentials (such as profile picture, name, email) as well as these badges.
+A backend was created to store user credentials (such as profile picture, name, email) along with these badges.
 [Video Demo here](https://www.linkedin.com/feed/update/urn:li:activity:7033946055893282816/)
 
 ### Fully Responsive Design
