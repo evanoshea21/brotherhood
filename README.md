@@ -1,2 +1,2 @@
-# brotherhood
-A website for a club of men who want to improve their public speaking skills.
+# Seattle Speakers Membership Site
+A site to host a club for men who want to improve their public speaking skills.
