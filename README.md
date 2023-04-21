@@ -6,9 +6,14 @@ The design of this site was focused around gamify-ing self-improvement by provid
 A backend was created to store user credentials (such as profile picture, name, email) as well as these badges.
 [Video Demo here](https://www.linkedin.com/feed/update/urn:li:activity:7033946055893282816/)
 
-### System Design
+### Fully Responsive Design
 <p align="center">
-<img src="./images/speakersArchitecture.png"  width="70%">
+<img src="./images/responsiveDemo.gif"  width="80%">
+</p>
+
+### System Architecture
+<p align="center">
+<img src="./images/speakersArchitecture.png"  width="60%">
 </p>
 
 * Front-end Next.js app deployed on Vercel
@@ -46,7 +51,7 @@ I wanted to keep s3 storage down and, additionally, speed up the image crop feat
 2. In order to prevent old user images from taking up space, if a user updates their profile pic, code was written to trigger the deletion of the user's previous image from the S3 bucket. This reduced the storage space the required.
 
 <p align="center">
-<img src="./images/speakersArchitecture.png"  width="50%">
+<img src="./images/speakersArchitecture.png"  width="60%">
 </p>
 
 ## Performance Optimization & Refactoring
@@ -60,6 +65,11 @@ The relational database consists of 3 tables:
 * users 
 * badges
 * badges_earned
+
+### Admin adding Badge to User profile (Demo)
+<p align="center">
+<img src="./images/badgeDemo.gif"  width="60%">
+</p>
 
 Relationships between the badges and badges earned were made to reduce redundant db entries. The badges_earned table references the user_id and the badge_id.
 
