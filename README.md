@@ -45,6 +45,10 @@ I wanted to keep s3 storage down and, additionally, speed up the image crop feat
 * this sped up image crop feature and prepared image for optimized upload to s3
 2. In order to prevent old user images from taking up space, if a user updates their profile pic, code was written to trigger the deletion of the user's previous image from the S3 bucket. This reduced the storage space the required.
 
+<p align="center">
+<img src="./images/speakersArchitecture.png"  width="50%">
+</p>
+
 ## Performance Optimization & Refactoring
 
 * Image optimizations before S3 upload, along with image deletions of old images upon user updating their profile pic
@@ -65,6 +69,7 @@ Relationships between the badges and badges earned were made to reduce redundant
 * Node-Express backend deployed to AWS EC2 instance (w/ S3 bucket and using IAM user for access)
 
 ##### Notes
-1. In order to run the Node server in the background (from ubuntu terminal after SSH connection), I ran this command `node server.js > stdout.txt 2> stderr.txt &` and exited the terminal
+1. In order to run the Node server in the background (from ec2 ubuntu terminal via SSH connection), I ran the following command and exited the terminal:
+ `node server.js > stdout.txt 2> stderr.txt &`
 
  
