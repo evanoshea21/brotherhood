@@ -1,16 +1,14 @@
 # Seattle Speakers Membership Site
 
 #### Summary
-A [site](https://seattlespeakers.us) to host a club for men who want to improve their public speaking skills.
+A [Website](https://seattlespeakers.us) to host a club for men who want to improve their public speaking skills.
 The design of this site was focused around gamify-ing self-improvement by providing badges to users for completing challenges.
 A backend was created to store user credentials (such as profile picture, name, email) as well as these badges.
-
-#### Video Demo
-[LinkedIn Post](https://www.linkedin.com/feed/update/urn:li:activity:7033946055893282816/)
+[Video Demo here](https://www.linkedin.com/feed/update/urn:li:activity:7033946055893282816/)
 
 ### System Design
 <p align="center">
-<img src="./imgs/Architecture.png"  width="80%">
+<img src="./images/speakersArchitecture.png"  width="70%">
 </p>
 
 * Front-end Next.js app deployed on Vercel
