@@ -13,7 +13,7 @@ A backend was created to store user credentials (such as profile picture, name, 
 
 ### System Architecture
 <p align="center">
-<img src="./images/speakersArchitecture.png"  width="70%">
+<img src="./images/speakersArchitecture.png"  width="80%">
 </p>
 
 * Front-end Next.js app deployed on Vercel
