@@ -28,10 +28,7 @@ export function daysSince(dateString) {
   import imageCompression from 'browser-image-compression';
 
   export async function handleOptimization(file) {
-
     const imageFile = file;
-    // console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-    // console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
     const options = {
       maxSizeMB: 0.2,
@@ -40,8 +37,6 @@ export function daysSince(dateString) {
     }
     try {
       const compressedFile = await imageCompression(imageFile, options);
-      // console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-      // console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
 
       return compressedFile;
     } catch (error) {

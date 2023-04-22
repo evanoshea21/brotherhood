@@ -11,7 +11,7 @@ const Tenets = () => {
     1. A man who can articulate his beliefs logically is a man who can positively influence the world and his own existence.
     <br/><br/>
 
-    2. A man of Principle—one who lives by his personal set of tenets—will have  direction, confidence, and assurance in everything he does. A man without a set of beliefs unwittingly follows a set of beliefs set by society, his parents, or the media, which may not be in his best interest.
+    2. A man of Principle—one who lives by his personal set of tenets—will have  direction, confidence, and assurance in everything he does. A man without a set of beliefs unwittingly follows a set of beliefs set by society, his parents, or the media, which may not serve him best.
     <br/><br/>
 
     3. A man who can articulate his beliefs is a free-thinker, less impressionable by societal nudges that may have nefarious ulterior motives in mind; it is a man who can stand up for what he believes in despite the consequences.
