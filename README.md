@@ -63,7 +63,7 @@ I wanted to keep s3 storage down and, additionally, speed up the image crop feat
 ## Member types (pages conditionally rendered)
 
 <p align="center">
-<img src="./images/memberType.jpg"  width="70%">
+<img src="./images/memberType.png"  width="70%">
 </p>
 
 ### Database Design
