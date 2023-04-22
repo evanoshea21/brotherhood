@@ -57,8 +57,14 @@ I wanted to keep s3 storage down and, additionally, speed up the image crop feat
 
 ## Performance Optimization & Refactoring
 
-* Image optimizations before S3 upload, along with image deletions of old images upon user updating their profile pic
+* Image optimizations of user-selected file is made in the browser before the S3 upload, along with deletions of old images when a user updates their picture (reduces storage required for un-used images).
 * Client-side Rendering was refactored to use Next.js's Server-side rendering (SSR) and Static site generation (SSG). This reduced the HTTP requests drastically as all users are effectively "sharing" a server request for pages where data is shared (ie: community page).
+
+## Member types (pages conditionally rendered)
+
+<p align="center">
+<img src="./images/memberType.jpg"  width="70%">
+</p>
 
 ### Database Design
 
