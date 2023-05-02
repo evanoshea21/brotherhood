@@ -227,7 +227,7 @@ export default function Join() {
     <div className={classes.main}>
 
       <h1 className={classes.title}>Join Today</h1>
-      <h3 style={{textAlign: 'center', fontSize: '2rem', color: 'red'}}>Note: the servers are currenlty not operational</h3>
+      <h3 style={{textAlign: 'center', fontSize: '2rem', color: 'red'}}>Note: the servers are currently not operational</h3>
 
       <div className={classes.welcome}>
         {/* <p className={classes.welcomePara} >If you have any questions, reach out to us! <br/>Otherwise, feel free to Join by registering below. </p> */}
