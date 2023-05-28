@@ -29,7 +29,7 @@ A backend was created to store user credentials (such as profile picture, name, 
 * S3 bucket for user image uploads (profile pic)
 
 ## Primary Challenge
-* Registering users effectively on all Databases and Cloud services. Required a proper ordering the "domino effect" of async operations to successfully upload user credentials to firebase, s3, and MySQL.
+* Registering users effectively on all Databases and Cloud services. Required a proper ordering of async operations to successfully upload user credentials to firebase, s3, and MySQL.
 * Keeping resource consumption down for image uploads
 * Implementing image upload feature that allowed the user to crop their image.
 
