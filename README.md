@@ -73,7 +73,7 @@ The relational database consists of 3 tables:
 * badges
 * badges_earned
 
-### Admin adding Badge to User profile (Demo)
+### Admin adding Badge to Member's profile (Demo)
 <p align="center">
 <img src="./images/badgeDemo.gif"  width="70%">
 </p>
